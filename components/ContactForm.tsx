@@ -256,7 +256,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
                             id={selectId}
                             name={props.name}
                             value={props.value}
-                            onChange={(e) => props.onChange?.(e.currentTarget.value)}
+                            onChange={props.onChange}
                             className="rdp-dropdown"
                             aria-label={props.name === 'months' ? (lang === "es" ? "Mes" : "Month") : (lang === "es" ? "Año" : "Year")}
                           >
