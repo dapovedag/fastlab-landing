@@ -7,6 +7,8 @@ import {
 } from "@/lib/security";
 
 export async function POST(request: NextRequest) {
+  let lang: "es" | "en" = "en"; // Default to English
+
   try {
     // Get client IP for rate limiting
     const clientIp = getClientIp(request);
@@ -20,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { lang } = body;
+    lang = body.lang || "en";
 
     // Validate and sanitize input
     const sanitizedData = validateAndSanitizeContactForm(body);
