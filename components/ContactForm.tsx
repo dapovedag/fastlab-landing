@@ -249,18 +249,22 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     fromYear={2025}
                     toYear={2030}
                     components={{
-                      Dropdown: ({ value, onChange, children, ...props }) => {
+                      Dropdown: (props) => {
                         const selectId = props.name === 'months' ? 'calendar-month' : 'calendar-year';
                         return (
                           <select
                             id={selectId}
                             name={props.name}
-                            value={value}
-                            onChange={(e) => onChange?.(e.currentTarget.value)}
+                            value={props.value}
+                            onChange={(e) => props.onChange?.(e.currentTarget.value)}
                             className="rdp-dropdown"
                             aria-label={props.name === 'months' ? (lang === "es" ? "Mes" : "Month") : (lang === "es" ? "Año" : "Year")}
                           >
-                            {children}
+                            {props.options?.map((option, i) => (
+                              <option key={i} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
                           </select>
                         );
                       },
