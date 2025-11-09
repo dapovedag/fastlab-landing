@@ -245,7 +245,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
                       selected: "bg-primary text-primary-foreground",
                       today: "text-primary font-bold",
                     }}
-                    captionLayout="dropdown-buttons"
+                    captionLayout="dropdown"
                     fromYear={2025}
                     toYear={2030}
                     components={{

@@ -14,7 +14,7 @@ import { Zap, Building2, Cloud, BarChart3, BookOpen, RefreshCw } from "lucide-re
 
 export default function Home() {
   const [lang, setLang] = useState<"es" | "en">("es");
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   // Theme management
   useEffect(() => {
