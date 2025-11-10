@@ -480,7 +480,7 @@ export default function Home() {
           },
           {
             name: "Professional Development",
-            price: "$100,000",
+            price: "$25",
             duration: "per hour",
             description: "Take your MVP to full production",
             features: [

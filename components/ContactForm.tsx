@@ -78,7 +78,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
       company: "Company/University",
       service: "Service of interest",
       serviceMVP: "Free MVP (2 weeks)",
-      serviceDev: "Professional Development ($100,000/hour)",
+      serviceDev: "Professional Development ($25/hour)",
       message: "Message",
       date: "Preferred date",
       time: "Preferred time",

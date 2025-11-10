@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     // Translate service code to human-readable text
     const serviceText = service === "mvp"
       ? (lang === "es" ? "MVP Gratuito (2 semanas)" : "Free MVP (2 weeks)")
-      : (lang === "es" ? "Desarrollo Profesional ($100.000/hora)" : "Professional Development ($100,000/hour)");
+      : (lang === "es" ? "Desarrollo Profesional ($100.000/hora)" : "Professional Development ($25/hour)");
 
     // Configurar el transportador de email
     // NOTA: Para producción, estas credenciales deben estar en variables de entorno
