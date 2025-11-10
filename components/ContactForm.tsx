@@ -246,8 +246,6 @@ export default function ContactForm({ lang }: ContactFormProps) {
                         if (props.name === 'months') {
                           return (
                             <select
-                              id="calendar-month"
-                              name="calendar-month"
                               value={props.value}
                               onChange={props.onChange}
                               className="rdp-dropdown"
@@ -265,8 +263,6 @@ export default function ContactForm({ lang }: ContactFormProps) {
                         // For years, use the default options
                         return (
                           <select
-                            id="calendar-year"
-                            name="calendar-year"
                             value={props.value}
                             onChange={props.onChange}
                             className="rdp-dropdown"
