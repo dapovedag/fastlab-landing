@@ -221,7 +221,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium mb-2">{t.date}</label>
+                <div className="block text-sm font-medium mb-2">{t.date}</div>
                 <div className="border rounded-lg p-4 bg-card flex justify-center">
                   <DayPicker
                     mode="single"
@@ -246,7 +246,8 @@ export default function ContactForm({ lang }: ContactFormProps) {
                         if (props.name === 'months') {
                           return (
                             <select
-                              name={props.name}
+                              id="calendar-month"
+                              name="calendar-month"
                               value={props.value}
                               onChange={props.onChange}
                               className="rdp-dropdown"
@@ -264,7 +265,8 @@ export default function ContactForm({ lang }: ContactFormProps) {
                         // For years, use the default options
                         return (
                           <select
-                            name={props.name}
+                            id="calendar-year"
+                            name="calendar-year"
                             value={props.value}
                             onChange={props.onChange}
                             className="rdp-dropdown"
