@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DayPicker } from "react-day-picker";
@@ -26,6 +26,7 @@ const esCapitalized: Locale = {
 };
 
 export default function ContactForm({ lang }: ContactFormProps) {
+  const calendarId = useId();
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>("10:00");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -146,6 +147,12 @@ export default function ContactForm({ lang }: ContactFormProps) {
     return `${hour.toString().padStart(2, "0")}:00`;
   });
 
+  // Nombres de meses para el dropdown del calendario
+  const monthNames = {
+    es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  };
+
   return (
     <div id="contact-form" className="w-full max-w-5xl mx-auto">
       <Card>
@@ -249,11 +256,9 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     toYear={2030}
                     components={{
                       Dropdown: (props) => {
-                        const selectId = props.name === 'months' ? 'calendar-month' : 'calendar-year';
-                        const monthNames = {
-                          es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                          en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-                        };
+                        const selectId = props.name === 'months'
+                          ? `calendar-month-${calendarId}`
+                          : `calendar-year-${calendarId}`;
 
                         return (
                           <select
