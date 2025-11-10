@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useId } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DayPicker } from "react-day-picker";
@@ -29,7 +29,6 @@ const esCapitalized: Locale = {
 };
 
 export default function ContactForm({ lang }: ContactFormProps) {
-  const calendarId = useId();
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>("10:00");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -253,13 +252,8 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     toYear={2030}
                     components={{
                       Dropdown: (props) => {
-                        const selectId = props.name === 'months'
-                          ? `calendar-month-${calendarId}`
-                          : `calendar-year-${calendarId}`;
-
                         return (
                           <select
-                            id={selectId}
                             name={props.name}
                             value={props.value}
                             onChange={props.onChange}
