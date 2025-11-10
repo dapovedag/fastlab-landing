@@ -42,16 +42,16 @@ export default function BirdsCanvas({ theme }: BirdsCanvasProps) {
         this.originalPos = originalPos;
         this.id = id;
         this.phase = Math.random() * Math.PI * 2;
-        this.speed = 0.8 + Math.random() * 0.4;
-        this.waveFreq = 2 + Math.random() * 3;
-        this.waveAmp = 30 + Math.random() * 50;
-        this.zWaveAmp = 20 + Math.random() * 30;
-        this.delayOffset = Math.random() * 3;
+        this.speed = 0.3 + Math.random() * 0.2;  // Reducido de 0.8-1.2 a 0.3-0.5 (más lento)
+        this.waveFreq = 1 + Math.random() * 1.5;  // Reducido de 2-5 a 1-2.5 (ondas más suaves)
+        this.waveAmp = 20 + Math.random() * 30;  // Reducido de 30-80 a 20-50 (menos movimiento)
+        this.zWaveAmp = 10 + Math.random() * 20;  // Reducido de 20-50 a 10-30
+        this.delayOffset = Math.random() * 5;  // Aumentado de 3 a 5 (más variedad en inicio)
       }
 
       getCurrentPos(t: number) {
         const adjustedTime = (t + this.delayOffset) * this.speed;
-        const cycleProgress = (adjustedTime % 6) / 6;
+        const cycleProgress = (adjustedTime % 12) / 12;  // Aumentado de 6 a 12 segundos (ciclo más lento)
 
         if (cycleProgress < 0.15) {
           const idleWave = Math.sin(adjustedTime * 4) * 5;
@@ -163,8 +163,8 @@ export default function BirdsCanvas({ theme }: BirdsCanvasProps) {
       // Clear canvas con transparencia
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      rotation += 0.003;
-      time += 0.016;
+      rotation += 0.001;  // Reducido de 0.003 a 0.001 (rotación mucho más lenta)
+      time += 0.008;  // Reducido de 0.016 a 0.008 (tiempo global más lento)
 
       const projectedBirds = birds.map((bird) => {
         const currentPos = bird.getCurrentPos(time);
