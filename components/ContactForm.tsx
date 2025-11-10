@@ -242,37 +242,22 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     toYear={2030}
                     components={{
                       Dropdown: (props) => {
-                        // For months, generate options manually with our custom names
-                        if (props.name === 'months') {
-                          return (
-                            <select
-                              value={props.value}
-                              onChange={props.onChange}
-                              className="rdp-dropdown"
-                              aria-label={lang === "es" ? "Mes" : "Month"}
-                            >
-                              {MONTH_NAMES[lang].map((monthName, index) => (
-                                <option key={index} value={index}>
-                                  {monthName}
-                                </option>
-                              ))}
-                            </select>
-                          );
-                        }
-
-                        // For years, use the default options
+                        const isMonths = props.name === 'months';
                         return (
                           <select
                             value={props.value}
                             onChange={props.onChange}
                             className="rdp-dropdown"
-                            aria-label={lang === "es" ? "Año" : "Year"}
+                            aria-label={isMonths ? (lang === "es" ? "Mes" : "Month") : (lang === "es" ? "Año" : "Year")}
                           >
-                            {props.options?.map((option, i) => (
-                              <option key={i} value={option.value}>
-                                {option.label}
-                              </option>
-                            ))}
+                            {props.options?.map((option, i) => {
+                              const label = isMonths ? MONTH_NAMES[lang][Number(option.value)] : option.label;
+                              return (
+                                <option key={i} value={option.value}>
+                                  {label}
+                                </option>
+                              );
+                            })}
                           </select>
                         );
                       },
