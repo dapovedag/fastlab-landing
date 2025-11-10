@@ -250,6 +250,11 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     components={{
                       Dropdown: (props) => {
                         const selectId = props.name === 'months' ? 'calendar-month' : 'calendar-year';
+                        const monthNames = {
+                          es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                          en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                        };
+
                         return (
                           <select
                             id={selectId}
@@ -259,11 +264,18 @@ export default function ContactForm({ lang }: ContactFormProps) {
                             className="rdp-dropdown"
                             aria-label={props.name === 'months' ? (lang === "es" ? "Mes" : "Month") : (lang === "es" ? "Año" : "Year")}
                           >
-                            {props.options?.map((option, i) => (
-                              <option key={i} value={option.value}>
-                                {option.label}
-                              </option>
-                            ))}
+                            {props.options?.map((option, i) => {
+                              let label = option.label;
+                              // If it's the months dropdown, use our capitalized month names
+                              if (props.name === 'months') {
+                                label = monthNames[lang][parseInt(option.value)];
+                              }
+                              return (
+                                <option key={i} value={option.value}>
+                                  {label}
+                                </option>
+                              );
+                            })}
                           </select>
                         );
                       },

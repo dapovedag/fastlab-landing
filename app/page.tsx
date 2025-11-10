@@ -588,9 +588,7 @@ export default function Home() {
                 checked={theme === "dark"}
                 onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
                 inputProps={{
-                  'aria-label': 'Toggle dark mode',
-                  'id': 'theme-toggle',
-                  'name': 'theme'
+                  'aria-label': 'Toggle dark mode'
                 }}
               />
             </div>
