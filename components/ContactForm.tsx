@@ -240,33 +240,6 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     captionLayout="dropdown"
                     fromYear={2025}
                     toYear={2030}
-                    components={{
-                      Dropdown: (props) => {
-                        const isMonths = props.name === 'months';
-                        return (
-                          <select
-                            value={props.value}
-                            onChange={props.onChange}
-                            className="rdp-dropdown"
-                            aria-label={isMonths ? (lang === "es" ? "Mes" : "Month") : (lang === "es" ? "Año" : "Year")}
-                          >
-                            {props.options?.map((option, i) => {
-                              const label = isMonths ? MONTH_NAMES[lang][Number(option.value)] : option.label;
-                              return (
-                                <option key={i} value={option.value}>
-                                  {label}
-                                </option>
-                              );
-                            })}
-                          </select>
-                        );
-                      },
-                    }}
-                    formatters={{
-                      formatCaption: (date, options) => {
-                        return MONTH_NAMES[lang][date.getMonth()];
-                      },
-                    }}
                   />
                 </div>
               </div>
