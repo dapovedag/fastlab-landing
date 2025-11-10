@@ -13,15 +13,18 @@ interface ContactFormProps {
   lang: "es" | "en";
 }
 
+// Nombres de meses capitalizados para ambos idiomas
+const MONTH_NAMES = {
+  es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+  en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+} as const;
+
 // Crear un locale español personalizado con meses capitalizados
 const esCapitalized: Locale = {
   ...es,
   localize: {
     ...es.localize,
-    month: (n: number) => {
-      const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      return months[n];
-    },
+    month: (n: number) => MONTH_NAMES.es[n],
   },
 };
 
@@ -147,12 +150,6 @@ export default function ContactForm({ lang }: ContactFormProps) {
     return `${hour.toString().padStart(2, "0")}:00`;
   });
 
-  // Nombres de meses para el dropdown del calendario
-  const monthNames = {
-    es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  };
-
   return (
     <div id="contact-form" className="w-full max-w-5xl mx-auto">
       <Card>
@@ -274,7 +271,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
                               // If it's the months dropdown, use our capitalized month names
                               if (props.name === 'months') {
                                 const monthIndex = Number(option.value);
-                                label = monthNames[lang][monthIndex];
+                                label = MONTH_NAMES[lang][monthIndex];
                               }
                               return (
                                 <option key={i} value={option.value}>
@@ -288,11 +285,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     }}
                     formatters={{
                       formatCaption: (date, options) => {
-                        const monthNames = {
-                          es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                          en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-                        };
-                        return monthNames[lang][date.getMonth()];
+                        return MONTH_NAMES[lang][date.getMonth()];
                       },
                     }}
                   />
