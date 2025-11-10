@@ -268,7 +268,8 @@ export default function ContactForm({ lang }: ContactFormProps) {
                               let label = option.label;
                               // If it's the months dropdown, use our capitalized month names
                               if (props.name === 'months') {
-                                label = monthNames[lang][parseInt(option.value)];
+                                const monthIndex = Number(option.value);
+                                label = monthNames[lang][monthIndex];
                               }
                               return (
                                 <option key={i} value={option.value}>

@@ -2,15 +2,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
-
-  // Add security headers (additional layer on top of next.config.ts)
-  response.headers.set("X-DNS-Prefetch-Control", "on");
-  response.headers.set("X-Frame-Options", "SAMEORIGIN");
-  response.headers.set("X-Content-Type-Options", "nosniff");
-  response.headers.set("X-XSS-Protection", "1; mode=block");
-  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-
   // Only allow specific HTTP methods
   const allowedMethods = ["GET", "POST", "HEAD", "OPTIONS"];
   if (!allowedMethods.includes(request.method)) {
@@ -45,6 +36,7 @@ export function middleware(request: NextRequest) {
 
   // Add CORS headers for API routes only
   if (isApiRoute) {
+    const response = NextResponse.next();
     response.headers.set("Access-Control-Allow-Origin", "*");
     response.headers.set(
       "Access-Control-Allow-Methods",
@@ -62,9 +54,11 @@ export function middleware(request: NextRequest) {
         headers: response.headers,
       });
     }
+
+    return response;
   }
 
-  return response;
+  return NextResponse.next();
 }
 
 // Configure which routes the middleware should run on
