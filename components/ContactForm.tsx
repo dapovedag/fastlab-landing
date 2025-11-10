@@ -94,7 +94,6 @@ export default function ContactForm({ lang }: ContactFormProps) {
     setSubmitStatus("idle");
 
     try {
-      const serviceText = formData.service === "mvp" ? t.serviceMVP : t.serviceDev;
       const formattedDate = selectedDate
         ? format(selectedDate, "PPP", { locale: lang === "es" ? esCapitalized : enUS })
         : lang === "es" ? "No especificada" : "Not specified";
@@ -108,7 +107,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
           name: formData.name,
           email: formData.email,
           company: formData.company,
-          service: serviceText,
+          service: formData.service,
           message: formData.message,
           date: formattedDate,
           time: selectedTime,

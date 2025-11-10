@@ -35,6 +35,11 @@ export async function POST(request: NextRequest) {
 
     const { name, email, company, service, message, date, time } = sanitizedData;
 
+    // Translate service code to human-readable text
+    const serviceText = service === "mvp"
+      ? (lang === "es" ? "MVP Gratuito (2 semanas)" : "Free MVP (2 weeks)")
+      : (lang === "es" ? "Desarrollo Profesional ($100.000/hora)" : "Professional Development ($100,000/hour)");
+
     // Configurar el transportador de email
     // NOTA: Para producción, estas credenciales deben estar en variables de entorno
     const transporter = nodemailer.createTransport({
@@ -48,7 +53,7 @@ export async function POST(request: NextRequest) {
     // Email al destinatario (FastLab)
     const recipientEmailContent = {
       es: {
-        subject: `Nueva solicitud de ${name} - ${service}`,
+        subject: `Nueva solicitud de ${name} - ${serviceText}`,
         html: `
           <!DOCTYPE html>
           <html>
@@ -87,7 +92,7 @@ export async function POST(request: NextRequest) {
                 </div>
                 <div class="field">
                   <div class="field-label">⚙️ Servicio de interés:</div>
-                  <div class="field-value">${service}</div>
+                  <div class="field-value">${serviceText}</div>
                 </div>
                 <div class="field">
                   <div class="field-label">📅 Fecha preferida:</div>
@@ -111,7 +116,7 @@ export async function POST(request: NextRequest) {
         `,
       },
       en: {
-        subject: `New request from ${name} - ${service}`,
+        subject: `New request from ${name} - ${serviceText}`,
         html: `
           <!DOCTYPE html>
           <html>
@@ -150,7 +155,7 @@ export async function POST(request: NextRequest) {
                 </div>
                 <div class="field">
                   <div class="field-label">⚙️ Service of interest:</div>
-                  <div class="field-value">${service}</div>
+                  <div class="field-value">${serviceText}</div>
                 </div>
                 <div class="field">
                   <div class="field-label">📅 Preferred date:</div>
