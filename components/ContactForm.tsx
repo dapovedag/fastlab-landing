@@ -221,17 +221,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="contact-date" className="block text-sm font-medium mb-2">{t.date}</label>
-                <input
-                  type="text"
-                  id="contact-date"
-                  name="date"
-                  value={selectedDate ? selectedDate.toISOString() : ""}
-                  readOnly
-                  className="sr-only"
-                  aria-hidden="true"
-                  tabIndex={-1}
-                />
+                <label className="block text-sm font-medium mb-2">{t.date}</label>
                 <div className="border rounded-lg p-4 bg-card flex justify-center">
                   <DayPicker
                     mode="single"
@@ -252,27 +242,39 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     toYear={2030}
                     components={{
                       Dropdown: (props) => {
+                        // For months, generate options manually with our custom names
+                        if (props.name === 'months') {
+                          return (
+                            <select
+                              name={props.name}
+                              value={props.value}
+                              onChange={props.onChange}
+                              className="rdp-dropdown"
+                              aria-label={lang === "es" ? "Mes" : "Month"}
+                            >
+                              {MONTH_NAMES[lang].map((monthName, index) => (
+                                <option key={index} value={index}>
+                                  {monthName}
+                                </option>
+                              ))}
+                            </select>
+                          );
+                        }
+
+                        // For years, use the default options
                         return (
                           <select
                             name={props.name}
                             value={props.value}
                             onChange={props.onChange}
                             className="rdp-dropdown"
-                            aria-label={props.name === 'months' ? (lang === "es" ? "Mes" : "Month") : (lang === "es" ? "Año" : "Year")}
+                            aria-label={lang === "es" ? "Año" : "Year"}
                           >
-                            {props.options?.map((option, i) => {
-                              let label = option.label;
-                              // If it's the months dropdown, use our capitalized month names
-                              if (props.name === 'months') {
-                                const monthIndex = Number(option.value);
-                                label = MONTH_NAMES[lang][monthIndex];
-                              }
-                              return (
-                                <option key={i} value={option.value}>
-                                  {label}
-                                </option>
-                              );
-                            })}
+                            {props.options?.map((option, i) => (
+                              <option key={i} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
                           </select>
                         );
                       },
