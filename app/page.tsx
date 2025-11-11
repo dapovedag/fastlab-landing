@@ -605,7 +605,7 @@ export default function Home() {
         <div className="relative z-[100] container mx-auto px-6 lg:px-12 pb-20 lg:pb-32">
           <div className="max-w-4xl">
             <AnimatedTitle title={t.hero.title} highlight={t.hero.highlight} />
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-4xl">
+            <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-4xl">
               {t.hero.subtitle.split('**').map((part, i) =>
                 i % 2 === 1 ? <span key={i} className="text-primary font-bold">{part}</span> : part
               )}
