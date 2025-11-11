@@ -39,7 +39,7 @@ export default function Home() {
         contact: "Contacto",
       },
       hero: {
-        title: "De proyectos universitarios a software profesional",
+        title: "De ideas a software profesional.",
         highlight: "Gratis.",
         subtitle: "La primera fábrica de software para incubadoras. Tu marca institucional se fortalece. Las empresas obtienen productos listos para producción en **2 semanas**.",
         cta: "Agenda una demostración",
@@ -287,7 +287,7 @@ export default function Home() {
         contact: "Contact",
       },
       hero: {
-        title: "From university projects to professional software",
+        title: "From ideas to professional software.",
         highlight: "Free.",
         subtitle: "The first software factory for incubators. Your institutional brand grows stronger. Companies get production-ready products in **2 weeks**.",
         cta: "Schedule a demo",

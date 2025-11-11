@@ -74,8 +74,8 @@ export default function AnimatedTitle({ title, highlight }: AnimatedTitleProps) 
   }, [fullText]);
 
   return (
-    <div className="w-full min-h-[200px] lg:min-h-[300px]">
-      <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 lg:mb-6 leading-[1.15]">
+    <div className="w-full min-h-[120px] lg:min-h-[160px]">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 lg:mb-6 leading-[1.3]">
         {wordRanges.map((wordRange, wordIndex) => {
           const isHighlight = wordRange.start >= titleLength;
           return (
