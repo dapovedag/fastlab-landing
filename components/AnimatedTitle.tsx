@@ -79,25 +79,28 @@ export default function AnimatedTitle({ title, highlight }: AnimatedTitleProps) 
         {wordRanges.map((wordRange, wordIndex) => {
           const isHighlight = wordRange.start >= titleLength;
           return (
-            <span key={wordIndex} className="inline-flex whitespace-nowrap mr-[0.22em] mb-2">
-              {wordRange.word.split('').map((char, charIndex) => {
-                const globalIndex = wordRange.start + charIndex;
-                const isVisible = globalIndex < visibleChars;
+            <span key={wordIndex}>
+              {isHighlight && wordIndex > 0 && <br />}
+              <span className="inline-flex whitespace-nowrap mr-[0.22em] mb-2">
+                {wordRange.word.split('').map((char, charIndex) => {
+                  const globalIndex = wordRange.start + charIndex;
+                  const isVisible = globalIndex < visibleChars;
 
-                return (
-                  <span
-                    key={charIndex}
-                    className={`inline-block transition-all duration-300 ${isHighlight ? 'text-primary' : ''}`}
-                    style={{
-                      opacity: isVisible ? 1 : 0,
-                      transform: isVisible ? 'translateY(0)' : 'translateY(2rem)',
-                      transitionDelay: isVisible ? `${globalIndex * 20}ms` : '0ms',
-                    }}
-                  >
-                    {char}
-                  </span>
-                );
-              })}
+                  return (
+                    <span
+                      key={charIndex}
+                      className={`inline-block transition-all duration-300 ${isHighlight ? 'text-primary' : ''}`}
+                      style={{
+                        opacity: isVisible ? 1 : 0,
+                        transform: isVisible ? 'translateY(0)' : 'translateY(2rem)',
+                        transitionDelay: isVisible ? `${globalIndex * 20}ms` : '0ms',
+                      }}
+                    >
+                      {char}
+                    </span>
+                  );
+                })}
+              </span>
             </span>
           );
         })}
