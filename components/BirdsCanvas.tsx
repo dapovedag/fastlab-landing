@@ -155,7 +155,7 @@ export default function BirdsCanvas({ theme }: BirdsCanvasProps) {
       );
     }
 
-    const birds = createSphere(360, 8000); // Radio aumentado 100% (de 180 a 360)
+    const birds = createSphere(180, 4000); // Radio reducido a la mitad
 
     function animate() {
       if (!ctx || !canvas) return;
@@ -183,15 +183,16 @@ export default function BirdsCanvas({ theme }: BirdsCanvasProps) {
         const depth = Math.max(0, Math.min(1, (p.z + 800) / 1600));
 
         let size: number, opacity: number;
+        const transparencyFactor = 0.7; // 30% más transparente
         if (p.state === "flying") {
           size = 1.5 + depth * 2;
-          opacity = 0.6 + depth * 0.4;
+          opacity = (0.6 + depth * 0.4) * transparencyFactor;
         } else if (p.state === "returning") {
           size = 1.2 + depth * 1.5;
-          opacity = 0.5 + depth * 0.3;
+          opacity = (0.5 + depth * 0.3) * transparencyFactor;
         } else {
           size = 1.0 + depth * 1.2;
-          opacity = 0.7 + depth * 0.3;
+          opacity = (0.7 + depth * 0.3) * transparencyFactor;
         }
 
         let color: number;

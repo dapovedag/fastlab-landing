@@ -82,6 +82,17 @@
   }
 }
 
+@layer utilities {
+  /* Hide scrollbar but maintain functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer components {
   /* Apply hover effect to all Card components */
   .bg-card:hover {

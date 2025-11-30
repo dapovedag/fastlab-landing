@@ -9,6 +9,7 @@ import TestimonialsMarquee from "@/components/TestimonialsMarquee";
 import AnimatedTitle from "@/components/AnimatedTitle";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ContactForm from "@/components/ContactForm";
+import TeamCarousel from "@/components/TeamCarousel";
 import { useState, useEffect } from "react";
 import { Zap, Building2, Cloud, BarChart3, BookOpen, RefreshCw } from "lucide-react";
 
@@ -35,39 +36,40 @@ export default function Home() {
         features: "Características",
         process: "Proceso",
         benefits: "Beneficios",
+        team: "Nosotros",
         pricing: "Precios",
         contact: "Contacto",
       },
       hero: {
-        title: "De ideas a software profesional",
-        highlight: "Gratis",
-        subtitle: "La primera fábrica de software para incubadoras. Tu marca institucional se fortalece. Las empresas obtienen productos listos para producción en **2 semanas**.",
-        cta: "Agenda una demostración",
+        title: "Tu fábrica de software",
+        highlight: "Potenciamos tus ideas",
+        subtitle: "Transformamos los desafíos de tu empresa en soluciones de software profesional. Productos listos para producción en **2 semanas**.",
+        cta: "Agenda una consulta gratuita",
       },
       problem: {
-        title: "La brecha entre el potencial y la realidad",
+        title: "Los desafíos del desarrollo de software empresarial",
         university: {
-          title: "La Universidad",
+          title: "El Tiempo",
           points: [
-            "Los estudiantes hacen excelentes levantamientos de necesidades",
-            "Pero los MVPs técnicos no están a la altura",
-            "Resultado: oportunidades de contratación perdidas",
+            "Los proyectos tradicionales toman de 3 a 6 meses",
+            "El mercado no espera, la competencia avanza",
+            "Las oportunidades tienen fecha de vencimiento",
           ],
         },
         companies: {
-          title: "Las Empresas",
+          title: "El Costo",
           points: [
-            "Necesitan validar soluciones rápidamente",
-            "Los prototipos tradicionales toman meses",
-            "Los costos de desarrollo son prohibitivos",
+            "Equipos internos requieren contratación y capacitación",
+            "Las consultoras tradicionales cobran tarifas elevadas",
+            "El riesgo de inversión es alto sin validación previa",
           ],
         },
         students: {
-          title: "Los Estudiantes",
+          title: "La Calidad",
           points: [
-            "Tienen el talento para identificar problemas",
-            "Carecen de infraestructura para ejecutar a nivel industrial",
-            "Su trabajo no cierra en contratos reales",
+            "Los prototipos rápidos sacrifican arquitectura",
+            "El código improvisado genera deuda técnica",
+            "Escalar soluciones mal diseñadas es costoso",
           ],
         },
       },
@@ -145,20 +147,20 @@ export default function Home() {
         ],
       },
       process: {
-        title: "Del descubrimiento al impacto en 14 días",
+        title: "De la idea al producto en 14 días",
         phases: [
           {
-            title: "DÍA 1-3: DESCUBRIMIENTO",
+            title: "DÍA 1-3: ANÁLISIS",
             points: [
-              "Los estudiantes realizan el levantamiento de necesidad",
-              "Entrevistas, mapeo de procesos, definición de alcance",
-              "Entregable: Documento de requerimientos",
+              "Entendemos tu negocio y definimos el alcance",
+              "Entrevistas, mapeo de procesos, requerimientos",
+              "Entregable: Documento de especificaciones técnicas",
             ],
           },
           {
             title: "DÍA 4-10: CONSTRUCCIÓN",
             points: [
-              "Nuestra fábrica traduce requerimientos a arquitectura",
+              "Nuestro equipo traduce requerimientos a arquitectura",
               "Desarrollo de interfaz, servidor y base de datos",
               "Tecnologías modernas, código limpio, mejores prácticas",
             ],
@@ -174,20 +176,20 @@ export default function Home() {
           {
             title: "DÍA 14: ENTREGA",
             points: [
-              "Producto mínimo viable funcional en producción",
-              "Demostración con la empresa",
-              "Propuesta de continuidad (desarrollo posterior)",
+              "Producto funcional en producción",
+              "Demostración con tu equipo",
+              "Propuesta de desarrollo continuo",
             ],
           },
         ],
-        note: "Inversión inicial: $0 COP. La universidad fortalece su marca. Las empresas prueban antes de comprometer presupuesto.",
+        note: "Primer producto sin costo. Validas la solución antes de comprometer presupuesto.",
       },
       benefits: {
-        title: "Velocidad sin sacrificar calidad",
+        title: "Por qué las empresas eligen FastLab",
         items: [
           {
             title: "Velocidad de Mercado",
-            points: ["2 semanas vs 3-6 meses tradicionales", "Tiempo de lanzamiento que impresiona a los interesados"],
+            points: ["2 semanas vs 3-6 meses tradicionales", "Tiempo de lanzamiento que supera expectativas"],
           },
           {
             title: "Arquitectura Profesional",
@@ -195,37 +197,37 @@ export default function Home() {
           },
           {
             title: "Nativo en la Nube",
-            points: ["Desplegado en AWS, Azure o GCP según necesidad", "Infraestructura como código desde día 1"],
+            points: ["Desplegado en AWS, Azure o GCP según tu necesidad", "Infraestructura como código desde el día 1"],
           },
           {
-            title: "Conjunto Tecnológico Completo",
+            title: "Tecnología Completa",
             points: ["Python, TypeScript, SQL, R, Java", "Herramientas modernas (React, Flask, FastAPI, etc.)"],
           },
           {
-            title: "Documentación Real",
-            points: ["No solo código, también guías de mantenimiento", "Facilita transición a equipos internos"],
+            title: "Documentación Completa",
+            points: ["No solo código, también guías de mantenimiento", "Facilita transición a tus equipos internos"],
           },
           {
             title: "Modelo Sin Riesgo",
-            points: ["Producto gratis → empresa valida → contrata desarrollo", "Universidad gana reputación, empresa gana certeza"],
+            points: ["Primer producto gratis → validas → contratas desarrollo", "Tu empresa gana certeza antes de invertir"],
           },
         ],
       },
       pricing: {
         title: "Inversión inteligente",
-        subtitle: "Comienza gratis. Escala cuando veas resultados.",
+        subtitle: "Comienza sin costo. Escala cuando veas resultados.",
         plans: [
           {
-            name: "MVP Gratuito",
+            name: "Producto Inicial Gratuito",
             price: "$0",
             duration: "2 semanas",
             description: "Valida tu solución sin riesgo",
             features: [
-              "Levantamiento de necesidad por estudiantes",
-              "Desarrollo completo del MVP funcional",
+              "Análisis de necesidades por nuestro equipo",
+              "Desarrollo completo del producto funcional",
               "Despliegue en la nube (AWS/Azure/GCP)",
               "Documentación técnica completa",
-              "Demostración con stakeholders",
+              "Demostración con tu equipo directivo",
               "Código limpio y documentado",
             ],
             highlight: false,
@@ -234,15 +236,15 @@ export default function Home() {
             name: "Desarrollo Profesional",
             price: "$100.000",
             duration: "por hora",
-            description: "Lleva tu MVP a producción completa",
+            description: "Lleva tu producto a producción completa",
             features: [
               "Todo lo del plan gratuito incluido",
-              "Desarrollo de características adicionales",
+              "Desarrollo de funcionalidades adicionales",
               "Escalamiento de infraestructura",
               "Integración con sistemas existentes",
               "Mantenimiento y soporte continuo",
               "Refactorización y optimización",
-              "SLA y garantías de disponibilidad",
+              "Acuerdo de nivel de servicio y garantías",
               "Equipo dedicado de desarrollo",
             ],
             highlight: true,
@@ -255,67 +257,76 @@ export default function Home() {
         items: [
           {
             q: "¿Cómo garantizan la calidad en solo 2 semanas?",
-            a: "Metodología probada + conjunto tecnológico estandarizado + arquitectura modular. No reinventamos la rueda, aplicamos patrones industriales.",
+            a: "Metodología probada + tecnología estandarizada + arquitectura modular. No reinventamos procesos, aplicamos patrones industriales comprobados.",
           },
           {
-            q: "¿Qué pasa si la empresa no contrata después del producto inicial?",
-            a: "No hay compromiso. El producto inicial ya cumplió su función: fortalecer la marca universitaria y dar experiencia real a los estudiantes.",
+            q: "¿Qué pasa si decidimos no continuar después del producto inicial?",
+            a: "No hay compromiso. El producto inicial es tuyo, con código limpio y documentado. Sin cláusulas ni dependencias ocultas.",
           },
           {
             q: "¿Qué sectores atienden?",
-            a: "Somos agnósticos. Hemos trabajado en tecnología financiera, análisis de datos, video, clasificación de datos, detección de anomalías, entre otros.",
+            a: "Somos agnósticos de industria. Hemos trabajado en servicios financieros, logística, manufactura, salud, educación, comercio electrónico, entre otros.",
           },
           {
-            q: "¿Quién es dueño del código del producto inicial?",
-            a: "La empresa. Código limpio, documentado y sin dependencias ocultas.",
+            q: "¿Quién es dueño del código?",
+            a: "Tu empresa. Código limpio, documentado y sin dependencias ocultas. Es completamente tuyo.",
+          },
+          {
+            q: "¿Trabajan con universidades?",
+            a: "Sí. Las universidades son uno de nuestros clientes, donde colaboramos con talento estudiantil para la fase de análisis. Pero nuestro compromiso de entrega es directo con tu empresa.",
           },
         ],
       },
       ctaFinal: {
-        title: "Convierte proyectos académicos en contratos reales",
-        subtitle: "Primera reunión sin compromiso. Te mostramos cómo funciona el modelo y evaluamos si es adecuado para tu ecosistema de innovación.",
+        title: "Convierte tus ideas en software que funciona",
+        subtitle: "Primera reunión sin compromiso. Te mostramos cómo podemos acelerar tu próximo proyecto de software.",
         cta: "Agendar reunión estratégica",
       },
-      footer: "Donde los descubrimientos estudiantiles se convierten en productos empresariales.",
+      team: {
+        title: "Nuestro Equipo",
+        subtitle: "Profesionales dedicados a transformar tus ideas en realidad",
+      },
+      footer: "Tu fábrica de software. Potenciamos las ideas de tu empresa.",
     },
     en: {
       nav: {
         features: "Features",
         process: "Process",
         benefits: "Benefits",
+        team: "About",
         pricing: "Pricing",
         contact: "Contact",
       },
       hero: {
-        title: "From ideas to professional software",
-        highlight: "Free",
-        subtitle: "The first software factory for incubators. Your institutional brand grows stronger. Companies get production-ready products in **2 weeks**.",
-        cta: "Schedule a demo",
+        title: "Your Software Factory",
+        highlight: "We power your ideas",
+        subtitle: "We transform your business challenges into professional software solutions. Production-ready products in **2 weeks**.",
+        cta: "Schedule a free consultation",
       },
       problem: {
-        title: "The gap between potential and reality",
+        title: "The challenges of enterprise software development",
         university: {
-          title: "The University",
+          title: "Time",
           points: [
-            "Students conduct excellent needs assessments",
-            "But technical MVPs fall short",
-            "Result: missed hiring opportunities",
+            "Traditional projects take 3 to 6 months",
+            "The market does not wait, competition moves forward",
+            "Opportunities have expiration dates",
           ],
         },
         companies: {
-          title: "Companies",
+          title: "Cost",
           points: [
-            "Need to validate solutions quickly",
-            "Traditional prototypes take months",
-            "Development costs are prohibitive",
+            "Internal teams require hiring and training",
+            "Traditional consultancies charge premium rates",
+            "Investment risk is high without prior validation",
           ],
         },
         students: {
-          title: "Students",
+          title: "Quality",
           points: [
-            "Have the talent to identify problems",
-            "Lack infrastructure to execute at industrial level",
-            "Their work doesn't close real contracts",
+            "Fast prototypes sacrifice architecture",
+            "Improvised code creates technical debt",
+            "Scaling poorly designed solutions is expensive",
           ],
         },
       },
@@ -393,22 +404,22 @@ export default function Home() {
         ],
       },
       process: {
-        title: "From insight to impact in 14 days",
+        title: "From idea to product in 14 days",
         phases: [
           {
-            title: "DAY 1-3: DISCOVERY",
+            title: "DAY 1-3: ANALYSIS",
             points: [
-              "Students conduct needs assessment",
-              "Interviews, process mapping, scope definition",
-              "Deliverable: Requirements document",
+              "We understand your business and define scope",
+              "Interviews, process mapping, requirements gathering",
+              "Deliverable: Technical specifications document",
             ],
           },
           {
             title: "DAY 4-10: BUILD",
             points: [
-              "Our factory translates requirements to architecture",
+              "Our team translates requirements to architecture",
               "Frontend, backend, database development",
-              "Modern stack, clean code, best practices",
+              "Modern technologies, clean code, best practices",
             ],
           },
           {
@@ -422,58 +433,58 @@ export default function Home() {
           {
             title: "DAY 14: DELIVERY",
             points: [
-              "Functional MVP in production",
-              "Demo with the company",
-              "Post-MVP development proposal",
+              "Functional product in production",
+              "Demo with your team",
+              "Continuous development proposal",
             ],
           },
         ],
-        note: "Initial investment: $0. University strengthens its brand. Companies test before committing budget.",
+        note: "First product at no cost. Validate the solution before committing budget.",
       },
       benefits: {
-        title: "Speed without sacrificing quality",
+        title: "Why companies choose FastLab",
         items: [
           {
             title: "Market Speed",
-            points: ["2 weeks vs 3-6 months traditional", "Time-to-market that impresses stakeholders"],
+            points: ["2 weeks vs 3-6 months traditional", "Time-to-market that exceeds expectations"],
           },
           {
             title: "Professional Architecture",
-            points: ["Not a prototype, it's code ready to scale", "Frontend + Backend + DB + Deploy included"],
+            points: ["Not a prototype, it's code ready to scale", "Frontend + Backend + Database + Deployment included"],
           },
           {
             title: "Cloud Native",
             points: ["Deployed on AWS, Azure or GCP as needed", "Infrastructure as code from day 1"],
           },
           {
-            title: "Full Stack",
+            title: "Complete Technology",
             points: ["Python, TypeScript, SQL, R, Java", "Modern frameworks (React, Flask, FastAPI, etc.)"],
           },
           {
-            title: "Real Documentation",
-            points: ["Not just code, also maintenance guides", "Facilitates transition to internal teams"],
+            title: "Complete Documentation",
+            points: ["Not just code, also maintenance guides", "Facilitates transition to your internal teams"],
           },
           {
             title: "Risk-Free Model",
-            points: ["Free MVP → company validates → hires development", "University gains reputation, company gains certainty"],
+            points: ["First product free → you validate → you hire development", "Your company gains certainty before investing"],
           },
         ],
       },
       pricing: {
         title: "Smart Investment",
-        subtitle: "Start free. Scale when you see results.",
+        subtitle: "Start at no cost. Scale when you see results.",
         plans: [
           {
-            name: "Free MVP",
+            name: "Free Initial Product",
             price: "$0",
             duration: "2 weeks",
             description: "Validate your solution risk-free",
             features: [
-              "Needs assessment by students",
-              "Complete functional MVP development",
+              "Needs analysis by our team",
+              "Complete functional product development",
               "Cloud deployment (AWS/Azure/GCP)",
               "Complete technical documentation",
-              "Stakeholder demonstration",
+              "Demo with your executive team",
               "Clean and documented code",
             ],
             highlight: false,
@@ -482,7 +493,7 @@ export default function Home() {
             name: "Professional Development",
             price: "$25",
             duration: "per hour",
-            description: "Take your MVP to full production",
+            description: "Take your product to full production",
             features: [
               "Everything from the free plan included",
               "Additional feature development",
@@ -490,7 +501,7 @@ export default function Home() {
               "Integration with existing systems",
               "Continuous maintenance and support",
               "Refactoring and optimization",
-              "SLA and availability guarantees",
+              "Service level agreement and guarantees",
               "Dedicated development team",
             ],
             highlight: true,
@@ -503,28 +514,36 @@ export default function Home() {
         items: [
           {
             q: "How do you guarantee quality in just 2 weeks?",
-            a: "Proven methodology + standardized stack + modular architecture. We don't reinvent the wheel, we apply industrial patterns.",
+            a: "Proven methodology + standardized technology + modular architecture. We don't reinvent processes, we apply proven industrial patterns.",
           },
           {
-            q: "What if the company doesn't hire after the MVP?",
-            a: "No commitment. The MVP already fulfilled its purpose: strengthen university brand and give students real experience.",
+            q: "What if we decide not to continue after the initial product?",
+            a: "No commitment. The initial product is yours, with clean and documented code. No clauses or hidden dependencies.",
           },
           {
             q: "What sectors do you serve?",
-            a: "We're agnostic. We've worked in fintech, analytics, video, data classification, anomaly detection, among others.",
+            a: "We're industry agnostic. We've worked in financial services, logistics, manufacturing, healthcare, education, e-commerce, among others.",
           },
           {
-            q: "Who owns the MVP code?",
-            a: "The company. Clean, documented code with no hidden dependencies.",
+            q: "Who owns the code?",
+            a: "Your company. Clean, documented code with no hidden dependencies. It's completely yours.",
+          },
+          {
+            q: "Do you work with universities?",
+            a: "Yes. Universities are one of our clients, where we collaborate with student talent for the analysis phase. But our delivery commitment is directly with your company.",
           },
         ],
       },
       ctaFinal: {
-        title: "Turn academic projects into real contracts",
-        subtitle: "First meeting with no commitment. We show you how the model works and evaluate if it's a fit for your innovation ecosystem.",
+        title: "Turn your ideas into software that works",
+        subtitle: "First meeting with no commitment. We show you how we can accelerate your next software project.",
         cta: "Schedule strategic meeting",
       },
-      footer: "Where student insights become enterprise MVPs.",
+      team: {
+        title: "Our Team",
+        subtitle: "Professionals dedicated to turning your ideas into reality",
+      },
+      footer: "Your software factory. We power your company's ideas.",
     },
   };
 
@@ -541,7 +560,7 @@ export default function Home() {
               <div className="text-2xl font-bold">FastLab</div>
             </div>
 
-            {/* Center Menu - 5 links */}
+            {/* Center Menu - 6 links */}
             <div className="hidden lg:flex items-center justify-center flex-1 space-x-8 relative z-[10000]">
               <a href="#problema" className="text-sm font-medium hover:text-primary transition-colors">
                 {t.nav.features}
@@ -551,6 +570,9 @@ export default function Home() {
               </a>
               <a href="#beneficios" className="text-sm font-medium hover:text-primary transition-colors">
                 {t.nav.benefits}
+              </a>
+              <a href="#nosotros" className="text-sm font-medium hover:text-primary transition-colors">
+                {t.nav.team}
               </a>
               <a href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
                 {t.nav.pricing}
@@ -721,8 +743,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Team Section - About Us */}
+      <section id="nosotros" className="py-20 bg-muted/30">
+        <div className="container mx-auto px-6 lg:px-12 mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            {t.team.title}
+          </h2>
+          <p className="text-xl text-muted-foreground text-center max-w-2xl mx-auto">
+            {t.team.subtitle}
+          </p>
+        </div>
+        <TeamCarousel lang={lang} />
+      </section>
+
       {/* Pricing Section */}
-      <section id="pricing" className="py-20">
+      <section id="pricing" className="py-20 bg-muted/50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.pricing.title}</h2>
@@ -760,7 +795,7 @@ export default function Home() {
                     size="lg"
                     onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
                   >
-                    {plan.highlight ? lang === "es" ? "Comenzar desarrollo" : "Start development" : lang === "es" ? "Solicitar MVP gratis" : "Request free MVP"}
+                    {plan.highlight ? lang === "es" ? "Comenzar desarrollo" : "Start development" : lang === "es" ? "Solicitar producto gratis" : "Request free product"}
                   </Button>
                 </CardContent>
               </Card>
