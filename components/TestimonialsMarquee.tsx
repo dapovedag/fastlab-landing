@@ -48,6 +48,9 @@ function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; 
     const container = containerRef.current;
     if (!container) return;
 
+    const viewport = container.parentElement;
+    if (!viewport) return;
+
     // Obtener el transform actual de la animación CSS
     const style = window.getComputedStyle(container);
     const matrix = new DOMMatrix(style.transform);
@@ -59,14 +62,14 @@ function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; 
     container.style.transform = `translateX(${currentX}px)`;
 
     // Forzar reflow para que el navegador aplique los cambios
-    container.offsetHeight;
+    void container.offsetHeight;
 
-    // Calcular el offset para centrar la tarjeta
-    const containerRect = container.getBoundingClientRect();
+    // Calcular el offset usando el VIEWPORT (padre con overflow:hidden), no el container
+    const viewportRect = viewport.getBoundingClientRect();
     const cardRect = cardElement.getBoundingClientRect();
     const cardCenter = cardRect.left + cardRect.width / 2;
-    const containerCenter = containerRect.left + containerRect.width / 2;
-    const offset = cardCenter - containerCenter;
+    const viewportCenter = viewportRect.left + viewportRect.width / 2;
+    const offset = cardCenter - viewportCenter;
 
     // Animar hacia el centro
     container.style.transition = "transform 0.5s ease-out";
