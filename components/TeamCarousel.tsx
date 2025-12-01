@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 interface TeamMember {
@@ -143,102 +143,176 @@ function getQuote(member: TeamMember, lang: "es" | "en" | "fr") {
   return member.quoteEn;
 }
 
-function MarqueeRow({ members, direction, lang, isPaused }: { members: TeamMember[]; direction: "left" | "right"; lang: "es" | "en" | "fr"; isPaused: boolean }) {
-  const triplicatedMembers = [...members, ...members, ...members];
+function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direction: "left" | "right"; lang: "es" | "en" | "fr" }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Duplicar para scroll infinito seamless
+  const duplicatedMembers = [...members, ...members];
+
+  const handleCardMouseEnter = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
+    setIsPaused(true);
+
+    hoverTimeoutRef.current = setTimeout(() => {
+      setActiveCard(index);
+      const card = e.currentTarget;
+      const container = containerRef.current;
+      if (!container || !card) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      const offset = cardCenter - containerCenter;
+
+      container.style.transition = "transform 0.4s ease-out";
+      const currentTransform = getComputedStyle(container).transform;
+      const matrix = new DOMMatrix(currentTransform);
+      const currentX = matrix.m41;
+      container.style.transform = `translateX(${currentX - offset}px)`;
+    }, 400);
+  };
+
+  const handleCardMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setActiveCard(null);
+    setIsPaused(false);
+
+    if (containerRef.current) {
+      containerRef.current.style.transition = "";
+      containerRef.current.style.transform = "";
+    }
+  };
+
+  const handleCardClick = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setIsPaused(true);
+    setActiveCard(index);
+
+    const card = e.currentTarget;
+    const container = containerRef.current;
+    if (!container || !card) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    const offset = cardCenter - containerCenter;
+
+    container.style.transition = "transform 0.4s ease-out";
+    const currentTransform = getComputedStyle(container).transform;
+    const matrix = new DOMMatrix(currentTransform);
+    const currentX = matrix.m41;
+    container.style.transform = `translateX(${currentX - offset}px)`;
+  };
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="relative overflow-hidden">
       <div
-        className={`flex gap-4 md:gap-6 ${direction === "left" ? "animate-team-marquee-left" : "animate-team-marquee-right"}`}
+        ref={containerRef}
+        className={`flex gap-4 md:gap-6 ${direction === "left" ? "team-marquee-scroll-left" : "team-marquee-scroll-right"}`}
         style={{
           animationPlayState: isPaused ? "paused" : "running",
         }}
       >
-        {triplicatedMembers.map((member, index) => (
-          <div
-            key={`${member.id}-${index}`}
-            className="flex-shrink-0 w-[300px] md:w-[380px] bg-card border rounded-xl p-4 md:p-6 hover:shadow-lg transition-all duration-300"
-          >
-            <div className="flex items-start gap-3 md:gap-4">
-              <div className="w-11 h-11 md:w-14 md:h-14 rounded-full overflow-hidden flex-shrink-0 border-2 border-primary/20">
-                <Image
-                  src={`/team/${member.id}.png`}
-                  alt={member.name}
-                  width={56}
-                  height={56}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+        {duplicatedMembers.map((member, index) => {
+          const isActive = activeCard === index;
 
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-foreground text-sm md:text-base truncate">{member.name}</p>
-                <div className="inline-block px-2 md:px-3 py-0.5 md:py-1 bg-primary rounded-full mt-1">
-                  <span className="text-[10px] md:text-xs font-semibold text-primary-foreground">
-                    {getTitle(member, lang)}
-                  </span>
+          return (
+            <div
+              key={`${member.id}-${index}`}
+              className={`flex-shrink-0 w-[300px] md:w-[380px] bg-card border rounded-xl p-4 md:p-6 transition-all duration-300 cursor-pointer ${
+                isActive ? "ring-2 ring-primary shadow-xl scale-[1.02]" : "hover:shadow-lg"
+              }`}
+              onMouseEnter={(e) => handleCardMouseEnter(index, e)}
+              onMouseLeave={handleCardMouseLeave}
+              onClick={(e) => handleCardClick(index, e)}
+            >
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="w-11 h-11 md:w-14 md:h-14 rounded-full overflow-hidden flex-shrink-0 border-2 border-primary/20">
+                  <Image
+                    src={`/team/${member.id}.png`}
+                    alt={member.name}
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-foreground text-sm md:text-base truncate">{member.name}</p>
+                  <div className="inline-block px-2 md:px-3 py-0.5 md:py-1 bg-primary rounded-full mt-1">
+                    <span className="text-[10px] md:text-xs font-semibold text-primary-foreground">
+                      {getTitle(member, lang)}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="relative mt-3 md:mt-4">
-              <div className="text-4xl md:text-6xl text-primary/20 font-serif absolute -top-3 md:-top-4 -left-1 md:-left-2 leading-none">&ldquo;</div>
-              <p className="text-xs md:text-sm leading-relaxed pl-4 md:pl-6 text-muted-foreground italic">
-                {getQuote(member, lang)}
-              </p>
-              <div className="text-4xl md:text-6xl text-primary/20 font-serif absolute -bottom-6 md:-bottom-8 right-0 leading-none">&rdquo;</div>
+              <div className="relative mt-3 md:mt-4">
+                <div className="text-4xl md:text-6xl text-primary/20 font-serif absolute -top-3 md:-top-4 -left-1 md:-left-2 leading-none">&ldquo;</div>
+                <p className="text-xs md:text-sm leading-relaxed pl-4 md:pl-6 text-muted-foreground italic">
+                  {getQuote(member, lang)}
+                </p>
+                <div className="text-4xl md:text-6xl text-primary/20 font-serif absolute -bottom-6 md:-bottom-8 right-0 leading-none">&rdquo;</div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 }
 
 export default function TeamCarousel({ lang }: TeamCarouselProps) {
-  const [isPaused, setIsPaused] = useState(false);
-
   const midpoint = Math.ceil(teamMembers.length / 2);
   const topRow = teamMembers.slice(0, midpoint);
   const bottomRow = teamMembers.slice(midpoint);
 
   return (
-    <div
-      className="w-full space-y-4 md:space-y-6"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={() => setIsPaused(true)}
-      onTouchEnd={() => setTimeout(() => setIsPaused(false), 3000)}
-    >
+    <div className="w-full space-y-4 md:space-y-6">
       <style jsx global>{`
-        @keyframes team-marquee-left {
+        @keyframes team-scroll-left {
           0% {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.333%);
+            transform: translateX(-50%);
           }
         }
 
-        @keyframes team-marquee-right {
+        @keyframes team-scroll-right {
           0% {
-            transform: translateX(-33.333%);
+            transform: translateX(-50%);
           }
           100% {
             transform: translateX(0);
           }
         }
 
-        .animate-team-marquee-left {
-          animation: team-marquee-left 40s linear infinite;
+        .team-marquee-scroll-left {
+          animation: team-scroll-left 45s linear infinite;
         }
 
-        .animate-team-marquee-right {
-          animation: team-marquee-right 40s linear infinite;
+        .team-marquee-scroll-right {
+          animation: team-scroll-right 45s linear infinite;
         }
       `}</style>
 
-      <MarqueeRow members={topRow} direction="left" lang={lang} isPaused={isPaused} />
-      <MarqueeRow members={bottomRow} direction="right" lang={lang} isPaused={isPaused} />
+      <MarqueeRow members={topRow} direction="left" lang={lang} />
+      <MarqueeRow members={bottomRow} direction="right" lang={lang} />
     </div>
   );
 }

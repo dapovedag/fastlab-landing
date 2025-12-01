@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
@@ -15,7 +15,6 @@ interface TestimonialsMarqueeProps {
   testimonials: Testimonial[];
 }
 
-// Mapeo de empresas a sus logos
 const companyLogos: Record<string, string> = {
   "Compensar": "/logos/compensar.png",
   "Davivienda": "/logos/davivienda.png",
@@ -27,7 +26,6 @@ const companyLogos: Record<string, string> = {
   "TalentPitch": "/logos/talentptich.png",
 };
 
-// Mapeo de empresas a sus colores de fondo
 const companyBackgrounds: Record<string, string> = {
   "Compensar": "#FFFFFF",
   "Davivienda": "#FFFFFF",
@@ -39,25 +37,108 @@ const companyBackgrounds: Record<string, string> = {
   "TalentPitch": "#000000",
 };
 
-function MarqueeRow({ testimonials, direction, isPaused }: { testimonials: Testimonial[]; direction: "left" | "right"; isPaused: boolean }) {
-  const triplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; direction: "left" | "right" }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Duplicar para scroll infinito seamless
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
+
+  const handleCardMouseEnter = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
+    // Pausar inmediatamente
+    setIsPaused(true);
+
+    // Después de 400ms, centrar la tarjeta
+    hoverTimeoutRef.current = setTimeout(() => {
+      setActiveCard(index);
+      const card = e.currentTarget;
+      const container = containerRef.current;
+      if (!container || !card) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      const offset = cardCenter - containerCenter;
+
+      container.style.transition = "transform 0.4s ease-out";
+      const currentTransform = getComputedStyle(container).transform;
+      const matrix = new DOMMatrix(currentTransform);
+      const currentX = matrix.m41;
+      container.style.transform = `translateX(${currentX - offset}px)`;
+    }, 400);
+  };
+
+  const handleCardMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setActiveCard(null);
+    setIsPaused(false);
+
+    // Resetear transform para que la animación CSS tome el control
+    if (containerRef.current) {
+      containerRef.current.style.transition = "";
+      containerRef.current.style.transform = "";
+    }
+  };
+
+  const handleCardClick = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setIsPaused(true);
+    setActiveCard(index);
+
+    const card = e.currentTarget;
+    const container = containerRef.current;
+    if (!container || !card) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    const offset = cardCenter - containerCenter;
+
+    container.style.transition = "transform 0.4s ease-out";
+    const currentTransform = getComputedStyle(container).transform;
+    const matrix = new DOMMatrix(currentTransform);
+    const currentX = matrix.m41;
+    container.style.transform = `translateX(${currentX - offset}px)`;
+  };
+
+  // Limpiar timeout al desmontar
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="relative overflow-hidden">
       <div
-        className={`flex gap-4 md:gap-6 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
+        ref={containerRef}
+        className={`flex gap-4 md:gap-6 ${direction === "left" ? "marquee-scroll-left" : "marquee-scroll-right"}`}
         style={{
           animationPlayState: isPaused ? "paused" : "running",
         }}
       >
-        {triplicatedTestimonials.map((testimonial, index) => {
+        {duplicatedTestimonials.map((testimonial, index) => {
           const logoPath = companyLogos[testimonial.company];
           const bgColor = companyBackgrounds[testimonial.company] || "#FFFFFF";
+          const isActive = activeCard === index;
 
           return (
             <Card
               key={index}
-              className="flex-shrink-0 w-[300px] md:w-[380px] hover:shadow-lg transition-all duration-300"
+              className={`flex-shrink-0 w-[300px] md:w-[380px] transition-all duration-300 cursor-pointer ${
+                isActive ? "ring-2 ring-primary shadow-xl scale-[1.02]" : "hover:shadow-lg"
+              }`}
+              onMouseEnter={(e) => handleCardMouseEnter(index, e)}
+              onMouseLeave={handleCardMouseLeave}
+              onClick={(e) => handleCardClick(index, e)}
             >
               <CardContent className="p-4 md:p-6">
                 <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
@@ -104,50 +185,46 @@ function MarqueeRow({ testimonials, direction, isPaused }: { testimonials: Testi
 }
 
 export default function TestimonialsMarquee({ testimonials }: TestimonialsMarqueeProps) {
-  const [isPaused, setIsPaused] = useState(false);
-
   const midpoint = Math.ceil(testimonials.length / 2);
   const topRow = testimonials.slice(0, midpoint);
   const bottomRow = testimonials.slice(midpoint);
 
+  // Calcular el ancho total para animación perfecta
+  const cardWidth = 380; // md width
+  const gap = 24; // gap-6
+
   return (
-    <div
-      className="w-full space-y-4 md:space-y-6"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={() => setIsPaused(true)}
-      onTouchEnd={() => setTimeout(() => setIsPaused(false), 3000)}
-    >
+    <div className="w-full space-y-4 md:space-y-6">
       <style jsx global>{`
-        @keyframes marquee-left {
+        @keyframes scroll-left {
           0% {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.333%);
+            transform: translateX(-50%);
           }
         }
 
-        @keyframes marquee-right {
+        @keyframes scroll-right {
           0% {
-            transform: translateX(-33.333%);
+            transform: translateX(-50%);
           }
           100% {
             transform: translateX(0);
           }
         }
 
-        .animate-marquee-left {
-          animation: marquee-left 45s linear infinite;
+        .marquee-scroll-left {
+          animation: scroll-left 50s linear infinite;
         }
 
-        .animate-marquee-right {
-          animation: marquee-right 45s linear infinite;
+        .marquee-scroll-right {
+          animation: scroll-right 50s linear infinite;
         }
       `}</style>
 
-      <MarqueeRow testimonials={topRow} direction="left" isPaused={isPaused} />
-      <MarqueeRow testimonials={bottomRow} direction="right" isPaused={isPaused} />
+      <MarqueeRow testimonials={topRow} direction="left" />
+      <MarqueeRow testimonials={bottomRow} direction="right" />
     </div>
   );
 }
