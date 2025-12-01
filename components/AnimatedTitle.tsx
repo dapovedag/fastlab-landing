@@ -73,37 +73,45 @@ export default function AnimatedTitle({ title, highlight }: AnimatedTitleProps) 
     };
   }, [fullText]);
 
+  // Separar palabras del título y del highlight
+  const titleWords = wordRanges.filter(wr => wr.start < titleLength);
+  const highlightWords = wordRanges.filter(wr => wr.start >= titleLength);
+
+  const renderWord = (wordRange: typeof wordRanges[0], isHighlight: boolean) => (
+    <span key={wordRange.start} className="inline-flex whitespace-nowrap mr-[0.22em]">
+      {wordRange.word.split('').map((char, charIndex) => {
+        const globalIndex = wordRange.start + charIndex;
+        const isVisible = globalIndex < visibleChars;
+
+        return (
+          <span
+            key={charIndex}
+            className={`inline-block transition-all duration-300 ${isHighlight ? 'text-primary' : ''}`}
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(2rem)',
+              transitionDelay: isVisible ? `${globalIndex * 20}ms` : '0ms',
+            }}
+          >
+            {char}
+          </span>
+        );
+      })}
+    </span>
+  );
+
   return (
     <div className="w-full min-h-[80px] lg:min-h-[100px]">
       <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 leading-[1.3]">
-        {wordRanges.map((wordRange, wordIndex) => {
-          const isHighlight = wordRange.start >= titleLength;
-          return (
-            <span key={wordIndex}>
-              {isHighlight && wordIndex > 0 && <br />}
-              <span className="inline-flex whitespace-nowrap mr-[0.22em] mb-2">
-                {wordRange.word.split('').map((char, charIndex) => {
-                  const globalIndex = wordRange.start + charIndex;
-                  const isVisible = globalIndex < visibleChars;
-
-                  return (
-                    <span
-                      key={charIndex}
-                      className={`inline-block transition-all duration-300 ${isHighlight ? 'text-primary' : ''}`}
-                      style={{
-                        opacity: isVisible ? 1 : 0,
-                        transform: isVisible ? 'translateY(0)' : 'translateY(2rem)',
-                        transitionDelay: isVisible ? `${globalIndex * 20}ms` : '0ms',
-                      }}
-                    >
-                      {char}
-                    </span>
-                  );
-                })}
-              </span>
-            </span>
-          );
-        })}
+        {/* Título */}
+        <span className="inline">
+          {titleWords.map(wr => renderWord(wr, false))}
+        </span>
+        <br />
+        {/* Highlight - todo en una línea */}
+        <span className="inline-flex flex-nowrap whitespace-nowrap">
+          {highlightWords.map(wr => renderWord(wr, true))}
+        </span>
       </h1>
     </div>
   );
