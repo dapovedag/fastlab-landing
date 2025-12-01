@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 
 interface TeamMember {
@@ -172,13 +173,14 @@ function TeamCard({ member, lang }: { member: TeamMember; lang: "es" | "en" | "f
 }
 
 // Fila del marquee con animación
-function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direction: "left" | "right"; lang: "es" | "en" | "fr" }) {
+function MarqueeRow({ members, direction, lang, isPaused }: { members: TeamMember[]; direction: "left" | "right"; lang: "es" | "en" | "fr"; isPaused: boolean }) {
   const triplicatedMembers = [...members, ...members, ...members];
 
   return (
     <div className="relative overflow-hidden">
       <div
         className={`flex gap-6 ${direction === "left" ? "animate-team-marquee-left" : "animate-team-marquee-right"}`}
+        style={{ animationPlayState: isPaused ? "paused" : "running" }}
       >
         {triplicatedMembers.map((member, index) => (
           <TeamCard
@@ -193,13 +195,20 @@ function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direc
 }
 
 export default function TeamCarousel({ lang }: TeamCarouselProps) {
+  const [isPaused, setIsPaused] = useState(false);
+
   // Dividir miembros en dos grupos
   const midpoint = Math.ceil(teamMembers.length / 2);
   const topRow = teamMembers.slice(0, midpoint);
   const bottomRow = teamMembers.slice(midpoint);
 
   return (
-    <div className="w-full space-y-6">
+    <div
+      className="w-full space-y-6 cursor-pointer"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onClick={() => setIsPaused(!isPaused)}
+    >
       <style jsx global>{`
         @keyframes team-marquee-left {
           0% {
@@ -228,8 +237,8 @@ export default function TeamCarousel({ lang }: TeamCarouselProps) {
         }
       `}</style>
 
-      <MarqueeRow members={topRow} direction="left" lang={lang} />
-      <MarqueeRow members={bottomRow} direction="right" lang={lang} />
+      <MarqueeRow members={topRow} direction="left" lang={lang} isPaused={isPaused} />
+      <MarqueeRow members={bottomRow} direction="right" lang={lang} isPaused={isPaused} />
     </div>
   );
 }

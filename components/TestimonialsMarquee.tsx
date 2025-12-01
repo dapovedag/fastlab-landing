@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
@@ -38,14 +39,15 @@ const companyBackgrounds: Record<string, string> = {
   "TalentPitch": "#000000",
 };
 
-function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; direction: "left" | "right" }) {
+function MarqueeRow({ testimonials, direction, isPaused }: { testimonials: Testimonial[]; direction: "left" | "right"; isPaused: boolean }) {
   // Triplicar los testimonios para efecto infinito suave
   const triplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden group/row">
       <div
         className={`flex gap-6 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
+        style={{ animationPlayState: isPaused ? "paused" : "running" }}
       >
         {triplicatedTestimonials.map((testimonial, index) => {
           const logoPath = companyLogos[testimonial.company];
@@ -104,13 +106,20 @@ function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; 
 }
 
 export default function TestimonialsMarquee({ testimonials }: TestimonialsMarqueeProps) {
+  const [isPaused, setIsPaused] = useState(false);
+
   // Dividir testimonios en dos grupos
   const midpoint = Math.ceil(testimonials.length / 2);
   const topRow = testimonials.slice(0, midpoint);
   const bottomRow = testimonials.slice(midpoint);
 
   return (
-    <div className="w-full space-y-6">
+    <div
+      className="w-full space-y-6 cursor-pointer"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onClick={() => setIsPaused(!isPaused)}
+    >
       <style jsx global>{`
         @keyframes marquee-left {
           0% {
@@ -139,8 +148,8 @@ export default function TestimonialsMarquee({ testimonials }: TestimonialsMarque
         }
       `}</style>
 
-      <MarqueeRow testimonials={topRow} direction="left" />
-      <MarqueeRow testimonials={bottomRow} direction="right" />
+      <MarqueeRow testimonials={topRow} direction="left" isPaused={isPaused} />
+      <MarqueeRow testimonials={bottomRow} direction="right" isPaused={isPaused} />
     </div>
   );
 }
