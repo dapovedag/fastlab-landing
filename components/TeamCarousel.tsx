@@ -154,17 +154,27 @@ function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direc
     const container = containerRef.current;
     if (!container) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const cardRect = cardElement.getBoundingClientRect();
-
-    const cardCenter = cardRect.left + cardRect.width / 2;
-    const containerCenter = containerRect.left + containerRect.width / 2;
-    const offset = cardCenter - containerCenter;
-
+    // Obtener el transform actual de la animación CSS
     const style = window.getComputedStyle(container);
     const matrix = new DOMMatrix(style.transform);
     const currentX = matrix.m41 || 0;
 
+    // IMPORTANTE: Desactivar la animación para tomar control del transform
+    container.style.animation = "none";
+    // Aplicar el transform actual inmediatamente
+    container.style.transform = `translateX(${currentX}px)`;
+
+    // Forzar reflow para que el navegador aplique los cambios
+    container.offsetHeight;
+
+    // Calcular el offset para centrar la tarjeta
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = cardElement.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    const offset = cardCenter - containerCenter;
+
+    // Animar hacia el centro
     container.style.transition = "transform 0.5s ease-out";
     container.style.transform = `translateX(${currentX - offset}px)`;
   };
@@ -173,8 +183,10 @@ function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direc
     setIsPaused(false);
     setCenteredIndex(null);
     if (containerRef.current) {
+      // Restaurar la animación CSS
       containerRef.current.style.transition = "";
       containerRef.current.style.transform = "";
+      containerRef.current.style.animation = "";
     }
   };
 
@@ -199,9 +211,6 @@ function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direc
       <div
         ref={containerRef}
         className={`flex gap-4 md:gap-6 ${direction === "left" ? "team-marquee-scroll-left" : "team-marquee-scroll-right"}`}
-        style={{
-          animationPlayState: isPaused ? "paused" : "running",
-        }}
       >
         {duplicatedMembers.map((member, index) => {
           const isActive = centeredIndex === index;
