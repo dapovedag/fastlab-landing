@@ -12,6 +12,7 @@ import ContactForm from "@/components/ContactForm";
 import TeamCarousel from "@/components/TeamCarousel";
 import { useState, useEffect } from "react";
 import { Zap, Building2, Cloud, BarChart3, BookOpen, RefreshCw, Menu, X } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   const [lang, setLang] = useState<"es" | "en" | "fr">("en");
@@ -236,7 +237,12 @@ export default function Home() {
           },
           {
             name: "Desarrollo Profesional",
-            price: "$100.000",
+            rates: [
+              { level: "Junior", price: "$40.000" },
+              { level: "Middle", price: "$80.000" },
+              { level: "Senior", price: "$120.000" },
+              { level: "Equipo", price: "$400.000" },
+            ],
             duration: "por hora",
             description: "Lleva tu producto a producción completa",
             features: [
@@ -494,7 +500,12 @@ export default function Home() {
           },
           {
             name: "Professional Development",
-            price: "$25",
+            rates: [
+              { level: "Junior", price: "$10" },
+              { level: "Middle", price: "$20" },
+              { level: "Senior", price: "$30" },
+              { level: "Team", price: "$100" },
+            ],
             duration: "per hour",
             description: "Take your product to full production",
             features: [
@@ -752,7 +763,12 @@ export default function Home() {
           },
           {
             name: "Développement professionnel",
-            price: "25€",
+            rates: [
+              { level: "Junior", price: "8€" },
+              { level: "Middle", price: "17€" },
+              { level: "Senior", price: "25€" },
+              { level: "Équipe", price: "86€" },
+            ],
             duration: "par heure",
             description: "Amenez votre produit en production complète",
             features: [
@@ -1104,10 +1120,21 @@ export default function Home() {
               <Card key={i} className={plan.highlight ? "border-primary border-2 shadow-xl" : ""}>
                 <CardHeader>
                   <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                  <div className="mt-4">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                    <span className="text-muted-foreground ml-2">{plan.duration}</span>
-                  </div>
+                  {'rates' in plan && plan.rates ? (
+                    <div className="mt-4 space-y-2">
+                      {plan.rates.map((rate: { level: string; price: string }, idx: number) => (
+                        <div key={idx} className="flex justify-between items-center">
+                          <span className="text-muted-foreground">{rate.level}</span>
+                          <span className="text-xl font-bold">{rate.price}<span className="text-sm font-normal text-muted-foreground">/{plan.duration}</span></span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-4">
+                      <span className="text-4xl font-bold">{plan.price}</span>
+                      <span className="text-muted-foreground ml-2">{plan.duration}</span>
+                    </div>
+                  )}
                   <p className="text-muted-foreground mt-2">{plan.description}</p>
                 </CardHeader>
                 <CardContent>
@@ -1180,8 +1207,20 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t py-8">
-        <div className="container mx-auto px-6 lg:px-12 text-center text-muted-foreground">
-          <p>&copy; 2025 FastLab. {t.footer}</p>
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-muted-foreground text-center md:text-left">
+              &copy; 2025 FastLab. {t.footer}
+            </p>
+            <div className="flex items-center gap-6 text-sm">
+              <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+                {lang === "es" ? "Política de Privacidad" : lang === "fr" ? "Politique de Confidentialité" : "Privacy Policy"}
+              </Link>
+              <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+                {lang === "es" ? "Términos de Uso" : lang === "fr" ? "Conditions d'Utilisation" : "Terms of Service"}
+              </Link>
+            </div>
+          </div>
         </div>
       </footer>
 
