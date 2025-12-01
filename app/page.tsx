@@ -943,14 +943,18 @@ export default function Home() {
 
       {/* Hero Section - 100vh */}
       <section className="relative w-full h-screen flex items-end overflow-hidden">
+        {/* Background Gradient Banner */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 z-[1]" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-background via-background/80 to-transparent z-[50]" />
+
         {/* Birds Canvas - Solo en Hero Section */}
         <BirdsCanvas theme={theme} />
 
         {/* Hero Content - Bottom Left Aligned */}
-        <div className="relative z-[100] container mx-auto px-6 lg:px-12 pb-20 lg:pb-32">
+        <div className="relative z-[100] container mx-auto px-6 lg:px-12 pb-12 md:pb-20 lg:pb-32">
           <div className="max-w-4xl">
             <AnimatedTitle title={t.hero.title} highlight={t.hero.highlight} />
-            <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-4xl">
+            <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-6 md:mb-8 max-w-4xl">
               {t.hero.subtitle.split('||').map((line, lineIndex) => (
                 <span key={lineIndex}>
                   {lineIndex > 0 && <br />}
@@ -962,7 +966,7 @@ export default function Home() {
             </p>
             <Button
               size="lg"
-              className="text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
+              className="text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
               onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
             >
               {t.hero.cta}
