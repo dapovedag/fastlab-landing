@@ -101,8 +101,8 @@ export default function AnimatedTitle({ title, highlight }: AnimatedTitleProps) 
   );
 
   return (
-    <div className="w-full min-h-[80px] lg:min-h-[100px]">
-      <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 leading-[1.3]">
+    <div className="w-full min-h-[100px] lg:min-h-[120px]">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 leading-[1.3]">
         {/* Título */}
         <span className="inline">
           {titleWords.map(wr => renderWord(wr, false))}
