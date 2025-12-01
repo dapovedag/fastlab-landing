@@ -11,11 +11,12 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import ContactForm from "@/components/ContactForm";
 import TeamCarousel from "@/components/TeamCarousel";
 import { useState, useEffect } from "react";
-import { Zap, Building2, Cloud, BarChart3, BookOpen, RefreshCw } from "lucide-react";
+import { Zap, Building2, Cloud, BarChart3, BookOpen, RefreshCw, Menu, X } from "lucide-react";
 
 export default function Home() {
   const [lang, setLang] = useState<"es" | "en" | "fr">("en");
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Theme management
   useEffect(() => {
@@ -901,8 +902,43 @@ export default function Home() {
                 }}
               />
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden ml-4 p-2 rounded-md hover:bg-muted transition-colors relative z-[10000]"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-background/95 backdrop-blur-md border-t">
+            <div className="container mx-auto px-6 py-4 flex flex-col space-y-4">
+              <a href="#problema" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-primary transition-colors py-2">
+                {t.nav.features}
+              </a>
+              <a href="#proceso" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-primary transition-colors py-2">
+                {t.nav.process}
+              </a>
+              <a href="#beneficios" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-primary transition-colors py-2">
+                {t.nav.benefits}
+              </a>
+              <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-primary transition-colors py-2">
+                {t.nav.team}
+              </a>
+              <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-primary transition-colors py-2">
+                {t.nav.pricing}
+              </a>
+              <a href="#contact-form" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-primary transition-colors py-2">
+                {t.nav.contact}
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section - 100vh */}
