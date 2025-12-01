@@ -729,7 +729,7 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
 
           {/* PayPal Button Container */}
           {paymentStatus !== "success" && (
-            <div className="relative">
+            <div className="relative max-w-md mx-auto">
               {!scriptLoaded && (
                 <div className="min-h-[150px] flex items-center justify-center">
                   <div className="animate-pulse text-muted-foreground">
