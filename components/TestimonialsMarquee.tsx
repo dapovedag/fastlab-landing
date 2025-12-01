@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
@@ -40,45 +40,32 @@ const companyBackgrounds: Record<string, string> = {
 function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; direction: "left" | "right" }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [activeCard, setActiveCard] = useState<number | null>(null);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
 
-  // Duplicar para scroll infinito seamless
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
-  const handleCardMouseEnter = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
-    // Pausar inmediatamente
-    setIsPaused(true);
+  const centerCard = (cardElement: HTMLElement) => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    // Después de 400ms, centrar la tarjeta
-    hoverTimeoutRef.current = setTimeout(() => {
-      setActiveCard(index);
-      const card = e.currentTarget;
-      const container = containerRef.current;
-      if (!container || !card) return;
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = cardElement.getBoundingClientRect();
 
-      const containerRect = container.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-      const cardCenter = cardRect.left + cardRect.width / 2;
-      const containerCenter = containerRect.left + containerRect.width / 2;
-      const offset = cardCenter - containerCenter;
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    const offset = cardCenter - containerCenter;
 
-      container.style.transition = "transform 0.4s ease-out";
-      const currentTransform = getComputedStyle(container).transform;
-      const matrix = new DOMMatrix(currentTransform);
-      const currentX = matrix.m41;
-      container.style.transform = `translateX(${currentX - offset}px)`;
-    }, 400);
+    const style = window.getComputedStyle(container);
+    const matrix = new DOMMatrix(style.transform);
+    const currentX = matrix.m41 || 0;
+
+    container.style.transition = "transform 0.5s ease-out";
+    container.style.transform = `translateX(${currentX - offset}px)`;
   };
 
-  const handleCardMouseLeave = () => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-    setActiveCard(null);
+  const resumeAnimation = () => {
     setIsPaused(false);
-
-    // Resetear transform para que la animación CSS tome el control
+    setCenteredIndex(null);
     if (containerRef.current) {
       containerRef.current.style.transition = "";
       containerRef.current.style.transform = "";
@@ -87,34 +74,19 @@ function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; 
 
   const handleCardClick = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+
+    // Si ya está pausado y es la misma tarjeta - reanudar
+    if (isPaused && centeredIndex === index) {
+      resumeAnimation();
+      return;
+    }
+
+    // Si está pausado pero es otra tarjeta - centrar la nueva
+    // Si no está pausado - pausar y centrar
     setIsPaused(true);
-    setActiveCard(index);
-
-    const card = e.currentTarget;
-    const container = containerRef.current;
-    if (!container || !card) return;
-
-    const containerRect = container.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
-    const cardCenter = cardRect.left + cardRect.width / 2;
-    const containerCenter = containerRect.left + containerRect.width / 2;
-    const offset = cardCenter - containerCenter;
-
-    container.style.transition = "transform 0.4s ease-out";
-    const currentTransform = getComputedStyle(container).transform;
-    const matrix = new DOMMatrix(currentTransform);
-    const currentX = matrix.m41;
-    container.style.transform = `translateX(${currentX - offset}px)`;
+    setCenteredIndex(index);
+    centerCard(e.currentTarget);
   };
-
-  // Limpiar timeout al desmontar
-  useEffect(() => {
-    return () => {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
-    };
-  }, []);
 
   return (
     <div className="relative overflow-hidden">
@@ -128,16 +100,14 @@ function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; 
         {duplicatedTestimonials.map((testimonial, index) => {
           const logoPath = companyLogos[testimonial.company];
           const bgColor = companyBackgrounds[testimonial.company] || "#FFFFFF";
-          const isActive = activeCard === index;
+          const isActive = centeredIndex === index;
 
           return (
             <Card
               key={index}
-              className={`flex-shrink-0 w-[300px] md:w-[380px] transition-all duration-300 cursor-pointer ${
-                isActive ? "ring-2 ring-primary shadow-xl scale-[1.02]" : "hover:shadow-lg"
+              className={`flex-shrink-0 w-[300px] md:w-[380px] transition-all duration-300 cursor-pointer select-none ${
+                isActive ? "ring-2 ring-primary shadow-xl scale-[1.02] z-10" : "hover:shadow-lg"
               }`}
-              onMouseEnter={(e) => handleCardMouseEnter(index, e)}
-              onMouseLeave={handleCardMouseLeave}
               onClick={(e) => handleCardClick(index, e)}
             >
               <CardContent className="p-4 md:p-6">
@@ -188,10 +158,6 @@ export default function TestimonialsMarquee({ testimonials }: TestimonialsMarque
   const midpoint = Math.ceil(testimonials.length / 2);
   const topRow = testimonials.slice(0, midpoint);
   const bottomRow = testimonials.slice(midpoint);
-
-  // Calcular el ancho total para animación perfecta
-  const cardWidth = 380; // md width
-  const gap = 24; // gap-6
 
   return (
     <div className="w-full space-y-4 md:space-y-6">

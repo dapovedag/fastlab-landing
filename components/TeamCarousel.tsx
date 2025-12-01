@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 
 interface TeamMember {
@@ -146,42 +146,32 @@ function getQuote(member: TeamMember, lang: "es" | "en" | "fr") {
 function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direction: "left" | "right"; lang: "es" | "en" | "fr" }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [activeCard, setActiveCard] = useState<number | null>(null);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
 
-  // Duplicar para scroll infinito seamless
   const duplicatedMembers = [...members, ...members];
 
-  const handleCardMouseEnter = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
-    setIsPaused(true);
+  const centerCard = (cardElement: HTMLElement) => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    hoverTimeoutRef.current = setTimeout(() => {
-      setActiveCard(index);
-      const card = e.currentTarget;
-      const container = containerRef.current;
-      if (!container || !card) return;
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = cardElement.getBoundingClientRect();
 
-      const containerRect = container.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-      const cardCenter = cardRect.left + cardRect.width / 2;
-      const containerCenter = containerRect.left + containerRect.width / 2;
-      const offset = cardCenter - containerCenter;
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    const offset = cardCenter - containerCenter;
 
-      container.style.transition = "transform 0.4s ease-out";
-      const currentTransform = getComputedStyle(container).transform;
-      const matrix = new DOMMatrix(currentTransform);
-      const currentX = matrix.m41;
-      container.style.transform = `translateX(${currentX - offset}px)`;
-    }, 400);
+    const style = window.getComputedStyle(container);
+    const matrix = new DOMMatrix(style.transform);
+    const currentX = matrix.m41 || 0;
+
+    container.style.transition = "transform 0.5s ease-out";
+    container.style.transform = `translateX(${currentX - offset}px)`;
   };
 
-  const handleCardMouseLeave = () => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-    setActiveCard(null);
+  const resumeAnimation = () => {
     setIsPaused(false);
-
+    setCenteredIndex(null);
     if (containerRef.current) {
       containerRef.current.style.transition = "";
       containerRef.current.style.transform = "";
@@ -190,33 +180,19 @@ function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direc
 
   const handleCardClick = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+
+    // Si ya está pausado y es la misma tarjeta - reanudar
+    if (isPaused && centeredIndex === index) {
+      resumeAnimation();
+      return;
+    }
+
+    // Si está pausado pero es otra tarjeta - centrar la nueva
+    // Si no está pausado - pausar y centrar
     setIsPaused(true);
-    setActiveCard(index);
-
-    const card = e.currentTarget;
-    const container = containerRef.current;
-    if (!container || !card) return;
-
-    const containerRect = container.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
-    const cardCenter = cardRect.left + cardRect.width / 2;
-    const containerCenter = containerRect.left + containerRect.width / 2;
-    const offset = cardCenter - containerCenter;
-
-    container.style.transition = "transform 0.4s ease-out";
-    const currentTransform = getComputedStyle(container).transform;
-    const matrix = new DOMMatrix(currentTransform);
-    const currentX = matrix.m41;
-    container.style.transform = `translateX(${currentX - offset}px)`;
+    setCenteredIndex(index);
+    centerCard(e.currentTarget);
   };
-
-  useEffect(() => {
-    return () => {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
-    };
-  }, []);
 
   return (
     <div className="relative overflow-hidden">
@@ -228,16 +204,14 @@ function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direc
         }}
       >
         {duplicatedMembers.map((member, index) => {
-          const isActive = activeCard === index;
+          const isActive = centeredIndex === index;
 
           return (
             <div
               key={`${member.id}-${index}`}
-              className={`flex-shrink-0 w-[300px] md:w-[380px] bg-card border rounded-xl p-4 md:p-6 transition-all duration-300 cursor-pointer ${
-                isActive ? "ring-2 ring-primary shadow-xl scale-[1.02]" : "hover:shadow-lg"
+              className={`flex-shrink-0 w-[300px] md:w-[380px] bg-card border rounded-xl p-4 md:p-6 transition-all duration-300 cursor-pointer select-none ${
+                isActive ? "ring-2 ring-primary shadow-xl scale-[1.02] z-10" : "hover:shadow-lg"
               }`}
-              onMouseEnter={(e) => handleCardMouseEnter(index, e)}
-              onMouseLeave={handleCardMouseLeave}
               onClick={(e) => handleCardClick(index, e)}
             >
               <div className="flex items-start gap-3 md:gap-4">
