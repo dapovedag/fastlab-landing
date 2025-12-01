@@ -478,14 +478,22 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
     return () => clearTimeout(timer);
   }, [scriptLoaded, paypalRendered, grandTotal, pricing.currency, totalHours]);
 
-  // Re-render PayPal when amount or language changes
+  // Re-render PayPal when amount changes (just re-render buttons, don't reload SDK)
   useEffect(() => {
     if (scriptLoaded && paypalRendered) {
       setPaypalRendered(false);
-      setScriptLoaded(false); // Force SDK reload for language change
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [grandTotal, lang]);
+  }, [grandTotal]);
+
+  // Reload SDK when language changes
+  useEffect(() => {
+    if (scriptLoaded) {
+      setPaypalRendered(false);
+      setScriptLoaded(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
 
   return (
     <div className="w-full max-w-4xl mx-auto">
