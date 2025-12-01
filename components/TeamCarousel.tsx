@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 interface TeamMember {
@@ -133,61 +133,147 @@ function getQuote(member: TeamMember, lang: "es" | "en" | "fr") {
   return member.quoteEn;
 }
 
-// Componente de Card individual
-function TeamCard({ member, lang }: { member: TeamMember; lang: "es" | "en" | "fr" }) {
-  return (
-    <div className="flex-shrink-0 w-[380px] bg-card border rounded-xl p-6 hover:shadow-lg transition-shadow">
-      <div className="flex items-start gap-4">
-        {/* Imagen de silueta a la izquierda */}
-        <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border-2 border-primary/20">
-          <Image
-            src={`/team/${member.id}.png`}
-            alt={getTitle(member, lang)}
-            width={56}
-            height={56}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Contenido a la derecha */}
-        <div className="flex-1 min-w-0">
-          {/* Cargo con badge púrpura */}
-          <div className="inline-block px-3 py-1 bg-primary rounded-full mb-2">
-            <span className="text-xs font-semibold text-primary-foreground">
-              {getTitle(member, lang)}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Quote con comillas estilizadas */}
-      <div className="relative mt-4">
-        <div className="text-6xl text-primary/20 font-serif absolute -top-4 -left-2 leading-none">&ldquo;</div>
-        <p className="text-sm leading-relaxed pl-6 text-muted-foreground italic">
-          {getQuote(member, lang)}
-        </p>
-        <div className="text-6xl text-primary/20 font-serif absolute -bottom-8 right-0 leading-none">&rdquo;</div>
-      </div>
-    </div>
-  );
+interface MarqueeRowProps {
+  members: TeamMember[];
+  direction: "left" | "right";
+  lang: "es" | "en" | "fr";
+  speed?: number;
 }
 
-// Fila del marquee con animación
-function MarqueeRow({ members, direction, lang, isPaused }: { members: TeamMember[]; direction: "left" | "right"; lang: "es" | "en" | "fr"; isPaused: boolean }) {
+function MarqueeRow({ members, direction, lang, speed = 1 }: MarqueeRowProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const animationRef = useRef<number>();
+  const lastTimeRef = useRef<number>(0);
+
+  // Triplicar para efecto infinito
   const triplicatedMembers = [...members, ...members, ...members];
 
+  // Auto-scroll animation
+  const animate = useCallback((currentTime: number) => {
+    if (!scrollRef.current || isPaused || isUserInteracting) {
+      animationRef.current = requestAnimationFrame(animate);
+      return;
+    }
+
+    if (!lastTimeRef.current) lastTimeRef.current = currentTime;
+    const delta = currentTime - lastTimeRef.current;
+    lastTimeRef.current = currentTime;
+
+    const scrollAmount = (direction === "left" ? 1 : -1) * speed * (delta / 16);
+    scrollRef.current.scrollLeft += scrollAmount;
+
+    // Loop infinito
+    const scrollWidth = scrollRef.current.scrollWidth;
+    const oneThird = scrollWidth / 3;
+
+    if (direction === "left" && scrollRef.current.scrollLeft >= oneThird * 2) {
+      scrollRef.current.scrollLeft -= oneThird;
+    } else if (direction === "right" && scrollRef.current.scrollLeft <= oneThird) {
+      scrollRef.current.scrollLeft += oneThird;
+    }
+
+    animationRef.current = requestAnimationFrame(animate);
+  }, [isPaused, isUserInteracting, direction, speed]);
+
+  useEffect(() => {
+    // Posición inicial
+    if (scrollRef.current) {
+      const oneThird = scrollRef.current.scrollWidth / 3;
+      scrollRef.current.scrollLeft = direction === "left" ? oneThird : oneThird * 1.5;
+    }
+
+    animationRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [animate, direction]);
+
+  // Centrar tarjeta al hacer click
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setIsUserInteracting(true);
+    setIsPaused(true);
+
+    const card = e.currentTarget;
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+
+    // Calcular el scroll necesario para centrar la tarjeta
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    const scrollOffset = cardCenter - containerCenter;
+
+    container.scrollBy({
+      left: scrollOffset,
+      behavior: "smooth"
+    });
+  };
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+    setTimeout(() => setIsUserInteracting(false), 500);
+  };
+
   return (
-    <div className="relative overflow-hidden">
+    <div
+      className="relative overflow-hidden"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div
-        className={`flex gap-6 ${direction === "left" ? "animate-team-marquee-left" : "animate-team-marquee-right"}`}
-        style={{ animationPlayState: isPaused ? "paused" : "running" }}
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {triplicatedMembers.map((member, index) => (
-          <TeamCard
+          <div
             key={`${member.id}-${index}`}
-            member={member}
-            lang={lang}
-          />
+            className="flex-shrink-0 w-[320px] md:w-[380px] bg-card border rounded-xl p-4 md:p-6 hover:shadow-lg transition-all cursor-pointer hover:scale-[1.02]"
+            onClick={handleCardClick}
+          >
+            <div className="flex items-start gap-3 md:gap-4">
+              {/* Imagen de silueta a la izquierda */}
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden flex-shrink-0 border-2 border-primary/20">
+                <Image
+                  src={`/team/${member.id}.png`}
+                  alt={getTitle(member, lang)}
+                  width={56}
+                  height={56}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Contenido a la derecha */}
+              <div className="flex-1 min-w-0">
+                {/* Cargo con badge púrpura */}
+                <div className="inline-block px-2 md:px-3 py-0.5 md:py-1 bg-primary rounded-full mb-2">
+                  <span className="text-[10px] md:text-xs font-semibold text-primary-foreground">
+                    {getTitle(member, lang)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quote con comillas estilizadas */}
+            <div className="relative mt-3 md:mt-4">
+              <div className="text-4xl md:text-6xl text-primary/20 font-serif absolute -top-3 md:-top-4 -left-1 md:-left-2 leading-none">&ldquo;</div>
+              <p className="text-xs md:text-sm leading-relaxed pl-4 md:pl-6 text-muted-foreground italic">
+                {getQuote(member, lang)}
+              </p>
+              <div className="text-4xl md:text-6xl text-primary/20 font-serif absolute -bottom-6 md:-bottom-8 right-0 leading-none">&rdquo;</div>
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -195,50 +281,15 @@ function MarqueeRow({ members, direction, lang, isPaused }: { members: TeamMembe
 }
 
 export default function TeamCarousel({ lang }: TeamCarouselProps) {
-  const [isPaused, setIsPaused] = useState(false);
-
   // Dividir miembros en dos grupos
   const midpoint = Math.ceil(teamMembers.length / 2);
   const topRow = teamMembers.slice(0, midpoint);
   const bottomRow = teamMembers.slice(midpoint);
 
   return (
-    <div
-      className="w-full space-y-6 cursor-pointer"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onClick={() => setIsPaused(!isPaused)}
-    >
-      <style jsx global>{`
-        @keyframes team-marquee-left {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-33.333%);
-          }
-        }
-
-        @keyframes team-marquee-right {
-          0% {
-            transform: translateX(-33.333%);
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
-
-        .animate-team-marquee-left {
-          animation: team-marquee-left 35s linear infinite;
-        }
-
-        .animate-team-marquee-right {
-          animation: team-marquee-right 35s linear infinite;
-        }
-      `}</style>
-
-      <MarqueeRow members={topRow} direction="left" lang={lang} isPaused={isPaused} />
-      <MarqueeRow members={bottomRow} direction="right" lang={lang} isPaused={isPaused} />
+    <div className="w-full space-y-4 md:space-y-6">
+      <MarqueeRow members={topRow} direction="left" lang={lang} speed={0.7} />
+      <MarqueeRow members={bottomRow} direction="right" lang={lang} speed={0.7} />
     </div>
   );
 }
