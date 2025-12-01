@@ -135,6 +135,7 @@ export default function Home() {
         ],
       },
       testimonials: {
+        title: "Resultados que hablan por sí mismos",
         items: [
           { name: "María Rodríguez", role: "Directora de Innovación", company: "Compensar", quote: "Reducción del 65% en paradas no planificadas. El sistema detecta anomalías antes de que ocurran fallos." },
           { name: "Carlos Méndez", role: "Vicepresidente de Tecnología", company: "Davivienda", quote: "Mejora del 42% en tiempo de sesión. Los usuarios ahora encuentran contenido relevante de inmediato." },
@@ -392,6 +393,7 @@ export default function Home() {
         ],
       },
       testimonials: {
+        title: "Results that speak for themselves",
         items: [
           { name: "María Rodríguez", role: "Innovation Director", company: "Compensar", quote: "65% reduction in unplanned downtime. The system detects anomalies before failures occur." },
           { name: "Carlos Méndez", role: "VP of Technology", company: "Davivienda", quote: "42% improvement in session time. Users now find relevant content immediately." },
@@ -649,6 +651,7 @@ export default function Home() {
         ],
       },
       testimonials: {
+        title: "Des résultats qui parlent d'eux-mêmes",
         items: [
           { name: "María Rodríguez", role: "Directrice de l'Innovation", company: "Compensar", quote: "Réduction de 65% des arrêts non planifiés. Le système détecte les anomalies avant que les pannes ne surviennent." },
           { name: "Carlos Méndez", role: "VP Technologie", company: "Davivienda", quote: "Amélioration de 42% du temps de session. Les utilisateurs trouvent maintenant du contenu pertinent immédiatement." },
@@ -932,7 +935,7 @@ export default function Home() {
       {/* Testimonials Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-6 lg:px-12 mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-center">Resultados que hablan por sí mismos</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center">{t.testimonials.title}</h2>
         </div>
         <TestimonialsMarquee testimonials={t.testimonials.items} />
       </section>
