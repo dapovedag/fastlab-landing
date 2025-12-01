@@ -400,16 +400,32 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
     return totalHours > 0;
   };
 
+  // Store order data for invoice generation
+  const [completedOrder, setCompletedOrder] = useState<{ id: string; status: string } | null>(null);
+
+  // Generate invoice when order completes
+  useEffect(() => {
+    if (completedOrder) {
+      generateInvoice(completedOrder);
+      setCompletedOrder(null);
+    }
+  }, [completedOrder, generateInvoice]);
+
   // Render PayPal buttons when script loads
   useEffect(() => {
-    if (scriptLoaded && paypalContainerRef.current && !paypalRendered) {
-      // Clear previous buttons
-      if (paypalContainerRef.current) {
-        paypalContainerRef.current.innerHTML = "";
-      }
+    if (!scriptLoaded || !paypalContainerRef.current || paypalRendered) {
+      return;
+    }
 
+    // Small delay to ensure PayPal SDK is fully initialized
+    const timer = setTimeout(() => {
       // @ts-expect-error - PayPal SDK types
       if (window.paypal?.Buttons) {
+        // Clear previous buttons
+        if (paypalContainerRef.current) {
+          paypalContainerRef.current.innerHTML = "";
+        }
+
         // @ts-expect-error - PayPal SDK types
         window.paypal.Buttons({
           style: {
@@ -421,11 +437,10 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
           // @ts-expect-error - PayPal SDK types
           createOrder: (data, actions) => {
             // For COP, convert to USD (PayPal doesn't support COP directly)
-            let amount = grandTotal > 0 ? grandTotal : 1; // Minimum $1 for rendering
+            let amount = grandTotal > 0 ? grandTotal : 1;
             let currency = pricing.currency;
 
             if (pricing.currency === "COP") {
-              // Approximate conversion rate - in production, use a real API
               amount = (grandTotal > 0 ? grandTotal : 4200) / 4200;
               currency = "USD";
             }
@@ -445,8 +460,7 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
             setPaymentStatus("processing");
             const order = await actions.order.capture();
             setPaymentStatus("success");
-            // Generate invoice after successful payment
-            generateInvoice({ id: order.id, status: order.status });
+            setCompletedOrder({ id: order.id, status: order.status });
           },
           // @ts-expect-error - PayPal SDK types
           onError: (err) => {
@@ -456,23 +470,29 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
         }).render(paypalContainerRef.current);
 
         setPaypalRendered(true);
+      } else {
+        console.error("PayPal Buttons not available");
       }
-    }
-  }, [scriptLoaded, paypalRendered, grandTotal, pricing, totalHours, generateInvoice]);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [scriptLoaded, paypalRendered, grandTotal, pricing.currency, totalHours]);
 
   // Re-render PayPal when amount changes
   useEffect(() => {
     if (scriptLoaded && paypalRendered) {
       setPaypalRendered(false);
     }
-  }, [grandTotal, scriptLoaded]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [grandTotal]);
 
   return (
     <div className="w-full max-w-4xl mx-auto">
       <Script
-        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${pricing.currency === "COP" ? "USD" : pricing.currency}`}
+        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&components=buttons&currency=${pricing.currency === "COP" ? "USD" : pricing.currency}`}
         onLoad={() => setScriptLoaded(true)}
-        strategy="lazyOnload"
+        onError={(e) => console.error("PayPal SDK failed to load:", e)}
+        strategy="afterInteractive"
       />
 
       <Card>
@@ -710,13 +730,20 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
           {/* PayPal Button Container */}
           {paymentStatus !== "success" && (
             <div className="relative">
+              {!scriptLoaded && (
+                <div className="min-h-[150px] flex items-center justify-center">
+                  <div className="animate-pulse text-muted-foreground">
+                    {lang === "es" ? "Cargando PayPal..." : "Loading PayPal..."}
+                  </div>
+                </div>
+              )}
               <div
                 ref={paypalContainerRef}
                 className={`min-h-[150px] flex items-center justify-center transition-opacity ${
-                  totalHours === 0 ? "opacity-40 pointer-events-none" : ""
-                }`}
+                  !scriptLoaded ? "hidden" : ""
+                } ${totalHours === 0 ? "opacity-40 pointer-events-none" : ""}`}
               />
-              {totalHours === 0 && (
+              {scriptLoaded && totalHours === 0 && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <p className="text-muted-foreground bg-background/80 px-4 py-2 rounded-lg">
                     {t.selectHours}
