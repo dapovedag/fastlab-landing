@@ -10,6 +10,7 @@ import AnimatedTitle from "@/components/AnimatedTitle";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ContactForm from "@/components/ContactForm";
 import TeamCarousel from "@/components/TeamCarousel";
+import BillingCalculator from "@/components/BillingCalculator";
 import { useState, useEffect } from "react";
 import { Zap, Building2, Cloud, BarChart3, BookOpen, RefreshCw, Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -2299,6 +2300,13 @@ export default function Home() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Billing Section */}
+      <section id="billing" className="py-20">
+        <div className="container mx-auto px-6 lg:px-12">
+          <BillingCalculator lang={lang} />
         </div>
       </section>
 
