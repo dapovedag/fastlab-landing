@@ -478,18 +478,20 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
     return () => clearTimeout(timer);
   }, [scriptLoaded, paypalRendered, grandTotal, pricing.currency, totalHours]);
 
-  // Re-render PayPal when amount changes
+  // Re-render PayPal when amount or language changes
   useEffect(() => {
     if (scriptLoaded && paypalRendered) {
       setPaypalRendered(false);
+      setScriptLoaded(false); // Force SDK reload for language change
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [grandTotal]);
+  }, [grandTotal, lang]);
 
   return (
     <div className="w-full max-w-4xl mx-auto">
       <Script
-        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&components=buttons&currency=${pricing.currency === "COP" ? "USD" : pricing.currency}`}
+        key={`paypal-${lang}`}
+        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&components=buttons&currency=${pricing.currency === "COP" ? "USD" : pricing.currency}&locale=${lang === "es" ? "es_ES" : lang === "fr" ? "fr_FR" : lang === "de" ? "de_DE" : lang === "it" ? "it_IT" : lang === "pt" ? "pt_PT" : lang === "sk" ? "sk_SK" : "en_US"}`}
         onLoad={() => setScriptLoaded(true)}
         onError={(e) => console.error("PayPal SDK failed to load:", e)}
         strategy="afterInteractive"
