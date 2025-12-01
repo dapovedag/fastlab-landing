@@ -2288,7 +2288,7 @@ export default function Home() {
                   )}
                   <Button
                     className="w-full mt-6"
-                    variant={plan.highlight ? "default" : "outline"}
+                    variant="default"
                     size="lg"
                     onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
                   >
