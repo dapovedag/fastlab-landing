@@ -5,19 +5,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DayPicker } from "react-day-picker";
 import { format } from "date-fns";
-import { es, enUS, fr } from "date-fns/locale";
+import { es, enUS, fr, sk, de, it, ptBR } from "date-fns/locale";
 import type { Locale } from "date-fns";
 import "react-day-picker/dist/style.css";
 
 interface ContactFormProps {
-  lang: "es" | "en" | "fr";
+  lang: "es" | "en" | "fr" | "sk" | "de" | "it" | "pt";
 }
 
-// Nombres de meses capitalizados para los tres idiomas
+// Nombres de meses capitalizados para todos los idiomas
 const MONTH_NAMES = {
   es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  fr: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+  fr: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+  sk: ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'],
+  de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+  it: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+  pt: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
 } as const;
 
 // Crear un locale español personalizado con meses capitalizados
@@ -35,6 +39,42 @@ const frCapitalized: Locale = {
   localize: {
     ...fr.localize,
     month: (n: number) => MONTH_NAMES.fr[n],
+  },
+};
+
+// Crear un locale eslovaco personalizado con meses capitalizados
+const skCapitalized: Locale = {
+  ...sk,
+  localize: {
+    ...sk.localize,
+    month: (n: number) => MONTH_NAMES.sk[n],
+  },
+};
+
+// Crear un locale alemán personalizado con meses capitalizados
+const deCapitalized: Locale = {
+  ...de,
+  localize: {
+    ...de.localize,
+    month: (n: number) => MONTH_NAMES.de[n],
+  },
+};
+
+// Crear un locale italiano personalizado con meses capitalizados
+const itCapitalized: Locale = {
+  ...it,
+  localize: {
+    ...it.localize,
+    month: (n: number) => MONTH_NAMES.it[n],
+  },
+};
+
+// Crear un locale portugués personalizado con meses capitalizados
+const ptCapitalized: Locale = {
+  ...ptBR,
+  localize: {
+    ...ptBR.localize,
+    month: (n: number) => MONTH_NAMES.pt[n],
   },
 };
 
@@ -58,6 +98,10 @@ export default function ContactForm({ lang }: ContactFormProps) {
       es: "Hola, me gustaría obtener más información sobre los servicios de FastLab.",
       en: "Hello, I would like to get more information about FastLab services.",
       fr: "Bonjour, j'aimerais obtenir plus d'informations sur les services de FastLab.",
+      sk: "Dobrý deň, chcel by som získať viac informácií o službách FastLab.",
+      de: "Hallo, ich würde gerne mehr Informationen über die FastLab-Dienste erhalten.",
+      it: "Ciao, vorrei avere maggiori informazioni sui servizi di FastLab.",
+      pt: "Olá, gostaria de obter mais informações sobre os serviços da FastLab.",
     };
     setFormData(prev => ({
       ...prev,
@@ -117,6 +161,74 @@ export default function ContactForm({ lang }: ContactFormProps) {
       success: "Demande envoyée avec succès ! Nous vous contacterons bientôt.",
       error: "Une erreur s'est produite. Veuillez réessayer.",
     },
+    sk: {
+      title: "Naplánovať stretnutie",
+      subtitle: "Vyplňte formulár a budeme vás kontaktovať",
+      name: "Celé meno",
+      email: "Email",
+      company: "Firma/Univerzita",
+      service: "Záujem o službu",
+      serviceMVP: "Bezplatný MVP (2 týždne)",
+      serviceDev: "Profesionálny vývoj (25€/hodina)",
+      message: "Správa",
+      date: "Preferovaný dátum",
+      time: "Preferovaný čas",
+      submit: "Odoslať žiadosť",
+      sending: "Odosielam...",
+      success: "Žiadosť úspešne odoslaná! Čoskoro vás budeme kontaktovať.",
+      error: "Vyskytla sa chyba. Skúste to prosím znova.",
+    },
+    de: {
+      title: "Termin vereinbaren",
+      subtitle: "Füllen Sie das Formular aus und wir werden uns mit Ihnen in Verbindung setzen",
+      name: "Vollständiger Name",
+      email: "E-Mail",
+      company: "Unternehmen/Universität",
+      service: "Gewünschte Dienstleistung",
+      serviceMVP: "Kostenloses MVP (2 Wochen)",
+      serviceDev: "Professionelle Entwicklung (25€/Stunde)",
+      message: "Nachricht",
+      date: "Bevorzugtes Datum",
+      time: "Bevorzugte Uhrzeit",
+      submit: "Anfrage senden",
+      sending: "Wird gesendet...",
+      success: "Anfrage erfolgreich gesendet! Wir werden uns bald bei Ihnen melden.",
+      error: "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    },
+    it: {
+      title: "Prenota un incontro",
+      subtitle: "Compila il modulo e ti contatteremo",
+      name: "Nome completo",
+      email: "Email",
+      company: "Azienda/Università",
+      service: "Servizio di interesse",
+      serviceMVP: "MVP Gratuito (2 settimane)",
+      serviceDev: "Sviluppo Professionale (25€/ora)",
+      message: "Messaggio",
+      date: "Data preferita",
+      time: "Orario preferito",
+      submit: "Invia richiesta",
+      sending: "Invio in corso...",
+      success: "Richiesta inviata con successo! Ti contatteremo presto.",
+      error: "Si è verificato un errore. Riprova.",
+    },
+    pt: {
+      title: "Agende uma reunião",
+      subtitle: "Preencha o formulário e entraremos em contato com você",
+      name: "Nome completo",
+      email: "Email",
+      company: "Empresa/Universidade",
+      service: "Serviço de interesse",
+      serviceMVP: "MVP Gratuito (2 semanas)",
+      serviceDev: "Desenvolvimento Profissional (25€/hora)",
+      message: "Mensagem",
+      date: "Data preferida",
+      time: "Horário preferido",
+      submit: "Enviar solicitação",
+      sending: "Enviando...",
+      success: "Solicitação enviada com sucesso! Entraremos em contato em breve.",
+      error: "Ocorreu um erro. Por favor, tente novamente.",
+    },
   };
 
   const t = content[lang];
@@ -125,6 +237,10 @@ export default function ContactForm({ lang }: ContactFormProps) {
   const getDateLocale = () => {
     if (lang === "es") return esCapitalized;
     if (lang === "fr") return frCapitalized;
+    if (lang === "sk") return skCapitalized;
+    if (lang === "de") return deCapitalized;
+    if (lang === "it") return itCapitalized;
+    if (lang === "pt") return ptCapitalized;
     return enUS;
   };
 
@@ -137,6 +253,10 @@ export default function ContactForm({ lang }: ContactFormProps) {
       es: "No especificada",
       en: "Not specified",
       fr: "Non spécifiée",
+      sk: "Nešpecifikované",
+      de: "Nicht angegeben",
+      it: "Non specificata",
+      pt: "Não especificada",
     };
 
     try {
@@ -168,6 +288,10 @@ export default function ContactForm({ lang }: ContactFormProps) {
           es: "Hola, me gustaría obtener más información sobre los servicios de FastLab.",
           en: "Hello, I would like to get more information about FastLab services.",
           fr: "Bonjour, j'aimerais obtenir plus d'informations sur les services de FastLab.",
+          sk: "Dobrý deň, chcel by som získať viac informácií o službách FastLab.",
+          de: "Hallo, ich würde gerne mehr Informationen über die FastLab-Dienste erhalten.",
+          it: "Ciao, vorrei avere maggiori informazioni sui servizi di FastLab.",
+          pt: "Olá, gostaria de obter mais informações sobre os serviços da FastLab.",
         };
         setFormData({
           name: "",

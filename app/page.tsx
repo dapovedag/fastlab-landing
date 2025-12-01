@@ -15,7 +15,7 @@ import { Zap, Building2, Cloud, BarChart3, BookOpen, RefreshCw, Menu, X } from "
 import Link from "next/link";
 
 export default function Home() {
-  const [lang, setLang] = useState<"es" | "en" | "fr">("en");
+  const [lang, setLang] = useState<"es" | "en" | "fr" | "sk" | "de" | "it" | "pt">("en");
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -822,6 +822,1058 @@ export default function Home() {
       },
       footer: "Votre usine logicielle. Nous propulsons les idées de votre entreprise.",
     },
+    sk: {
+      nav: {
+        features: "Funkcie",
+        process: "Proces",
+        benefits: "Výhody",
+        team: "O nás",
+        pricing: "Ceny",
+        contact: "Kontakt",
+      },
+      hero: {
+        title: "Vaša softvérová továreň",
+        highlight: "Posilňujeme vaše nápady",
+        subtitle: "Transformujeme výzvy vašej firmy na profesionálne softvérové riešenia.||Produkty pripravené na produkciu za **2 týždne**.",
+        cta: "Naplánovať bezplatnú konzultáciu",
+      },
+      problem: {
+        title: "Výzvy vývoja podnikového softvéru",
+        university: {
+          title: "Čas",
+          points: [
+            "Tradičné projekty trvajú 3 až 6 mesiacov",
+            "Trh nečaká, konkurencia napreduje",
+            "Príležitosti majú dátum expirácie",
+          ],
+        },
+        companies: {
+          title: "Náklady",
+          points: [
+            "Interné tímy vyžadujú nábor a školenie",
+            "Tradičné konzultačné firmy účtujú vysoké sadzby",
+            "Riziko investície je vysoké bez predchádzajúcej validácie",
+          ],
+        },
+        students: {
+          title: "Kvalita",
+          points: [
+            "Rýchle prototypy obetujú architektúru",
+            "Improvizovaný kód vytvára technický dlh",
+            "Škálovanie zle navrhnutých riešení je drahé",
+          ],
+        },
+      },
+      cases: {
+        title: "Od teórie k produkcii",
+        items: [
+          {
+            title: "Detekcia anomálií v priemyselnom IoT",
+            problem: "Výrobná spoločnosť so stratami z nedetekovaných porúch výrobných liniek",
+            solution: "Systém detekcie v reálnom čase s Isolation Forest a Random Forest na dátach zo senzorov",
+            stack: "Python, PostgreSQL, Docker, AWS (S3, EC2)",
+            result: "65% zníženie neplánovaných odstávok. Spoločnosť si objednala fázu 2 pre integráciu SCADA",
+          },
+          {
+            title: "Motor odporúčaní videí",
+            problem: "Platforma profesionálneho obsahu s nízkym zapojením a retenciou používateľov",
+            solution: "Hybridný systém s klasterovaním (K-means) a kolaboratívnym filtrovaním pre personalizáciu obsahu",
+            stack: "Python, React, Flask, SQL Server, Azure (DevOps, CI/CD)",
+            result: "42% zlepšenie času relácie. Implementovaný pipeline kontinuálneho nasadenia",
+          },
+          {
+            title: "Automatický klasifikátor žiadostí s NLP",
+            problem: "Servisná spoločnosť s 1000+ mesačnými žiadosťami bez efektívnej klasifikácie",
+            solution: "Model RoBERTa pre automatickú klasifikáciu a inteligentné smerovanie žiadostí",
+            stack: "Python, transformers, PostgreSQL, Docker, GCP (Compute Engine, Cloud Storage)",
+            result: "70% zníženie času odozvy. Systém škálovaný na 5000+ mesačných žiadostí",
+          },
+          {
+            title: "Systém prediktívnej údržby",
+            problem: "Priemyselný závod s nákladnými a nepredvídateľnými odstávkami kritických strojov",
+            solution: "Analýza časových radov s TimeSeriesKMeans a DTW pre predikciu porúch",
+            stack: "Python, pandas, PostgreSQL, Docker, AWS (SQS, EC2)",
+            result: "85% anticipácia porúch so 7-dňovým predstihom. Pozitívna ROI za 3 mesiace",
+          },
+          {
+            title: "Platforma analýzy sentimentu",
+            problem: "Značka bez prehľadu o verejnom vnímaní na sociálnych sieťach",
+            solution: "NLP pipeline s transformermi pre analýzu sentimentu a trendov v reálnom čase",
+            stack: "Python, React, FastAPI, MongoDB, Azure (Container Instances)",
+            result: "Exekutívny dashboard s dennými metrikami. Včasná detekcia reputačných kríz",
+          },
+          {
+            title: "Dashboard operácií v reálnom čase",
+            problem: "Logistická spoločnosť s roztrúsenými dátami a bez jednotného prehľadu operácií",
+            solution: "Automatizovaný ETL s dynamickou vizualizáciou kritických KPI a proaktívnymi upozorneniami",
+            stack: "Python, React, TypeScript, PostgreSQL, GCP (Cloud Run, BigQuery)",
+            result: "40% zníženie operačných reakčných časov. Integrácia s legacy systémami",
+          },
+          {
+            title: "AI agenti pre monitorovanie fyzického miesta",
+            problem: "Manuálna validácia terénnych operácií s vysokými nákladmi a ľudskými chybami",
+            solution: "Multi-agentový systém s počítačovým videním (YOLO) pre detekciu anomálií a automatické upozornenia",
+            stack: "Python, OpenCV, YOLO, PostgreSQL, AWS (Lambda, Rekognition, IoT Core)",
+            result: "Automatizovaný monitoring 24/7. 80% zníženie nákladov na manuálny dohľad",
+          },
+          {
+            title: "Inteligentný asistent zákazníckej podpory",
+            problem: "Spoločnosť s vysokým objemom opakujúcich sa dopytov a pomalými reakčnými časmi",
+            solution: "Chatbot s GPT-4 a RAG na firemnej znalostnej báze pre presné kontextové odpovede",
+            stack: "Python, OpenAI API, LangChain, ChromaDB, FastAPI, Azure",
+            result: "78% vyriešených dopytov bez ľudského zásahu. Spokojnosť zákazníkov vzrástla o 45%",
+          },
+        ],
+      },
+      testimonials: {
+        title: "Výsledky, ktoré hovoria samy za seba",
+        items: [
+          { name: "María Rodríguez", role: "Riaditeľka inovácie", company: "Compensar", quote: "65% zníženie neplánovaných odstávok. Systém detekuje anomálie skôr, ako nastanú poruchy." },
+          { name: "Carlos Méndez", role: "VP technológie", company: "Davivienda", quote: "42% zlepšenie času relácie. Používatelia teraz okamžite nájdu relevantný obsah." },
+          { name: "Ana López", role: "Manažérka vývoja", company: "ADA-TAS", quote: "70% zníženie času odozvy. Prešli sme od chaosu k inteligentnej automatickej klasifikácii." },
+          { name: "Ricardo Torres", role: "Riaditeľ IoT", company: "GSS Analytix", quote: "85% anticipácia porúch so 7-dňovým predstihom. Pozitívna ROI za 3 mesiace." },
+          { name: "Lucía Fernández", role: "Riaditeľka digitálnej skúsenosti", company: "LATAM Airlines", quote: "Exekutívny dashboard s dennými metrikami. Detekujeme reputačné krízy skôr, ako eskalujú." },
+          { name: "Jorge Ramírez", role: "Manažér technológie", company: "Davinchi", quote: "40% zníženie operačných reakčných časov. Dokonalá integrácia s našimi systémami." },
+          { name: "Patricia Morales", role: "Koordinátorka inovácie", company: "Ministerio de Educación", quote: "Automatizovaný monitoring 24/7. 80% zníženie nákladov na manuálny dohľad." },
+          { name: "Daniel Vargas", role: "CEO", company: "TalentPitch", quote: "78% vyriešených dopytov bez ľudského zásahu. Spokojnosť zákazníkov vzrástla o 45%." },
+        ],
+      },
+      process: {
+        title: "Od nápadu k produktu za 14 dní",
+        phases: [
+          {
+            title: "DEŇ 1-3: ANALÝZA",
+            points: [
+              "Pochopíme váš biznis a definujeme rozsah",
+              "Rozhovory, mapovanie procesov, zber požiadaviek",
+              "Výstup: Dokument technických špecifikácií",
+            ],
+          },
+          {
+            title: "DEŇ 4-10: VÝSTAVBA",
+            points: [
+              "Náš tím prekladá požiadavky do architektúry",
+              "Vývoj frontendu, backendu, databázy",
+              "Moderné technológie, čistý kód, najlepšie praktiky",
+            ],
+          },
+          {
+            title: "DEŇ 11-13: INTEGRÁCIA",
+            points: [
+              "Nasadenie v cloude (AWS/Azure/GCP)",
+              "Kompletná technická dokumentácia",
+              "Testovanie a finálne úpravy",
+            ],
+          },
+          {
+            title: "DEŇ 14: DODANIE",
+            points: [
+              "Funkčný produkt v produkcii",
+              "Demo s vaším tímom",
+              "Návrh kontinuálneho vývoja",
+            ],
+          },
+        ],
+        note: "Prvý produkt bez nákladov. Validujte riešenie pred záväzkom rozpočtu.",
+      },
+      benefits: {
+        title: "Prečo si firmy vyberajú FastLab",
+        items: [
+          {
+            title: "Rýchlosť na trh",
+            points: ["2 týždne vs 3-6 mesiacov tradične", "Čas uvedenia na trh, ktorý prekonáva očakávania"],
+          },
+          {
+            title: "Profesionálna architektúra",
+            points: ["Nie je to prototyp, je to kód pripravený na škálovanie", "Frontend + Backend + Databáza + Nasadenie zahrnuté"],
+          },
+          {
+            title: "Cloud Native",
+            points: ["Nasadené na AWS, Azure alebo GCP podľa potreby", "Infrastructure as code od prvého dňa"],
+          },
+          {
+            title: "Kompletná technológia",
+            points: ["Python, TypeScript, SQL, R, Java", "Moderné frameworky (React, Flask, FastAPI, atď.)"],
+          },
+          {
+            title: "Kompletná dokumentácia",
+            points: ["Nielen kód, ale aj príručky údržby", "Uľahčuje prechod na vaše interné tímy"],
+          },
+          {
+            title: "Model bez rizika",
+            points: ["Prvý produkt zadarmo → validujete → objednáte vývoj", "Vaša firma získa istotu pred investíciou"],
+          },
+        ],
+      },
+      pricing: {
+        title: "Inteligentná investícia",
+        subtitle: "Začnite bez nákladov. Škálujte, keď uvidíte výsledky.",
+        plans: [
+          {
+            name: "Bezplatný počiatočný produkt",
+            price: "0€",
+            duration: "2 týždne",
+            description: "Validujte svoje riešenie bez rizika",
+            features: [
+              "Analýza potrieb naším tímom",
+              "Kompletný vývoj funkčného produktu",
+              "Nasadenie v cloude (AWS/Azure/GCP)",
+              "Kompletná technická dokumentácia",
+              "Demo s vaším vedením",
+              "Čistý a zdokumentovaný kód",
+            ],
+            highlight: false,
+          },
+          {
+            name: "Profesionálny vývoj",
+            rates: [
+              { level: "Junior", price: "8€" },
+              { level: "Middle", price: "17€" },
+              { level: "Senior", price: "25€" },
+              { level: "Tím", price: "86€" },
+            ],
+            duration: "za hodinu",
+            description: "Dotiahnite svoj produkt do plnej produkcie",
+            features: [
+              "Všetko z bezplatného plánu zahrnuté",
+              "Vývoj ďalších funkcionalít",
+              "Škálovanie infraštruktúry",
+              "Integrácia s existujúcimi systémami",
+              "Kontinuálna údržba a podpora",
+              "Refaktoring a optimalizácia",
+              "Dohoda o úrovni služieb a záruky",
+              "Dedikovaný vývojový tím",
+            ],
+            highlight: true,
+            note: "Odporúčané minimum: 40 hodín/mesiac",
+          },
+        ],
+      },
+      faq: {
+        title: "Často kladené otázky",
+        items: [
+          {
+            q: "Ako garantujete kvalitu za len 2 týždne?",
+            a: "Overená metodológia + štandardizovaná technológia + modulárna architektúra. Nevymýšľame procesy znova, aplikujeme overené priemyselné vzory.",
+          },
+          {
+            q: "Čo ak sa rozhodneme nepokračovať po počiatočnom produkte?",
+            a: "Žiadny záväzok. Počiatočný produkt je váš, s čistým a zdokumentovaným kódom. Žiadne klauzuly ani skryté závislosti.",
+          },
+          {
+            q: "Aké odvetvia obsluhujete?",
+            a: "Sme odvetvovo agnostickí. Pracovali sme vo finančných službách, logistike, výrobe, zdravotníctve, vzdelávaní, e-commerce a ďalších.",
+          },
+          {
+            q: "Komu patrí kód?",
+            a: "Vašej firme. Čistý, zdokumentovaný kód bez skrytých závislostí. Je úplne váš.",
+          },
+          {
+            q: "Spolupracujete s univerzitami?",
+            a: "Áno. Univerzity sú jedným z našich klientov, kde spolupracujeme so študentskými talentmi na fáze analýzy. Ale náš záväzok dodania je priamo s vašou firmou.",
+          },
+        ],
+      },
+      ctaFinal: {
+        title: "Premeňte svoje nápady na softvér, ktorý funguje",
+        subtitle: "Prvé stretnutie bez záväzku. Ukážeme vám, ako môžeme zrýchliť váš ďalší softvérový projekt.",
+        cta: "Naplánovať strategické stretnutie",
+      },
+      team: {
+        title: "Náš tím",
+        subtitle: "Profesionáli oddaní premene vašich nápadov na realitu",
+      },
+      footer: "Vaša softvérová továreň. Posilňujeme nápady vašej firmy.",
+    },
+    de: {
+      nav: {
+        features: "Funktionen",
+        process: "Prozess",
+        benefits: "Vorteile",
+        team: "Über uns",
+        pricing: "Preise",
+        contact: "Kontakt",
+      },
+      hero: {
+        title: "Ihre Software-Fabrik",
+        highlight: "Wir stärken Ihre Ideen",
+        subtitle: "Wir verwandeln die Herausforderungen Ihres Unternehmens in professionelle Softwarelösungen.||Produktionsreife Produkte in **2 Wochen**.",
+        cta: "Kostenlose Beratung vereinbaren",
+      },
+      problem: {
+        title: "Die Herausforderungen der Unternehmenssoftwareentwicklung",
+        university: {
+          title: "Zeit",
+          points: [
+            "Traditionelle Projekte dauern 3 bis 6 Monate",
+            "Der Markt wartet nicht, die Konkurrenz schreitet voran",
+            "Chancen haben ein Verfallsdatum",
+          ],
+        },
+        companies: {
+          title: "Kosten",
+          points: [
+            "Interne Teams erfordern Einstellung und Schulung",
+            "Traditionelle Beratungsfirmen verlangen hohe Gebühren",
+            "Das Investitionsrisiko ist ohne vorherige Validierung hoch",
+          ],
+        },
+        students: {
+          title: "Qualität",
+          points: [
+            "Schnelle Prototypen opfern Architektur",
+            "Improvisierter Code schafft technische Schulden",
+            "Schlecht gestaltete Lösungen zu skalieren ist teuer",
+          ],
+        },
+      },
+      cases: {
+        title: "Von der Theorie zur Produktion",
+        items: [
+          {
+            title: "IoT-Industrielle Anomalieerkennung",
+            problem: "Fertigungsunternehmen mit Verlusten durch unerkannte Produktionsausfälle",
+            solution: "Echtzeit-Erkennungssystem mit Isolation Forest und Random Forest auf Sensordaten",
+            stack: "Python, PostgreSQL, Docker, AWS (S3, EC2)",
+            result: "65% Reduzierung ungeplanter Ausfallzeiten. Unternehmen beauftragte Phase 2 für SCADA-Integration",
+          },
+          {
+            title: "Video-Empfehlungsengine",
+            problem: "Professionelle Content-Plattform mit geringem Engagement und Nutzerbindung",
+            solution: "Hybridsystem mit Clustering (K-means) und kollaborativem Filtering zur Content-Personalisierung",
+            stack: "Python, React, Flask, SQL Server, Azure (DevOps, CI/CD)",
+            result: "42% Verbesserung der Sitzungsdauer. Kontinuierliche Deployment-Pipeline implementiert",
+          },
+          {
+            title: "Automatischer Anfrageklassifikator mit NLP",
+            problem: "Serviceunternehmen mit 1000+ monatlichen Anfragen ohne effiziente Klassifizierung",
+            solution: "RoBERTa-Modell für automatische Klassifizierung und intelligente Anfragenweiterleitung",
+            stack: "Python, transformers, PostgreSQL, Docker, GCP (Compute Engine, Cloud Storage)",
+            result: "70% Reduzierung der Antwortzeit. System auf 5000+ monatliche Anfragen skaliert",
+          },
+          {
+            title: "Prädiktives Wartungssystem",
+            problem: "Industrieanlage mit kostspieligen und unvorhersehbaren Ausfällen kritischer Maschinen",
+            solution: "Zeitreihenanalyse mit TimeSeriesKMeans und DTW zur Ausfallvorhersage",
+            stack: "Python, pandas, PostgreSQL, Docker, AWS (SQS, EC2)",
+            result: "85% Ausfallvorhersage mit 7 Tagen Vorlauf. Positiver ROI in 3 Monaten",
+          },
+          {
+            title: "Sentiment-Analyse-Plattform",
+            problem: "Marke ohne Einblick in die öffentliche Wahrnehmung in sozialen Medien",
+            solution: "NLP-Pipeline mit Transformers für Echtzeit-Sentiment-Analyse und Trends",
+            stack: "Python, React, FastAPI, MongoDB, Azure (Container Instances)",
+            result: "Executive Dashboard mit täglichen Metriken. Früherkennung von Reputationskrisen",
+          },
+          {
+            title: "Echtzeit-Operations-Dashboard",
+            problem: "Logistikunternehmen mit verteilten Daten und ohne einheitliche Betriebsübersicht",
+            solution: "Automatisiertes ETL mit dynamischer KPI-Visualisierung und proaktiven Warnungen",
+            stack: "Python, React, TypeScript, PostgreSQL, GCP (Cloud Run, BigQuery)",
+            result: "40% Reduzierung der operativen Reaktionszeiten. Integration mit Legacy-Systemen",
+          },
+          {
+            title: "KI-Agenten für physische Standortüberwachung",
+            problem: "Manuelle Validierung von Feldoperationen mit hohen Kosten und menschlichen Fehlern",
+            solution: "Multi-Agenten-System mit Computer Vision (YOLO) zur Anomalieerkennung und automatischen Warnungen",
+            stack: "Python, OpenCV, YOLO, PostgreSQL, AWS (Lambda, Rekognition, IoT Core)",
+            result: "24/7 automatisierte Überwachung. 80% Reduzierung der manuellen Überwachungskosten",
+          },
+          {
+            title: "Intelligenter Kundensupport-Assistent",
+            problem: "Unternehmen mit hohem Volumen an wiederholenden Anfragen und langsamen Antwortzeiten",
+            solution: "Chatbot mit GPT-4 und RAG auf Unternehmens-Wissensbasis für präzise kontextuelle Antworten",
+            stack: "Python, OpenAI API, LangChain, ChromaDB, FastAPI, Azure",
+            result: "78% Anfragelösung ohne menschliches Eingreifen. Kundenzufriedenheit um 45% gestiegen",
+          },
+        ],
+      },
+      testimonials: {
+        title: "Ergebnisse, die für sich sprechen",
+        items: [
+          { name: "María Rodríguez", role: "Innovationsdirektorin", company: "Compensar", quote: "65% Reduzierung ungeplanter Ausfallzeiten. Das System erkennt Anomalien, bevor Ausfälle auftreten." },
+          { name: "Carlos Méndez", role: "VP Technologie", company: "Davivienda", quote: "42% Verbesserung der Sitzungsdauer. Benutzer finden jetzt sofort relevante Inhalte." },
+          { name: "Ana López", role: "Entwicklungsleiterin", company: "ADA-TAS", quote: "70% Reduzierung der Antwortzeit. Vom Chaos zur intelligenten automatischen Klassifizierung." },
+          { name: "Ricardo Torres", role: "IoT-Direktor", company: "GSS Analytix", quote: "85% Ausfallvorhersage mit 7 Tagen Vorlauf. Positiver ROI in 3 Monaten." },
+          { name: "Lucía Fernández", role: "Digital Experience Direktorin", company: "LATAM Airlines", quote: "Executive Dashboard mit täglichen Metriken. Wir erkennen Reputationskrisen, bevor sie eskalieren." },
+          { name: "Jorge Ramírez", role: "Technologie-Manager", company: "Davinchi", quote: "40% Reduzierung der operativen Reaktionszeiten. Perfekte Integration mit unseren Systemen." },
+          { name: "Patricia Morales", role: "Innovationskoordinatorin", company: "Ministerio de Educación", quote: "24/7 automatisierte Überwachung. 80% Reduzierung der manuellen Überwachungskosten." },
+          { name: "Daniel Vargas", role: "CEO", company: "TalentPitch", quote: "78% Anfragelösung ohne menschliches Eingreifen. Kundenzufriedenheit um 45% gestiegen." },
+        ],
+      },
+      process: {
+        title: "Von der Idee zum Produkt in 14 Tagen",
+        phases: [
+          {
+            title: "TAG 1-3: ANALYSE",
+            points: [
+              "Wir verstehen Ihr Geschäft und definieren den Umfang",
+              "Interviews, Prozessmapping, Anforderungsaufnahme",
+              "Lieferung: Technisches Spezifikationsdokument",
+            ],
+          },
+          {
+            title: "TAG 4-10: ENTWICKLUNG",
+            points: [
+              "Unser Team übersetzt Anforderungen in Architektur",
+              "Frontend-, Backend-, Datenbankentwicklung",
+              "Moderne Technologien, sauberer Code, Best Practices",
+            ],
+          },
+          {
+            title: "TAG 11-13: INTEGRATION",
+            points: [
+              "Cloud-Deployment (AWS/Azure/GCP)",
+              "Vollständige technische Dokumentation",
+              "Tests und finale Anpassungen",
+            ],
+          },
+          {
+            title: "TAG 14: LIEFERUNG",
+            points: [
+              "Funktionales Produkt in Produktion",
+              "Demo mit Ihrem Team",
+              "Vorschlag zur kontinuierlichen Entwicklung",
+            ],
+          },
+        ],
+        note: "Erstes Produkt kostenlos. Validieren Sie die Lösung, bevor Sie Budget binden.",
+      },
+      benefits: {
+        title: "Warum Unternehmen FastLab wählen",
+        items: [
+          {
+            title: "Marktgeschwindigkeit",
+            points: ["2 Wochen vs 3-6 Monate traditionell", "Time-to-Market, das Erwartungen übertrifft"],
+          },
+          {
+            title: "Professionelle Architektur",
+            points: ["Kein Prototyp, sondern Code bereit zur Skalierung", "Frontend + Backend + Datenbank + Deployment inklusive"],
+          },
+          {
+            title: "Cloud Native",
+            points: ["Bereitgestellt auf AWS, Azure oder GCP nach Bedarf", "Infrastructure as Code ab Tag 1"],
+          },
+          {
+            title: "Vollständige Technologie",
+            points: ["Python, TypeScript, SQL, R, Java", "Moderne Frameworks (React, Flask, FastAPI, etc.)"],
+          },
+          {
+            title: "Vollständige Dokumentation",
+            points: ["Nicht nur Code, auch Wartungsanleitungen", "Erleichtert den Übergang zu Ihren internen Teams"],
+          },
+          {
+            title: "Risikofreies Modell",
+            points: ["Erstes Produkt kostenlos → Sie validieren → Sie beauftragen Entwicklung", "Ihr Unternehmen gewinnt Sicherheit vor der Investition"],
+          },
+        ],
+      },
+      pricing: {
+        title: "Intelligente Investition",
+        subtitle: "Starten Sie kostenlos. Skalieren Sie, wenn Sie Ergebnisse sehen.",
+        plans: [
+          {
+            name: "Kostenloses Erstprodukt",
+            price: "0€",
+            duration: "2 Wochen",
+            description: "Validieren Sie Ihre Lösung risikofrei",
+            features: [
+              "Bedarfsanalyse durch unser Team",
+              "Vollständige funktionale Produktentwicklung",
+              "Cloud-Deployment (AWS/Azure/GCP)",
+              "Vollständige technische Dokumentation",
+              "Demo mit Ihrer Geschäftsleitung",
+              "Sauberer und dokumentierter Code",
+            ],
+            highlight: false,
+          },
+          {
+            name: "Professionelle Entwicklung",
+            rates: [
+              { level: "Junior", price: "8€" },
+              { level: "Middle", price: "17€" },
+              { level: "Senior", price: "25€" },
+              { level: "Team", price: "86€" },
+            ],
+            duration: "pro Stunde",
+            description: "Bringen Sie Ihr Produkt in volle Produktion",
+            features: [
+              "Alles aus dem kostenlosen Plan inklusive",
+              "Entwicklung zusätzlicher Funktionen",
+              "Infrastruktur-Skalierung",
+              "Integration mit bestehenden Systemen",
+              "Kontinuierliche Wartung und Support",
+              "Refactoring und Optimierung",
+              "Service Level Agreement und Garantien",
+              "Dediziertes Entwicklungsteam",
+            ],
+            highlight: true,
+            note: "Empfohlenes Minimum: 40 Stunden/Monat",
+          },
+        ],
+      },
+      faq: {
+        title: "Häufig gestellte Fragen",
+        items: [
+          {
+            q: "Wie garantieren Sie Qualität in nur 2 Wochen?",
+            a: "Bewährte Methodik + standardisierte Technologie + modulare Architektur. Wir erfinden Prozesse nicht neu, wir wenden bewährte Industriemuster an.",
+          },
+          {
+            q: "Was passiert, wenn wir nach dem Erstprodukt nicht weitermachen möchten?",
+            a: "Keine Verpflichtung. Das Erstprodukt gehört Ihnen, mit sauberem und dokumentiertem Code. Keine Klauseln oder versteckten Abhängigkeiten.",
+          },
+          {
+            q: "Welche Branchen bedienen Sie?",
+            a: "Wir sind branchenunabhängig. Wir haben in Finanzdienstleistungen, Logistik, Fertigung, Gesundheitswesen, Bildung, E-Commerce und anderen gearbeitet.",
+          },
+          {
+            q: "Wem gehört der Code?",
+            a: "Ihrem Unternehmen. Sauberer, dokumentierter Code ohne versteckte Abhängigkeiten. Er gehört vollständig Ihnen.",
+          },
+          {
+            q: "Arbeiten Sie mit Universitäten zusammen?",
+            a: "Ja. Universitäten sind einer unserer Kunden, wo wir mit studentischen Talenten in der Analysephase zusammenarbeiten. Aber unsere Lieferverpflichtung ist direkt mit Ihrem Unternehmen.",
+          },
+        ],
+      },
+      ctaFinal: {
+        title: "Verwandeln Sie Ihre Ideen in funktionierende Software",
+        subtitle: "Erstes Treffen unverbindlich. Wir zeigen Ihnen, wie wir Ihr nächstes Softwareprojekt beschleunigen können.",
+        cta: "Strategisches Meeting vereinbaren",
+      },
+      team: {
+        title: "Unser Team",
+        subtitle: "Fachleute, die sich der Verwirklichung Ihrer Ideen widmen",
+      },
+      footer: "Ihre Software-Fabrik. Wir stärken die Ideen Ihres Unternehmens.",
+    },
+    it: {
+      nav: {
+        features: "Funzionalità",
+        process: "Processo",
+        benefits: "Vantaggi",
+        team: "Chi siamo",
+        pricing: "Prezzi",
+        contact: "Contatti",
+      },
+      hero: {
+        title: "La tua fabbrica di software",
+        highlight: "Potenziamo le tue idee",
+        subtitle: "Trasformiamo le sfide della tua azienda in soluzioni software professionali.||Prodotti pronti per la produzione in **2 settimane**.",
+        cta: "Prenota una consulenza gratuita",
+      },
+      problem: {
+        title: "Le sfide dello sviluppo software aziendale",
+        university: {
+          title: "Tempo",
+          points: [
+            "I progetti tradizionali richiedono da 3 a 6 mesi",
+            "Il mercato non aspetta, la concorrenza avanza",
+            "Le opportunità hanno una data di scadenza",
+          ],
+        },
+        companies: {
+          title: "Costo",
+          points: [
+            "I team interni richiedono assunzione e formazione",
+            "Le società di consulenza tradizionali applicano tariffe elevate",
+            "Il rischio di investimento è alto senza validazione preventiva",
+          ],
+        },
+        students: {
+          title: "Qualità",
+          points: [
+            "I prototipi veloci sacrificano l'architettura",
+            "Il codice improvvisato crea debito tecnico",
+            "Scalare soluzioni mal progettate è costoso",
+          ],
+        },
+      },
+      cases: {
+        title: "Dalla teoria alla produzione",
+        items: [
+          {
+            title: "Rilevamento anomalie IoT industriale",
+            problem: "Azienda manifatturiera con perdite da guasti non rilevati nelle linee di produzione",
+            solution: "Sistema di rilevamento in tempo reale con Isolation Forest e Random Forest sui dati dei sensori",
+            stack: "Python, PostgreSQL, Docker, AWS (S3, EC2)",
+            result: "65% di riduzione dei fermi non pianificati. Azienda ha commissionato la fase 2 per l'integrazione SCADA",
+          },
+          {
+            title: "Motore di raccomandazione video",
+            problem: "Piattaforma di contenuti professionali con basso engagement e retention degli utenti",
+            solution: "Sistema ibrido con clustering (K-means) e filtraggio collaborativo per la personalizzazione dei contenuti",
+            stack: "Python, React, Flask, SQL Server, Azure (DevOps, CI/CD)",
+            result: "42% di miglioramento nel tempo di sessione. Pipeline di deployment continuo implementata",
+          },
+          {
+            title: "Classificatore automatico richieste con NLP",
+            problem: "Azienda di servizi con 1000+ richieste mensili senza classificazione efficiente",
+            solution: "Modello RoBERTa per classificazione automatica e instradamento intelligente delle richieste",
+            stack: "Python, transformers, PostgreSQL, Docker, GCP (Compute Engine, Cloud Storage)",
+            result: "70% di riduzione del tempo di risposta. Sistema scalato a 5000+ richieste mensili",
+          },
+          {
+            title: "Sistema di manutenzione predittiva",
+            problem: "Impianto industriale con fermi costosi e imprevedibili su macchinari critici",
+            solution: "Analisi serie temporali con TimeSeriesKMeans e DTW per la previsione dei guasti",
+            stack: "Python, pandas, PostgreSQL, Docker, AWS (SQS, EC2)",
+            result: "85% di anticipazione guasti con 7 giorni di preavviso. ROI positivo in 3 mesi",
+          },
+          {
+            title: "Piattaforma di analisi del sentiment",
+            problem: "Brand senza visibilità sulla percezione pubblica nei social media",
+            solution: "Pipeline NLP con transformers per analisi del sentiment e trend in tempo reale",
+            stack: "Python, React, FastAPI, MongoDB, Azure (Container Instances)",
+            result: "Dashboard esecutiva con metriche giornaliere. Rilevamento precoce delle crisi reputazionali",
+          },
+          {
+            title: "Dashboard operazioni in tempo reale",
+            problem: "Azienda logistica con dati dispersi e senza visibilità unificata delle operazioni",
+            solution: "ETL automatizzato con visualizzazione dinamica dei KPI critici e alert proattivi",
+            stack: "Python, React, TypeScript, PostgreSQL, GCP (Cloud Run, BigQuery)",
+            result: "40% di riduzione dei tempi di risposta operativa. Integrazione con sistemi legacy",
+          },
+          {
+            title: "Agenti IA per monitoraggio sito fisico",
+            problem: "Validazione manuale delle operazioni sul campo con costi elevati ed errori umani",
+            solution: "Sistema multi-agente con computer vision (YOLO) per rilevamento anomalie e alert automatici",
+            stack: "Python, OpenCV, YOLO, PostgreSQL, AWS (Lambda, Rekognition, IoT Core)",
+            result: "Monitoraggio automatizzato 24/7. 80% di riduzione dei costi di supervisione manuale",
+          },
+          {
+            title: "Assistente intelligente supporto clienti",
+            problem: "Azienda con alto volume di richieste ripetitive e tempi di risposta lenti",
+            solution: "Chatbot con GPT-4 e RAG su knowledge base aziendale per risposte contestuali precise",
+            stack: "Python, OpenAI API, LangChain, ChromaDB, FastAPI, Azure",
+            result: "78% delle richieste risolte senza intervento umano. Soddisfazione clienti aumentata del 45%",
+          },
+        ],
+      },
+      testimonials: {
+        title: "Risultati che parlano da soli",
+        items: [
+          { name: "María Rodríguez", role: "Direttrice Innovazione", company: "Compensar", quote: "65% di riduzione dei fermi non pianificati. Il sistema rileva anomalie prima che si verifichino guasti." },
+          { name: "Carlos Méndez", role: "VP Tecnologia", company: "Davivienda", quote: "42% di miglioramento nel tempo di sessione. Gli utenti trovano subito contenuti rilevanti." },
+          { name: "Ana López", role: "Responsabile Sviluppo", company: "ADA-TAS", quote: "70% di riduzione del tempo di risposta. Dal caos alla classificazione automatica intelligente." },
+          { name: "Ricardo Torres", role: "Direttore IoT", company: "GSS Analytix", quote: "85% di anticipazione guasti con 7 giorni di preavviso. ROI positivo in 3 mesi." },
+          { name: "Lucía Fernández", role: "Direttrice Digital Experience", company: "LATAM Airlines", quote: "Dashboard esecutiva con metriche giornaliere. Rileviamo crisi reputazionali prima che escalino." },
+          { name: "Jorge Ramírez", role: "Manager Tecnologia", company: "Davinchi", quote: "40% di riduzione dei tempi di risposta operativa. Integrazione perfetta con i nostri sistemi." },
+          { name: "Patricia Morales", role: "Coordinatrice Innovazione", company: "Ministerio de Educación", quote: "Monitoraggio automatizzato 24/7. 80% di riduzione dei costi di supervisione manuale." },
+          { name: "Daniel Vargas", role: "CEO", company: "TalentPitch", quote: "78% delle richieste risolte senza intervento umano. Soddisfazione clienti aumentata del 45%." },
+        ],
+      },
+      process: {
+        title: "Dall'idea al prodotto in 14 giorni",
+        phases: [
+          {
+            title: "GIORNO 1-3: ANALISI",
+            points: [
+              "Comprendiamo il tuo business e definiamo l'ambito",
+              "Interviste, mappatura processi, raccolta requisiti",
+              "Deliverable: Documento di specifiche tecniche",
+            ],
+          },
+          {
+            title: "GIORNO 4-10: SVILUPPO",
+            points: [
+              "Il nostro team traduce i requisiti in architettura",
+              "Sviluppo frontend, backend, database",
+              "Tecnologie moderne, codice pulito, best practice",
+            ],
+          },
+          {
+            title: "GIORNO 11-13: INTEGRAZIONE",
+            points: [
+              "Deploy su cloud (AWS/Azure/GCP)",
+              "Documentazione tecnica completa",
+              "Test e aggiustamenti finali",
+            ],
+          },
+          {
+            title: "GIORNO 14: CONSEGNA",
+            points: [
+              "Prodotto funzionale in produzione",
+              "Demo con il tuo team",
+              "Proposta di sviluppo continuo",
+            ],
+          },
+        ],
+        note: "Primo prodotto gratuito. Valida la soluzione prima di impegnare budget.",
+      },
+      benefits: {
+        title: "Perché le aziende scelgono FastLab",
+        items: [
+          {
+            title: "Velocità di mercato",
+            points: ["2 settimane vs 3-6 mesi tradizionali", "Time-to-market che supera le aspettative"],
+          },
+          {
+            title: "Architettura professionale",
+            points: ["Non è un prototipo, è codice pronto a scalare", "Frontend + Backend + Database + Deploy inclusi"],
+          },
+          {
+            title: "Cloud Native",
+            points: ["Deploy su AWS, Azure o GCP secondo necessità", "Infrastructure as code dal giorno 1"],
+          },
+          {
+            title: "Tecnologia completa",
+            points: ["Python, TypeScript, SQL, R, Java", "Framework moderni (React, Flask, FastAPI, ecc.)"],
+          },
+          {
+            title: "Documentazione completa",
+            points: ["Non solo codice, anche guide di manutenzione", "Facilita il passaggio ai tuoi team interni"],
+          },
+          {
+            title: "Modello senza rischio",
+            points: ["Primo prodotto gratis → validi → commissioni sviluppo", "La tua azienda guadagna certezza prima di investire"],
+          },
+        ],
+      },
+      pricing: {
+        title: "Investimento intelligente",
+        subtitle: "Inizia gratis. Scala quando vedi risultati.",
+        plans: [
+          {
+            name: "Prodotto iniziale gratuito",
+            price: "0€",
+            duration: "2 settimane",
+            description: "Valida la tua soluzione senza rischi",
+            features: [
+              "Analisi delle necessità dal nostro team",
+              "Sviluppo completo del prodotto funzionale",
+              "Deploy su cloud (AWS/Azure/GCP)",
+              "Documentazione tecnica completa",
+              "Demo con il tuo team direttivo",
+              "Codice pulito e documentato",
+            ],
+            highlight: false,
+          },
+          {
+            name: "Sviluppo professionale",
+            rates: [
+              { level: "Junior", price: "8€" },
+              { level: "Middle", price: "17€" },
+              { level: "Senior", price: "25€" },
+              { level: "Team", price: "86€" },
+            ],
+            duration: "all'ora",
+            description: "Porta il tuo prodotto in produzione completa",
+            features: [
+              "Tutto del piano gratuito incluso",
+              "Sviluppo funzionalità aggiuntive",
+              "Scaling dell'infrastruttura",
+              "Integrazione con sistemi esistenti",
+              "Manutenzione e supporto continuo",
+              "Refactoring e ottimizzazione",
+              "Service Level Agreement e garanzie",
+              "Team di sviluppo dedicato",
+            ],
+            highlight: true,
+            note: "Minimo raccomandato: 40 ore/mese",
+          },
+        ],
+      },
+      faq: {
+        title: "Domande frequenti",
+        items: [
+          {
+            q: "Come garantite la qualità in solo 2 settimane?",
+            a: "Metodologia collaudata + tecnologia standardizzata + architettura modulare. Non reinventiamo i processi, applichiamo pattern industriali comprovati.",
+          },
+          {
+            q: "Cosa succede se decidiamo di non continuare dopo il prodotto iniziale?",
+            a: "Nessun impegno. Il prodotto iniziale è tuo, con codice pulito e documentato. Nessuna clausola o dipendenza nascosta.",
+          },
+          {
+            q: "Quali settori servite?",
+            a: "Siamo agnostici rispetto all'industria. Abbiamo lavorato in servizi finanziari, logistica, manifattura, sanità, istruzione, e-commerce e altri.",
+          },
+          {
+            q: "Di chi è il codice?",
+            a: "Della tua azienda. Codice pulito, documentato e senza dipendenze nascoste. È completamente tuo.",
+          },
+          {
+            q: "Lavorate con le università?",
+            a: "Sì. Le università sono uno dei nostri clienti, dove collaboriamo con talenti studenteschi per la fase di analisi. Ma il nostro impegno di consegna è diretto con la tua azienda.",
+          },
+        ],
+      },
+      ctaFinal: {
+        title: "Trasforma le tue idee in software che funziona",
+        subtitle: "Primo incontro senza impegno. Ti mostriamo come possiamo accelerare il tuo prossimo progetto software.",
+        cta: "Prenota un incontro strategico",
+      },
+      team: {
+        title: "Il nostro team",
+        subtitle: "Professionisti dedicati a trasformare le tue idee in realtà",
+      },
+      footer: "La tua fabbrica di software. Potenziamo le idee della tua azienda.",
+    },
+    pt: {
+      nav: {
+        features: "Funcionalidades",
+        process: "Processo",
+        benefits: "Benefícios",
+        team: "Sobre nós",
+        pricing: "Preços",
+        contact: "Contato",
+      },
+      hero: {
+        title: "Sua fábrica de software",
+        highlight: "Potencializamos suas ideias",
+        subtitle: "Transformamos os desafios da sua empresa em soluções de software profissional.||Produtos prontos para produção em **2 semanas**.",
+        cta: "Agende uma consulta gratuita",
+      },
+      problem: {
+        title: "Os desafios do desenvolvimento de software empresarial",
+        university: {
+          title: "Tempo",
+          points: [
+            "Projetos tradicionais levam de 3 a 6 meses",
+            "O mercado não espera, a concorrência avança",
+            "Oportunidades têm data de validade",
+          ],
+        },
+        companies: {
+          title: "Custo",
+          points: [
+            "Equipes internas requerem contratação e treinamento",
+            "Consultorias tradicionais cobram taxas elevadas",
+            "O risco de investimento é alto sem validação prévia",
+          ],
+        },
+        students: {
+          title: "Qualidade",
+          points: [
+            "Protótipos rápidos sacrificam arquitetura",
+            "Código improvisado cria dívida técnica",
+            "Escalar soluções mal projetadas é caro",
+          ],
+        },
+      },
+      cases: {
+        title: "Da teoria à produção",
+        items: [
+          {
+            title: "Detecção de anomalias IoT industrial",
+            problem: "Empresa manufatureira com perdas por falhas não detectadas nas linhas de produção",
+            solution: "Sistema de detecção em tempo real com Isolation Forest e Random Forest em dados de sensores",
+            stack: "Python, PostgreSQL, Docker, AWS (S3, EC2)",
+            result: "65% de redução em paradas não planejadas. Empresa contratou fase 2 para integração SCADA",
+          },
+          {
+            title: "Motor de recomendação de vídeos",
+            problem: "Plataforma de conteúdo profissional com baixo engajamento e retenção de usuários",
+            solution: "Sistema híbrido com clustering (K-means) e filtragem colaborativa para personalização de conteúdo",
+            stack: "Python, React, Flask, SQL Server, Azure (DevOps, CI/CD)",
+            result: "42% de melhoria no tempo de sessão. Pipeline de deploy contínuo implementado",
+          },
+          {
+            title: "Classificador automático de solicitações com NLP",
+            problem: "Empresa de serviços com 1000+ solicitações mensais sem classificação eficiente",
+            solution: "Modelo RoBERTa para classificação automática e roteamento inteligente de solicitações",
+            stack: "Python, transformers, PostgreSQL, Docker, GCP (Compute Engine, Cloud Storage)",
+            result: "70% de redução no tempo de resposta. Sistema escalado para 5000+ solicitações mensais",
+          },
+          {
+            title: "Sistema de manutenção preditiva",
+            problem: "Planta industrial com paradas custosas e imprevisíveis em máquinas críticas",
+            solution: "Análise de séries temporais com TimeSeriesKMeans e DTW para previsão de falhas",
+            stack: "Python, pandas, PostgreSQL, Docker, AWS (SQS, EC2)",
+            result: "85% de antecipação de falhas com 7 dias de antecedência. ROI positivo em 3 meses",
+          },
+          {
+            title: "Plataforma de análise de sentimento",
+            problem: "Marca sem visibilidade sobre percepção pública nas redes sociais",
+            solution: "Pipeline NLP com transformers para análise de sentimento e tendências em tempo real",
+            stack: "Python, React, FastAPI, MongoDB, Azure (Container Instances)",
+            result: "Dashboard executivo com métricas diárias. Detecção antecipada de crises de reputação",
+          },
+          {
+            title: "Dashboard de operações em tempo real",
+            problem: "Empresa logística com dados dispersos e sem visibilidade unificada das operações",
+            solution: "ETL automatizado com visualização dinâmica de KPIs críticos e alertas proativos",
+            stack: "Python, React, TypeScript, PostgreSQL, GCP (Cloud Run, BigQuery)",
+            result: "40% de redução nos tempos de resposta operacional. Integração com sistemas legados",
+          },
+          {
+            title: "Agentes IA para monitoramento de site físico",
+            problem: "Validação manual de operações em campo com custos elevados e erros humanos",
+            solution: "Sistema multi-agente com visão computacional (YOLO) para detecção de anomalias e alertas automáticos",
+            stack: "Python, OpenCV, YOLO, PostgreSQL, AWS (Lambda, Rekognition, IoT Core)",
+            result: "Monitoramento automatizado 24/7. 80% de redução nos custos de supervisão manual",
+          },
+          {
+            title: "Assistente inteligente de suporte ao cliente",
+            problem: "Empresa com alto volume de consultas repetitivas e tempos de resposta lentos",
+            solution: "Chatbot com GPT-4 e RAG em base de conhecimento empresarial para respostas contextuais precisas",
+            stack: "Python, OpenAI API, LangChain, ChromaDB, FastAPI, Azure",
+            result: "78% das consultas resolvidas sem intervenção humana. Satisfação do cliente aumentou 45%",
+          },
+        ],
+      },
+      testimonials: {
+        title: "Resultados que falam por si",
+        items: [
+          { name: "María Rodríguez", role: "Diretora de Inovação", company: "Compensar", quote: "65% de redução em paradas não planejadas. O sistema detecta anomalias antes que ocorram falhas." },
+          { name: "Carlos Méndez", role: "VP de Tecnologia", company: "Davivienda", quote: "42% de melhoria no tempo de sessão. Usuários encontram conteúdo relevante imediatamente." },
+          { name: "Ana López", role: "Gerente de Desenvolvimento", company: "ADA-TAS", quote: "70% de redução no tempo de resposta. Do caos à classificação automática inteligente." },
+          { name: "Ricardo Torres", role: "Diretor de IoT", company: "GSS Analytix", quote: "85% de antecipação de falhas com 7 dias de antecedência. ROI positivo em 3 meses." },
+          { name: "Lucía Fernández", role: "Diretora de Experiência Digital", company: "LATAM Airlines", quote: "Dashboard executivo com métricas diárias. Detectamos crises de reputação antes que escalem." },
+          { name: "Jorge Ramírez", role: "Gerente de Tecnologia", company: "Davinchi", quote: "40% de redução nos tempos de resposta operacional. Integração perfeita com nossos sistemas." },
+          { name: "Patricia Morales", role: "Coordenadora de Inovação", company: "Ministerio de Educación", quote: "Monitoramento automatizado 24/7. 80% de redução nos custos de supervisão manual." },
+          { name: "Daniel Vargas", role: "CEO", company: "TalentPitch", quote: "78% das consultas resolvidas sem intervenção humana. Satisfação do cliente aumentou 45%." },
+        ],
+      },
+      process: {
+        title: "Da ideia ao produto em 14 dias",
+        phases: [
+          {
+            title: "DIA 1-3: ANÁLISE",
+            points: [
+              "Entendemos seu negócio e definimos o escopo",
+              "Entrevistas, mapeamento de processos, levantamento de requisitos",
+              "Entregável: Documento de especificações técnicas",
+            ],
+          },
+          {
+            title: "DIA 4-10: CONSTRUÇÃO",
+            points: [
+              "Nossa equipe traduz requisitos em arquitetura",
+              "Desenvolvimento de frontend, backend, banco de dados",
+              "Tecnologias modernas, código limpo, melhores práticas",
+            ],
+          },
+          {
+            title: "DIA 11-13: INTEGRAÇÃO",
+            points: [
+              "Deploy na nuvem (AWS/Azure/GCP)",
+              "Documentação técnica completa",
+              "Testes e ajustes finais",
+            ],
+          },
+          {
+            title: "DIA 14: ENTREGA",
+            points: [
+              "Produto funcional em produção",
+              "Demo com sua equipe",
+              "Proposta de desenvolvimento contínuo",
+            ],
+          },
+        ],
+        note: "Primeiro produto sem custo. Valide a solução antes de comprometer orçamento.",
+      },
+      benefits: {
+        title: "Por que empresas escolhem FastLab",
+        items: [
+          {
+            title: "Velocidade de mercado",
+            points: ["2 semanas vs 3-6 meses tradicionais", "Time-to-market que supera expectativas"],
+          },
+          {
+            title: "Arquitetura profissional",
+            points: ["Não é um protótipo, é código pronto para escalar", "Frontend + Backend + Banco de dados + Deploy incluídos"],
+          },
+          {
+            title: "Cloud Native",
+            points: ["Deploy em AWS, Azure ou GCP conforme necessidade", "Infrastructure as code desde o dia 1"],
+          },
+          {
+            title: "Tecnologia completa",
+            points: ["Python, TypeScript, SQL, R, Java", "Frameworks modernos (React, Flask, FastAPI, etc.)"],
+          },
+          {
+            title: "Documentação completa",
+            points: ["Não apenas código, também guias de manutenção", "Facilita transição para suas equipes internas"],
+          },
+          {
+            title: "Modelo sem risco",
+            points: ["Primeiro produto grátis → você valida → contrata desenvolvimento", "Sua empresa ganha certeza antes de investir"],
+          },
+        ],
+      },
+      pricing: {
+        title: "Investimento inteligente",
+        subtitle: "Comece sem custo. Escale quando ver resultados.",
+        plans: [
+          {
+            name: "Produto inicial gratuito",
+            price: "0€",
+            duration: "2 semanas",
+            description: "Valide sua solução sem risco",
+            features: [
+              "Análise de necessidades pela nossa equipe",
+              "Desenvolvimento completo do produto funcional",
+              "Deploy na nuvem (AWS/Azure/GCP)",
+              "Documentação técnica completa",
+              "Demo com sua equipe diretiva",
+              "Código limpo e documentado",
+            ],
+            highlight: false,
+          },
+          {
+            name: "Desenvolvimento profissional",
+            rates: [
+              { level: "Junior", price: "8€" },
+              { level: "Middle", price: "17€" },
+              { level: "Senior", price: "25€" },
+              { level: "Equipa", price: "86€" },
+            ],
+            duration: "por hora",
+            description: "Leve seu produto à produção completa",
+            features: [
+              "Tudo do plano gratuito incluído",
+              "Desenvolvimento de funcionalidades adicionais",
+              "Escalabilidade de infraestrutura",
+              "Integração com sistemas existentes",
+              "Manutenção e suporte contínuo",
+              "Refatoração e otimização",
+              "Acordo de nível de serviço e garantias",
+              "Equipe de desenvolvimento dedicada",
+            ],
+            highlight: true,
+            note: "Mínimo recomendado: 40 horas/mês",
+          },
+        ],
+      },
+      faq: {
+        title: "Perguntas frequentes",
+        items: [
+          {
+            q: "Como garantem qualidade em apenas 2 semanas?",
+            a: "Metodologia comprovada + tecnologia padronizada + arquitetura modular. Não reinventamos processos, aplicamos padrões industriais comprovados.",
+          },
+          {
+            q: "E se decidirmos não continuar após o produto inicial?",
+            a: "Sem compromisso. O produto inicial é seu, com código limpo e documentado. Sem cláusulas ou dependências ocultas.",
+          },
+          {
+            q: "Quais setores vocês atendem?",
+            a: "Somos agnósticos de indústria. Trabalhamos em serviços financeiros, logística, manufatura, saúde, educação, e-commerce, entre outros.",
+          },
+          {
+            q: "De quem é o código?",
+            a: "Da sua empresa. Código limpo, documentado e sem dependências ocultas. É completamente seu.",
+          },
+          {
+            q: "Vocês trabalham com universidades?",
+            a: "Sim. Universidades são um de nossos clientes, onde colaboramos com talentos estudantis para a fase de análise. Mas nosso compromisso de entrega é direto com sua empresa.",
+          },
+        ],
+      },
+      ctaFinal: {
+        title: "Transforme suas ideias em software que funciona",
+        subtitle: "Primeira reunião sem compromisso. Mostramos como podemos acelerar seu próximo projeto de software.",
+        cta: "Agendar reunião estratégica",
+      },
+      team: {
+        title: "Nossa equipe",
+        subtitle: "Profissionais dedicados a transformar suas ideias em realidade",
+      },
+      footer: "Sua fábrica de software. Potencializamos as ideias da sua empresa.",
+    },
   };
 
   const t = content[lang];
@@ -861,11 +1913,31 @@ export default function Home() {
 
             {/* Right side controls */}
             <div className="flex items-center gap-1 md:gap-2 relative z-[10000]">
-              {/* Language Toggle - Solo banderas en móvil */}
-              <div className="flex items-center">
+              {/* Language Toggle - Dropdown en móvil, banderas en desktop */}
+
+              {/* Mobile: Dropdown selector */}
+              <div className="flex md:hidden items-center">
+                <select
+                  value={lang}
+                  onChange={(e) => setLang(e.target.value as "es" | "en" | "fr" | "sk" | "de" | "it" | "pt")}
+                  className="px-2 py-1.5 text-sm font-medium rounded border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer"
+                  aria-label="Select language"
+                >
+                  <option value="en">🇬🇧 English</option>
+                  <option value="es">🇪🇸 Español</option>
+                  <option value="fr">🇫🇷 Français</option>
+                  <option value="de">🇩🇪 Deutsch</option>
+                  <option value="it">🇮🇹 Italiano</option>
+                  <option value="pt">🇵🇹 Português</option>
+                  <option value="sk">🇸🇰 Slovenčina</option>
+                </select>
+              </div>
+
+              {/* Desktop: Flag buttons */}
+              <div className="hidden md:flex items-center">
                 <button
                   onClick={() => setLang("en")}
-                  className={`p-1.5 md:px-2 md:py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                  className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
                     lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                   title="English"
@@ -877,11 +1949,11 @@ export default function Home() {
                     <path fill="#FFF" d="M241 0v480h160V0H241zM0 160v160h640V160H0z"/>
                     <path fill="#C8102E" d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"/>
                   </svg>
-                  <span className="hidden md:inline">En</span>
+                  <span>En</span>
                 </button>
                 <button
                   onClick={() => setLang("es")}
-                  className={`p-1.5 md:px-2 md:py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                  className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
                     lang === "es" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                   title="Español"
@@ -890,11 +1962,11 @@ export default function Home() {
                     <path fill="#AA151B" d="M0 0h640v480H0z"/>
                     <path fill="#F1BF00" d="M0 120h640v240H0z"/>
                   </svg>
-                  <span className="hidden md:inline">Es</span>
+                  <span>Es</span>
                 </button>
                 <button
                   onClick={() => setLang("fr")}
-                  className={`p-1.5 md:px-2 md:py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                  className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
                     lang === "fr" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                   title="Français"
@@ -904,7 +1976,69 @@ export default function Home() {
                     <path fill="#FFF" d="M213.3 0h213.4v480H213.3z"/>
                     <path fill="#CE1126" d="M426.7 0H640v480H426.7z"/>
                   </svg>
-                  <span className="hidden md:inline">Fr</span>
+                  <span>Fr</span>
+                </button>
+                <button
+                  onClick={() => setLang("de")}
+                  className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                    lang === "de" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                  title="Deutsch"
+                >
+                  <svg className="w-4 h-3" viewBox="0 0 640 480">
+                    <path fill="#000" d="M0 0h640v160H0z"/>
+                    <path fill="#D00" d="M0 160h640v160H0z"/>
+                    <path fill="#FFCE00" d="M0 320h640v160H0z"/>
+                  </svg>
+                  <span>De</span>
+                </button>
+                <button
+                  onClick={() => setLang("it")}
+                  className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                    lang === "it" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                  title="Italiano"
+                >
+                  <svg className="w-4 h-3" viewBox="0 0 640 480">
+                    <path fill="#009246" d="M0 0h213.3v480H0z"/>
+                    <path fill="#FFF" d="M213.3 0h213.4v480H213.3z"/>
+                    <path fill="#CE2B37" d="M426.7 0H640v480H426.7z"/>
+                  </svg>
+                  <span>It</span>
+                </button>
+                <button
+                  onClick={() => setLang("pt")}
+                  className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                    lang === "pt" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                  title="Português"
+                >
+                  <svg className="w-4 h-3" viewBox="0 0 640 480">
+                    <path fill="#006600" d="M0 0h640v480H0z"/>
+                    <path fill="#FF0000" d="M256 0h384v480H256z"/>
+                    <circle fill="#FFCC00" cx="256" cy="240" r="80"/>
+                    <circle fill="#006600" cx="256" cy="240" r="64"/>
+                    <path fill="#FFCC00" d="M256 176c-35.3 0-64 28.7-64 64s28.7 64 64 64 64-28.7 64-64-28.7-64-64-64zm0 112c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                  </svg>
+                  <span>Pt</span>
+                </button>
+                <button
+                  onClick={() => setLang("sk")}
+                  className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                    lang === "sk" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                  title="Slovenčina"
+                >
+                  <svg className="w-4 h-3" viewBox="0 0 640 480">
+                    <path fill="#ee1c25" d="M0 0h640v480H0z"/>
+                    <path fill="#0b4ea2" d="M0 0h640v320H0z"/>
+                    <path fill="#fff" d="M0 0h640v160H0z"/>
+                    <path fill="#fff" d="M233 370.8c-43-20.7-104.6-61.9-104.6-143.2 0-81.4 4.4-107.5 4.4-107.5h200.4s4.4 26.1 4.4 107.5c0 81.3-61.5 122.5-104.6 143.2z"/>
+                    <path fill="#ee1c25" d="M233 360c-39.1-19.9-96-57.1-96-132.4 0-75.3 4-99.6 4-99.6h184s4 24.3 4 99.6c0 75.3-56.9 112.5-96 132.4z"/>
+                    <path fill="#fff" d="M241 209.3h-16.6v-16.6h-16.6v16.6H191v16.6h16.8v33.2h-50c.5 20.9 4.7 39.1 11.9 54.7H218v-29.8h16.6v29.8h48.2c7.2-15.6 11.5-33.8 11.9-54.7h-50v-33.2h16.6v-16.6h-19.3z"/>
+                    <path fill="#0b4ea2" d="M233 263.3c-11.3 0-32.6-29.9-32.6-29.9s-14.6 19.3-27.9 19.3c4.6 23.1 20.4 45.5 27 54 10.8 4 22 6.5 33.5 6.5s22.7-2.5 33.5-6.5c6.6-8.5 22.4-30.9 27-54-13.3 0-27.9-19.3-27.9-19.3s-21.3 29.9-32.6 29.9z"/>
+                  </svg>
+                  <span>Sk</span>
                 </button>
               </div>
 
@@ -1158,8 +2292,8 @@ export default function Home() {
                     onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     {plan.highlight
-                      ? (lang === "es" ? "Comenzar desarrollo" : lang === "fr" ? "Commencer le développement" : "Start development")
-                      : (lang === "es" ? "Solicitar producto gratis" : lang === "fr" ? "Demander un produit gratuit" : "Request free product")}
+                      ? (lang === "es" ? "Comenzar desarrollo" : lang === "fr" ? "Commencer le développement" : lang === "sk" ? "Začať vývoj" : lang === "de" ? "Entwicklung starten" : lang === "it" ? "Inizia lo sviluppo" : lang === "pt" ? "Iniciar desenvolvimento" : "Start development")
+                      : (lang === "es" ? "Solicitar producto gratis" : lang === "fr" ? "Demander un produit gratuit" : lang === "sk" ? "Požiadať o bezplatný produkt" : lang === "de" ? "Kostenloses Produkt anfordern" : lang === "it" ? "Richiedi prodotto gratuito" : lang === "pt" ? "Solicitar produto grátis" : "Request free product")}
                   </Button>
                 </CardContent>
               </Card>
@@ -1213,11 +2347,11 @@ export default function Home() {
               &copy; 2025 FastLab. {t.footer}
             </p>
             <div className="flex items-center gap-6 text-sm">
-              <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-                {lang === "es" ? "Política de Privacidad" : lang === "fr" ? "Politique de Confidentialité" : "Privacy Policy"}
+              <Link href={`/privacy?lang=${lang}`} className="text-muted-foreground hover:text-foreground transition-colors">
+                {lang === "es" ? "Política de Privacidad" : lang === "fr" ? "Politique de Confidentialité" : lang === "sk" ? "Zásady ochrany osobných údajov" : lang === "de" ? "Datenschutzrichtlinie" : lang === "it" ? "Informativa sulla Privacy" : lang === "pt" ? "Política de Privacidade" : "Privacy Policy"}
               </Link>
-              <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
-                {lang === "es" ? "Términos de Uso" : lang === "fr" ? "Conditions d'Utilisation" : "Terms of Service"}
+              <Link href={`/terms?lang=${lang}`} className="text-muted-foreground hover:text-foreground transition-colors">
+                {lang === "es" ? "Términos de Uso" : lang === "fr" ? "Conditions d'Utilisation" : lang === "sk" ? "Podmienky používania" : lang === "de" ? "Nutzungsbedingungen" : lang === "it" ? "Termini di Servizio" : lang === "pt" ? "Termos de Serviço" : "Terms of Service"}
               </Link>
             </div>
           </div>
