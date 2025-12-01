@@ -2252,7 +2252,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {t.pricing.plans.map((plan, i) => (
-              <Card key={i} className={plan.highlight ? "border-primary border-2 shadow-xl" : ""}>
+              <Card key={i} className={`flex flex-col ${plan.highlight ? "border-primary border-2 shadow-xl" : ""}`}>
                 <CardHeader>
                   <CardTitle className="text-2xl">{plan.name}</CardTitle>
                   {'rates' in plan && plan.rates ? (
@@ -2272,7 +2272,7 @@ export default function Home() {
                   )}
                   <p className="text-muted-foreground mt-2">{plan.description}</p>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-1 flex flex-col">
                   <ul className="space-y-3">
                     {plan.features.map((feature, j) => (
                       <li key={j} className="flex items-start gap-2">
@@ -2287,7 +2287,7 @@ export default function Home() {
                     </div>
                   )}
                   <Button
-                    className="w-full mt-6"
+                    className="w-full mt-auto"
                     variant="default"
                     size="lg"
                     onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
