@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import { Zap, Building2, Cloud, BarChart3, BookOpen, RefreshCw } from "lucide-react";
 
 export default function Home() {
-  const [lang, setLang] = useState<"es" | "en">("es");
+  const [lang, setLang] = useState<"es" | "en" | "fr">("en");
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   // Theme management
@@ -545,6 +545,263 @@ export default function Home() {
       },
       footer: "Your software factory. We power your company's ideas.",
     },
+    fr: {
+      nav: {
+        features: "Caractéristiques",
+        process: "Processus",
+        benefits: "Avantages",
+        team: "Équipe",
+        pricing: "Tarifs",
+        contact: "Contact",
+      },
+      hero: {
+        title: "Votre usine logicielle",
+        highlight: "Nous propulsons vos idées",
+        subtitle: "Nous transformons les défis de votre entreprise en solutions logicielles professionnelles.||Produits prêts pour la production en **2 semaines**.",
+        cta: "Planifier une consultation gratuite",
+      },
+      problem: {
+        title: "Les défis du développement logiciel en entreprise",
+        university: {
+          title: "Le Temps",
+          points: [
+            "Les projets traditionnels prennent 3 à 6 mois",
+            "Le marché n'attend pas, la concurrence avance",
+            "Les opportunités ont une date d'expiration",
+          ],
+        },
+        companies: {
+          title: "Le Coût",
+          points: [
+            "Les équipes internes nécessitent recrutement et formation",
+            "Les cabinets de conseil traditionnels facturent des tarifs élevés",
+            "Le risque d'investissement est élevé sans validation préalable",
+          ],
+        },
+        students: {
+          title: "La Qualité",
+          points: [
+            "Les prototypes rapides sacrifient l'architecture",
+            "Le code improvisé crée de la dette technique",
+            "Faire évoluer des solutions mal conçues coûte cher",
+          ],
+        },
+      },
+      cases: {
+        title: "De la théorie à la production",
+        items: [
+          {
+            title: "Détection d'anomalies IoT industriel",
+            problem: "Entreprise manufacturière avec des pertes dues à des pannes non détectées sur les lignes de production",
+            solution: "Système de détection en temps réel avec Isolation Forest et Random Forest sur les données des capteurs",
+            stack: "Python, PostgreSQL, Docker, AWS (S3, EC2)",
+            result: "Réduction de 65% des arrêts non planifiés. L'entreprise a engagé la phase 2 pour l'intégration SCADA",
+          },
+          {
+            title: "Moteur de recommandation vidéo",
+            problem: "Plateforme de contenu professionnel avec faible engagement et rétention des utilisateurs",
+            solution: "Système hybride avec clustering (K-means) et filtrage collaboratif pour la personnalisation du contenu",
+            stack: "Python, React, Flask, SQL Server, Azure (DevOps, CI/CD)",
+            result: "Amélioration de 42% du temps de session. Pipeline de déploiement continu implémenté",
+          },
+          {
+            title: "Classificateur automatique de demandes avec NLP",
+            problem: "Entreprise de services avec 1000+ demandes mensuelles sans classification efficace",
+            solution: "Modèle RoBERTa en espagnol pour la classification automatique et le routage intelligent des demandes",
+            stack: "Python, transformers, PostgreSQL, Docker, GCP (Compute Engine, Cloud Storage)",
+            result: "Réduction de 70% du temps de réponse. Système mis à l'échelle pour 5000+ demandes mensuelles",
+          },
+          {
+            title: "Système de maintenance prédictive",
+            problem: "Usine industrielle avec des arrêts coûteux et imprévisibles sur les machines critiques",
+            solution: "Analyse de séries temporelles avec TimeSeriesKMeans et DTW pour la prédiction des pannes",
+            stack: "Python, pandas, PostgreSQL, Docker, AWS (SQS, EC2)",
+            result: "Anticipation de 85% des pannes avec 7 jours d'avance. ROI positif en 3 mois",
+          },
+          {
+            title: "Plateforme d'analyse de sentiment",
+            problem: "Marque sans visibilité sur la perception publique dans les réseaux sociaux",
+            solution: "Pipeline NLP avec transformers pour l'analyse de sentiment et les tendances en temps réel",
+            stack: "Python, React, FastAPI, MongoDB, Azure (Container Instances)",
+            result: "Tableau de bord exécutif avec métriques quotidiennes. Détection précoce des crises de réputation",
+          },
+          {
+            title: "Tableau de bord des opérations en temps réel",
+            problem: "Entreprise logistique avec des données dispersées et aucune visibilité unifiée des opérations",
+            solution: "ETL automatisé avec visualisation dynamique des KPI critiques et alertes proactives",
+            stack: "Python, React, TypeScript, PostgreSQL, GCP (Cloud Run, BigQuery)",
+            result: "Réduction de 40% des temps de réponse opérationnelle. Intégration avec les systèmes legacy",
+          },
+          {
+            title: "Agents IA pour la surveillance de site physique",
+            problem: "Validation manuelle des opérations sur le terrain avec des coûts élevés et des erreurs humaines",
+            solution: "Système multi-agents avec vision par ordinateur (YOLO) pour la détection d'anomalies et les alertes automatiques",
+            stack: "Python, OpenCV, YOLO, PostgreSQL, AWS (Lambda, Rekognition, IoT Core)",
+            result: "Surveillance automatisée 24/7. Réduction de 80% des coûts de supervision manuelle",
+          },
+          {
+            title: "Assistant intelligent de support client",
+            problem: "Entreprise avec un volume élevé de requêtes répétitives et des temps de réponse lents",
+            solution: "Chatbot avec GPT-4 et RAG sur la base de connaissances de l'entreprise pour des réponses contextuelles précises",
+            stack: "Python, OpenAI API, LangChain, ChromaDB, FastAPI, Azure",
+            result: "Résolution de 78% des requêtes sans intervention humaine. Satisfaction client augmentée de 45%",
+          },
+        ],
+      },
+      testimonials: {
+        items: [
+          { name: "María Rodríguez", role: "Directrice de l'Innovation", company: "Compensar", quote: "Réduction de 65% des arrêts non planifiés. Le système détecte les anomalies avant que les pannes ne surviennent." },
+          { name: "Carlos Méndez", role: "VP Technologie", company: "Davivienda", quote: "Amélioration de 42% du temps de session. Les utilisateurs trouvent maintenant du contenu pertinent immédiatement." },
+          { name: "Ana López", role: "Responsable Développement", company: "ADA-TAS", quote: "Réduction de 70% du temps de réponse. Nous sommes passés du chaos à la classification automatique intelligente." },
+          { name: "Ricardo Torres", role: "Directeur IoT", company: "GSS Analytix", quote: "Anticipation de 85% des pannes avec 7 jours d'avance. ROI positif en 3 mois." },
+          { name: "Lucía Fernández", role: "Directrice Expérience Digitale", company: "LATAM Airlines", quote: "Tableau de bord exécutif avec métriques quotidiennes. Nous détectons les crises de réputation avant qu'elles n'escaladent." },
+          { name: "Jorge Ramírez", role: "Responsable Technologie", company: "Davinchi", quote: "Réduction de 40% des temps de réponse opérationnelle. Intégration parfaite avec nos systèmes." },
+          { name: "Patricia Morales", role: "Coordinatrice Innovation", company: "Ministerio de Educación", quote: "Surveillance automatisée 24/7. Réduction de 80% des coûts de supervision manuelle." },
+          { name: "Daniel Vargas", role: "PDG", company: "TalentPitch", quote: "Résolution de 78% des requêtes sans intervention humaine. Satisfaction client augmentée de 45%." },
+        ],
+      },
+      process: {
+        title: "De l'idée au produit en 14 jours",
+        phases: [
+          {
+            title: "JOUR 1-3 : ANALYSE",
+            points: [
+              "Nous comprenons votre activité et définissons le périmètre",
+              "Entretiens, cartographie des processus, recueil des besoins",
+              "Livrable : Document de spécifications techniques",
+            ],
+          },
+          {
+            title: "JOUR 4-10 : CONSTRUCTION",
+            points: [
+              "Notre équipe traduit les besoins en architecture",
+              "Développement frontend, backend, base de données",
+              "Technologies modernes, code propre, meilleures pratiques",
+            ],
+          },
+          {
+            title: "JOUR 11-13 : INTÉGRATION",
+            points: [
+              "Déploiement cloud (AWS/Azure/GCP)",
+              "Documentation technique complète",
+              "Tests et ajustements finaux",
+            ],
+          },
+          {
+            title: "JOUR 14 : LIVRAISON",
+            points: [
+              "Produit fonctionnel en production",
+              "Démonstration avec votre équipe",
+              "Proposition de développement continu",
+            ],
+          },
+        ],
+        note: "Premier produit sans frais. Validez la solution avant d'engager votre budget.",
+      },
+      benefits: {
+        title: "Pourquoi les entreprises choisissent FastLab",
+        items: [
+          {
+            title: "Rapidité de mise sur le marché",
+            points: ["2 semaines vs 3-6 mois traditionnels", "Délai de commercialisation qui dépasse les attentes"],
+          },
+          {
+            title: "Architecture professionnelle",
+            points: ["Pas un prototype, c'est du code prêt à évoluer", "Frontend + Backend + Base de données + Déploiement inclus"],
+          },
+          {
+            title: "Natif Cloud",
+            points: ["Déployé sur AWS, Azure ou GCP selon vos besoins", "Infrastructure as code dès le jour 1"],
+          },
+          {
+            title: "Technologie complète",
+            points: ["Python, TypeScript, SQL, R, Java", "Frameworks modernes (React, Flask, FastAPI, etc.)"],
+          },
+          {
+            title: "Documentation complète",
+            points: ["Pas seulement du code, aussi des guides de maintenance", "Facilite la transition vers vos équipes internes"],
+          },
+          {
+            title: "Modèle sans risque",
+            points: ["Premier produit gratuit → vous validez → vous engagez le développement", "Votre entreprise gagne en certitude avant d'investir"],
+          },
+        ],
+      },
+      pricing: {
+        title: "Investissement intelligent",
+        subtitle: "Commencez sans frais. Évoluez quand vous voyez les résultats.",
+        plans: [
+          {
+            name: "Produit initial gratuit",
+            price: "0€",
+            duration: "2 semaines",
+            description: "Validez votre solution sans risque",
+            features: [
+              "Analyse des besoins par notre équipe",
+              "Développement complet du produit fonctionnel",
+              "Déploiement cloud (AWS/Azure/GCP)",
+              "Documentation technique complète",
+              "Démonstration avec votre équipe de direction",
+              "Code propre et documenté",
+            ],
+            highlight: false,
+          },
+          {
+            name: "Développement professionnel",
+            price: "25€",
+            duration: "par heure",
+            description: "Amenez votre produit en production complète",
+            features: [
+              "Tout du plan gratuit inclus",
+              "Développement de fonctionnalités supplémentaires",
+              "Mise à l'échelle de l'infrastructure",
+              "Intégration avec les systèmes existants",
+              "Maintenance et support continus",
+              "Refactorisation et optimisation",
+              "Accord de niveau de service et garanties",
+              "Équipe de développement dédiée",
+            ],
+            highlight: true,
+            note: "Minimum recommandé : 40 heures/mois",
+          },
+        ],
+      },
+      faq: {
+        title: "Questions fréquentes",
+        items: [
+          {
+            q: "Comment garantissez-vous la qualité en seulement 2 semaines ?",
+            a: "Méthodologie éprouvée + technologie standardisée + architecture modulaire. Nous ne réinventons pas les processus, nous appliquons des modèles industriels éprouvés.",
+          },
+          {
+            q: "Que se passe-t-il si nous décidons de ne pas continuer après le produit initial ?",
+            a: "Aucun engagement. Le produit initial est à vous, avec un code propre et documenté. Pas de clauses ni de dépendances cachées.",
+          },
+          {
+            q: "Quels secteurs servez-vous ?",
+            a: "Nous sommes agnostiques en termes d'industrie. Nous avons travaillé dans les services financiers, la logistique, la fabrication, la santé, l'éducation, le e-commerce, entre autres.",
+          },
+          {
+            q: "À qui appartient le code ?",
+            a: "À votre entreprise. Code propre, documenté et sans dépendances cachées. Il est entièrement à vous.",
+          },
+          {
+            q: "Travaillez-vous avec des universités ?",
+            a: "Oui. Les universités sont l'un de nos clients, où nous collaborons avec des talents étudiants pour la phase d'analyse. Mais notre engagement de livraison est directement avec votre entreprise.",
+          },
+        ],
+      },
+      ctaFinal: {
+        title: "Transformez vos idées en logiciel qui fonctionne",
+        subtitle: "Première réunion sans engagement. Nous vous montrons comment nous pouvons accélérer votre prochain projet logiciel.",
+        cta: "Planifier une réunion stratégique",
+      },
+      team: {
+        title: "Notre équipe",
+        subtitle: "Des professionnels dédiés à transformer vos idées en réalité",
+      },
+      footer: "Votre usine logicielle. Nous propulsons les idées de votre entreprise.",
+    },
   };
 
   const t = content[lang];
@@ -583,22 +840,33 @@ export default function Home() {
             </div>
 
             {/* Language Toggle */}
-            <div className="flex items-center space-x-2 relative z-[10000]">
-              <button
-                onClick={() => setLang("es")}
-                className={`px-3 py-1 text-sm font-medium rounded transition-colors ${
-                  lang === "es" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                ES
-              </button>
+            <div className="flex items-center space-x-1 relative z-[10000]">
               <button
                 onClick={() => setLang("en")}
-                className={`px-3 py-1 text-sm font-medium rounded transition-colors ${
+                className={`px-2 py-1 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
                   lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
+                title="English"
               >
-                EN
+                <span className="text-base">🇺🇸</span>
+              </button>
+              <button
+                onClick={() => setLang("es")}
+                className={`px-2 py-1 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                  lang === "es" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+                title="Español"
+              >
+                <span className="text-base">🇪🇸</span>
+              </button>
+              <button
+                onClick={() => setLang("fr")}
+                className={`px-2 py-1 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                  lang === "fr" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+                title="Français"
+              >
+                <span className="text-base">🇫🇷</span>
               </button>
             </div>
 
@@ -800,7 +1068,9 @@ export default function Home() {
                     size="lg"
                     onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
                   >
-                    {plan.highlight ? lang === "es" ? "Comenzar desarrollo" : "Start development" : lang === "es" ? "Solicitar producto gratis" : "Request free product"}
+                    {plan.highlight
+                      ? (lang === "es" ? "Comenzar desarrollo" : lang === "fr" ? "Commencer le développement" : "Start development")
+                      : (lang === "es" ? "Solicitar producto gratis" : lang === "fr" ? "Demander un produit gratuit" : "Request free product")}
                   </Button>
                 </CardContent>
               </Card>

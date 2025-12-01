@@ -5,18 +5,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DayPicker } from "react-day-picker";
 import { format } from "date-fns";
-import { es, enUS } from "date-fns/locale";
+import { es, enUS, fr } from "date-fns/locale";
 import type { Locale } from "date-fns";
 import "react-day-picker/dist/style.css";
 
 interface ContactFormProps {
-  lang: "es" | "en";
+  lang: "es" | "en" | "fr";
 }
 
-// Nombres de meses capitalizados para ambos idiomas
+// Nombres de meses capitalizados para los tres idiomas
 const MONTH_NAMES = {
   es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-  en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  fr: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
 } as const;
 
 // Crear un locale español personalizado con meses capitalizados
@@ -25,6 +26,15 @@ const esCapitalized: Locale = {
   localize: {
     ...es.localize,
     month: (n: number) => MONTH_NAMES.es[n],
+  },
+};
+
+// Crear un locale francés personalizado con meses capitalizados
+const frCapitalized: Locale = {
+  ...fr,
+  localize: {
+    ...fr.localize,
+    month: (n: number) => MONTH_NAMES.fr[n],
   },
 };
 
@@ -44,11 +54,14 @@ export default function ContactForm({ lang }: ContactFormProps) {
 
   // Actualizar el mensaje cuando cambie el idioma
   useEffect(() => {
+    const messages = {
+      es: "Hola, me gustaría obtener más información sobre los servicios de FastLab.",
+      en: "Hello, I would like to get more information about FastLab services.",
+      fr: "Bonjour, j'aimerais obtenir plus d'informations sur les services de FastLab.",
+    };
     setFormData(prev => ({
       ...prev,
-      message: lang === "es"
-        ? "Hola, me gustaría obtener más información sobre los servicios de FastLab."
-        : "Hello, I would like to get more information about FastLab services.",
+      message: messages[lang],
     }));
   }, [lang]);
 
@@ -87,19 +100,49 @@ export default function ContactForm({ lang }: ContactFormProps) {
       success: "Request sent successfully! We'll be in touch soon.",
       error: "There was an error sending. Please try again.",
     },
+    fr: {
+      title: "Planifier une réunion",
+      subtitle: "Remplissez le formulaire et nous vous contacterons",
+      name: "Nom complet",
+      email: "Email",
+      company: "Entreprise/Université",
+      service: "Service souhaité",
+      serviceMVP: "MVP Gratuit (2 semaines)",
+      serviceDev: "Développement Professionnel (25€/heure)",
+      message: "Message",
+      date: "Date souhaitée",
+      time: "Heure souhaitée",
+      submit: "Envoyer la demande",
+      sending: "Envoi en cours...",
+      success: "Demande envoyée avec succès ! Nous vous contacterons bientôt.",
+      error: "Une erreur s'est produite. Veuillez réessayer.",
+    },
   };
 
   const t = content[lang];
+
+  // Helper to get locale for date formatting
+  const getDateLocale = () => {
+    if (lang === "es") return esCapitalized;
+    if (lang === "fr") return frCapitalized;
+    return enUS;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
+    const notSpecifiedText = {
+      es: "No especificada",
+      en: "Not specified",
+      fr: "Non spécifiée",
+    };
+
     try {
       const formattedDate = selectedDate
-        ? format(selectedDate, "PPP", { locale: lang === "es" ? esCapitalized : enUS })
-        : lang === "es" ? "No especificada" : "Not specified";
+        ? format(selectedDate, "PPP", { locale: getDateLocale() })
+        : notSpecifiedText[lang];
 
       const response = await fetch("/api/send-email", {
         method: "POST",
@@ -121,14 +164,17 @@ export default function ContactForm({ lang }: ContactFormProps) {
       if (response.ok) {
         setSubmitStatus("success");
         // Reset form
+        const resetMessages = {
+          es: "Hola, me gustaría obtener más información sobre los servicios de FastLab.",
+          en: "Hello, I would like to get more information about FastLab services.",
+          fr: "Bonjour, j'aimerais obtenir plus d'informations sur les services de FastLab.",
+        };
         setFormData({
           name: "",
           email: "",
           company: "",
           service: "mvp",
-          message: lang === "es"
-            ? "Hola, me gustaría obtener más información sobre los servicios de FastLab."
-            : "Hello, I would like to get more information about FastLab services.",
+          message: resetMessages[lang],
         });
         setSelectedDate(undefined);
         setSelectedTime("10:00");
@@ -227,7 +273,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
                     mode="single"
                     selected={selectedDate}
                     onSelect={setSelectedDate}
-                    locale={lang === "es" ? esCapitalized : enUS}
+                    locale={getDateLocale()}
                     disabled={[
                       { before: new Date() },
                       { dayOfWeek: [0, 6] } // Disable weekends
