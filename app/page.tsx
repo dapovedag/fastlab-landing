@@ -846,43 +846,46 @@ export default function Home() {
             <div className="flex items-center space-x-1 relative z-[10000]">
               <button
                 onClick={() => setLang("en")}
-                className={`px-3 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-2 ${
+                className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1.5 ${
                   lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
+                title="English"
               >
-                <svg className="w-5 h-4" viewBox="0 0 640 480">
+                <svg className="w-4 h-3" viewBox="0 0 640 480">
                   <path fill="#012169" d="M0 0h640v480H0z"/>
                   <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"/>
                   <path fill="#C8102E" d="m424 281 216 159v40L369 281h55zm-184 20 6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z"/>
                   <path fill="#FFF" d="M241 0v480h160V0H241zM0 160v160h640V160H0z"/>
                   <path fill="#C8102E" d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"/>
                 </svg>
-                <span>English</span>
+                <span>En</span>
               </button>
               <button
                 onClick={() => setLang("es")}
-                className={`px-3 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-2 ${
+                className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1.5 ${
                   lang === "es" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
+                title="Español"
               >
-                <svg className="w-5 h-4" viewBox="0 0 640 480">
+                <svg className="w-4 h-3" viewBox="0 0 640 480">
                   <path fill="#AA151B" d="M0 0h640v480H0z"/>
                   <path fill="#F1BF00" d="M0 120h640v240H0z"/>
                 </svg>
-                <span>Español</span>
+                <span>Es</span>
               </button>
               <button
                 onClick={() => setLang("fr")}
-                className={`px-3 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-2 ${
+                className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1.5 ${
                   lang === "fr" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
+                title="Français"
               >
-                <svg className="w-5 h-4" viewBox="0 0 640 480">
+                <svg className="w-4 h-3" viewBox="0 0 640 480">
                   <path fill="#002654" d="M0 0h213.3v480H0z"/>
                   <path fill="#FFF" d="M213.3 0h213.4v480H213.3z"/>
                   <path fill="#CE1126" d="M426.7 0H640v480H426.7z"/>
                 </svg>
-                <span>Français</span>
+                <span>Fr</span>
               </button>
             </div>
 
