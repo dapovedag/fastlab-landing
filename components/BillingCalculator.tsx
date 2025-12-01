@@ -47,7 +47,7 @@ const ROLE_NAMES = {
 };
 
 // PayPal config
-const PAYPAL_CLIENT_ID = "BAAVncpg82eK_NGypgGR7T-mndoxrFfHpgqS57VdLgkUnoF3Qw1PnaYAS_SDrVaILf_xlmQHxBCmMZZOaE";
+const PAYPAL_CLIENT_ID = "Aex6JsyukzgAKZNSuN2NC2gNFnjsC-proTYRM-HRTdpk8RA7O5RdVo7vQKJSp-0zdF8kmz5v5C4n_GjL";
 
 export default function BillingCalculator({ lang }: BillingCalculatorProps) {
   const [clientData, setClientData] = useState<ClientData>({
