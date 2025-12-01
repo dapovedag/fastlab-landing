@@ -813,12 +813,12 @@ export default function Home() {
   return (
     <div className="relative min-h-screen">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-[9999] bg-background/80 backdrop-blur-md border-b">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between h-20">
+      <nav className="fixed top-0 left-0 right-0 z-[9999] bg-background/80 backdrop-blur-md border-b overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 lg:px-12">
+          <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <div className="flex-shrink-0 relative z-[10000]">
-              <div className="text-2xl font-bold">FastLab</div>
+              <div className="text-xl md:text-2xl font-bold">FastLab</div>
             </div>
 
             {/* Center Menu - 6 links */}
@@ -843,74 +843,77 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Language Toggle */}
-            <div className="flex items-center space-x-1 relative z-[10000]">
+            {/* Right side controls */}
+            <div className="flex items-center gap-1 md:gap-2 relative z-[10000]">
+              {/* Language Toggle - Solo banderas en móvil */}
+              <div className="flex items-center">
+                <button
+                  onClick={() => setLang("en")}
+                  className={`p-1.5 md:px-2 md:py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                    lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                  title="English"
+                >
+                  <svg className="w-4 h-3" viewBox="0 0 640 480">
+                    <path fill="#012169" d="M0 0h640v480H0z"/>
+                    <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"/>
+                    <path fill="#C8102E" d="m424 281 216 159v40L369 281h55zm-184 20 6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z"/>
+                    <path fill="#FFF" d="M241 0v480h160V0H241zM0 160v160h640V160H0z"/>
+                    <path fill="#C8102E" d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"/>
+                  </svg>
+                  <span className="hidden md:inline">En</span>
+                </button>
+                <button
+                  onClick={() => setLang("es")}
+                  className={`p-1.5 md:px-2 md:py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                    lang === "es" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                  title="Español"
+                >
+                  <svg className="w-4 h-3" viewBox="0 0 640 480">
+                    <path fill="#AA151B" d="M0 0h640v480H0z"/>
+                    <path fill="#F1BF00" d="M0 120h640v240H0z"/>
+                  </svg>
+                  <span className="hidden md:inline">Es</span>
+                </button>
+                <button
+                  onClick={() => setLang("fr")}
+                  className={`p-1.5 md:px-2 md:py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1 ${
+                    lang === "fr" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                  title="Français"
+                >
+                  <svg className="w-4 h-3" viewBox="0 0 640 480">
+                    <path fill="#002654" d="M0 0h213.3v480H0z"/>
+                    <path fill="#FFF" d="M213.3 0h213.4v480H213.3z"/>
+                    <path fill="#CE1126" d="M426.7 0H640v480H426.7z"/>
+                  </svg>
+                  <span className="hidden md:inline">Fr</span>
+                </button>
+              </div>
+
+              {/* Theme Toggle */}
+              <div className="flex items-center">
+                <MaterialUISwitch
+                  id="theme-toggle"
+                  name="theme"
+                  checked={theme === "dark"}
+                  onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
+                  inputProps={{
+                    'aria-label': 'Toggle dark mode'
+                  }}
+                />
+              </div>
+
+              {/* Mobile Menu Button */}
               <button
-                onClick={() => setLang("en")}
-                className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1.5 ${
-                  lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-                title="English"
+                className="lg:hidden p-1.5 rounded-md hover:bg-muted transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
               >
-                <svg className="w-4 h-3" viewBox="0 0 640 480">
-                  <path fill="#012169" d="M0 0h640v480H0z"/>
-                  <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"/>
-                  <path fill="#C8102E" d="m424 281 216 159v40L369 281h55zm-184 20 6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z"/>
-                  <path fill="#FFF" d="M241 0v480h160V0H241zM0 160v160h640V160H0z"/>
-                  <path fill="#C8102E" d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"/>
-                </svg>
-                <span>En</span>
-              </button>
-              <button
-                onClick={() => setLang("es")}
-                className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1.5 ${
-                  lang === "es" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-                title="Español"
-              >
-                <svg className="w-4 h-3" viewBox="0 0 640 480">
-                  <path fill="#AA151B" d="M0 0h640v480H0z"/>
-                  <path fill="#F1BF00" d="M0 120h640v240H0z"/>
-                </svg>
-                <span>Es</span>
-              </button>
-              <button
-                onClick={() => setLang("fr")}
-                className={`px-2 py-1.5 text-sm font-medium rounded transition-colors flex items-center gap-1.5 ${
-                  lang === "fr" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-                title="Français"
-              >
-                <svg className="w-4 h-3" viewBox="0 0 640 480">
-                  <path fill="#002654" d="M0 0h213.3v480H0z"/>
-                  <path fill="#FFF" d="M213.3 0h213.4v480H213.3z"/>
-                  <path fill="#CE1126" d="M426.7 0H640v480H426.7z"/>
-                </svg>
-                <span>Fr</span>
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
-
-            {/* Theme Toggle */}
-            <div className="flex items-center ml-4 relative z-[10000]">
-              <MaterialUISwitch
-                id="theme-toggle"
-                name="theme"
-                checked={theme === "dark"}
-                onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
-                inputProps={{
-                  'aria-label': 'Toggle dark mode'
-                }}
-              />
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden ml-4 p-2 rounded-md hover:bg-muted transition-colors relative z-[10000]"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
           </div>
         </div>
 
