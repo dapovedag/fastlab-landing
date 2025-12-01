@@ -395,20 +395,14 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
     setInvoiceGenerated(true);
   }, [clientData, hours, pricing, roles, t, formatCurrency, grandTotal]);
 
-  // Validate form
+  // Validate form - only require hours selected
   const isFormValid = () => {
-    return (
-      clientData.name.trim() !== "" &&
-      clientData.company.trim() !== "" &&
-      clientData.email.trim() !== "" &&
-      clientData.address.trim() !== "" &&
-      totalHours > 0
-    );
+    return totalHours > 0;
   };
 
   // Render PayPal buttons when script loads
   useEffect(() => {
-    if (scriptLoaded && paypalContainerRef.current && !paypalRendered && isFormValid()) {
+    if (scriptLoaded && paypalContainerRef.current && !paypalRendered) {
       // Clear previous buttons
       if (paypalContainerRef.current) {
         paypalContainerRef.current.innerHTML = "";
@@ -427,12 +421,12 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
           // @ts-expect-error - PayPal SDK types
           createOrder: (data, actions) => {
             // For COP, convert to USD (PayPal doesn't support COP directly)
-            let amount = grandTotal;
+            let amount = grandTotal > 0 ? grandTotal : 1; // Minimum $1 for rendering
             let currency = pricing.currency;
 
             if (pricing.currency === "COP") {
               // Approximate conversion rate - in production, use a real API
-              amount = grandTotal / 4200;
+              amount = (grandTotal > 0 ? grandTotal : 4200) / 4200;
               currency = "USD";
             }
 
@@ -468,7 +462,7 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
 
   // Re-render PayPal when amount changes
   useEffect(() => {
-    if (scriptLoaded && paypalRendered && isFormValid()) {
+    if (scriptLoaded && paypalRendered) {
       setPaypalRendered(false);
     }
   }, [grandTotal, scriptLoaded]);
@@ -493,12 +487,11 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="billing-name" className="block text-sm font-medium mb-2">
-                  {t.name} *
+                  {t.name}
                 </label>
                 <input
                   id="billing-name"
                   type="text"
-                  required
                   value={clientData.name}
                   onChange={(e) => setClientData({ ...clientData, name: e.target.value })}
                   className="w-full px-4 py-2 rounded-lg border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -507,12 +500,11 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
               </div>
               <div>
                 <label htmlFor="billing-company" className="block text-sm font-medium mb-2">
-                  {t.company} *
+                  {t.company}
                 </label>
                 <input
                   id="billing-company"
                   type="text"
-                  required
                   value={clientData.company}
                   onChange={(e) => setClientData({ ...clientData, company: e.target.value })}
                   className="w-full px-4 py-2 rounded-lg border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -533,12 +525,11 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
               </div>
               <div>
                 <label htmlFor="billing-email" className="block text-sm font-medium mb-2">
-                  {t.email} *
+                  {t.email}
                 </label>
                 <input
                   id="billing-email"
                   type="email"
-                  required
                   value={clientData.email}
                   onChange={(e) => setClientData({ ...clientData, email: e.target.value })}
                   className="w-full px-4 py-2 rounded-lg border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -547,12 +538,11 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="billing-address" className="block text-sm font-medium mb-2">
-                  {t.address} *
+                  {t.address}
                 </label>
                 <input
                   id="billing-address"
                   type="text"
-                  required
                   value={clientData.address}
                   onChange={(e) => setClientData({ ...clientData, address: e.target.value })}
                   className="w-full px-4 py-2 rounded-lg border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -718,17 +708,21 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
           )}
 
           {/* PayPal Button Container */}
-          {isFormValid() && grandTotal > 0 && paymentStatus !== "success" && (
-            <div
-              ref={paypalContainerRef}
-              className="min-h-[150px] flex items-center justify-center"
-            />
-          )}
-
-          {/* Validation Messages */}
-          {!isFormValid() && (
-            <div className="text-center text-muted-foreground">
-              {totalHours === 0 ? t.selectHours : t.fillFields}
+          {paymentStatus !== "success" && (
+            <div className="relative">
+              <div
+                ref={paypalContainerRef}
+                className={`min-h-[150px] flex items-center justify-center transition-opacity ${
+                  totalHours === 0 ? "opacity-40 pointer-events-none" : ""
+                }`}
+              />
+              {totalHours === 0 && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <p className="text-muted-foreground bg-background/80 px-4 py-2 rounded-lg">
+                    {t.selectHours}
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
