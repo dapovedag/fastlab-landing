@@ -42,7 +42,8 @@ function MarqueeRow({ testimonials, direction }: { testimonials: Testimonial[]; 
   const [isPaused, setIsPaused] = useState(false);
   const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
 
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
+  // Cuadruplicar para asegurar un loop infinito sin cortes
+  const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
 
   const centerCard = (cardElement: HTMLElement) => {
     const container = containerRef.current;
@@ -179,13 +180,13 @@ export default function TestimonialsMarquee({ testimonials }: TestimonialsMarque
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translateX(-25%);
           }
         }
 
         @keyframes scroll-right {
           0% {
-            transform: translateX(-50%);
+            transform: translateX(-25%);
           }
           100% {
             transform: translateX(0);

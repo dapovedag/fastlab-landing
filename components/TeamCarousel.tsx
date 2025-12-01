@@ -252,7 +252,8 @@ function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direc
   const [isPaused, setIsPaused] = useState(false);
   const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
 
-  const duplicatedMembers = [...members, ...members];
+  // Triplicar para asegurar un loop infinito sin cortes
+  const duplicatedMembers = [...members, ...members, ...members, ...members];
 
   const centerCard = (cardElement: HTMLElement) => {
     const container = containerRef.current;
@@ -379,13 +380,13 @@ export default function TeamCarousel({ lang }: TeamCarouselProps) {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translateX(-25%);
           }
         }
 
         @keyframes team-scroll-right {
           0% {
-            transform: translateX(-50%);
+            transform: translateX(-25%);
           }
           100% {
             transform: translateX(0);
