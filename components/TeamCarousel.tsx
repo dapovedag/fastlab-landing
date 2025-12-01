@@ -5,6 +5,7 @@ import Image from "next/image";
 
 interface TeamMember {
   id: string;
+  name: string;
   titleEs: string;
   titleEn: string;
   titleFr: string;
@@ -20,6 +21,7 @@ interface TeamCarouselProps {
 const teamMembers: TeamMember[] = [
   {
     id: "ceo",
+    name: "Carlos Mendoza",
     titleEs: "CEO / Fundador",
     titleEn: "CEO / Founder",
     titleFr: "PDG / Fondateur",
@@ -29,6 +31,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "cto",
+    name: "Andrés Valencia",
     titleEs: "Director de Tecnología",
     titleEn: "CTO",
     titleFr: "Directeur Technique",
@@ -38,6 +41,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "project-manager",
+    name: "María Fernanda López",
     titleEs: "Gerente de Proyectos",
     titleEn: "Project Manager",
     titleFr: "Chef de Projet",
@@ -47,6 +51,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "tech-lead",
+    name: "Santiago Restrepo",
     titleEs: "Líder Técnico",
     titleEn: "Tech Lead",
     titleFr: "Lead Technique",
@@ -56,16 +61,18 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "fullstack-dev",
-    titleEs: "Desarrolladores",
-    titleEn: "Full-Stack Developers",
-    titleFr: "Développeurs Full-Stack",
+    name: "Julián Herrera",
+    titleEs: "Desarrollador Full-Stack",
+    titleEn: "Full-Stack Developer",
+    titleFr: "Développeur Full-Stack",
     quoteEs: "JavaScript en el front, Python en el back, Docker en todo",
     quoteEn: "JavaScript on the front, Python on the back, Docker everywhere",
     quoteFr: "JavaScript en front, Python en back, Docker partout",
   },
   {
     id: "ui-ux-designer",
-    titleEs: "Diseñador de Interfaces",
+    name: "Valentina Ochoa",
+    titleEs: "Diseñadora UI/UX",
     titleEn: "UI/UX Designer",
     titleFr: "Designer UI/UX",
     quoteEs: "React y TypeScript hacen realidad cada diseño pixel-perfect",
@@ -74,7 +81,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "qa-engineer",
-    titleEs: "Ingeniero de Calidad",
+    name: "Camila Ríos",
+    titleEs: "Ingeniera de Calidad",
     titleEn: "QA Engineer",
     titleFr: "Ingénieur QA",
     quoteEs: "Shell scripts y Python: mis armas para cazar bugs",
@@ -83,6 +91,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "devops-engineer",
+    name: "Diego Morales",
     titleEs: "Ingeniero DevOps",
     titleEn: "DevOps Engineer",
     titleFr: "Ingénieur DevOps",
@@ -92,7 +101,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "data-engineer",
-    titleEs: "Ingeniero de Datos",
+    name: "Laura Gutiérrez",
+    titleEs: "Ingeniera de Datos",
     titleEn: "Data Engineer",
     titleFr: "Ingénieur Data",
     quoteEs: "PostgreSQL, MySQL y SQL Server: cada dato en su lugar",
@@ -101,6 +111,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "data-scientist",
+    name: "Felipe Castañeda",
     titleEs: "Científico de Datos",
     titleEn: "Data Scientist",
     titleFr: "Data Scientist",
@@ -110,7 +121,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "product-owner",
-    titleEs: "Dueño de Producto",
+    name: "Natalia Vargas",
+    titleEs: "Product Owner",
     titleEn: "Product Owner",
     titleFr: "Product Owner",
     quoteEs: "PHP, Java o Go: la tecnología que tu producto necesita",
@@ -247,7 +259,7 @@ function MarqueeRow({ members, direction, lang, speed = 1 }: MarqueeRowProps) {
               <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden flex-shrink-0 border-2 border-primary/20">
                 <Image
                   src={`/team/${member.id}.png`}
-                  alt={getTitle(member, lang)}
+                  alt={member.name}
                   width={56}
                   height={56}
                   className="w-full h-full object-cover"
@@ -256,8 +268,10 @@ function MarqueeRow({ members, direction, lang, speed = 1 }: MarqueeRowProps) {
 
               {/* Contenido a la derecha */}
               <div className="flex-1 min-w-0">
+                {/* Nombre */}
+                <p className="font-semibold text-foreground text-sm md:text-base truncate">{member.name}</p>
                 {/* Cargo con badge púrpura */}
-                <div className="inline-block px-2 md:px-3 py-0.5 md:py-1 bg-primary rounded-full mb-2">
+                <div className="inline-block px-2 md:px-3 py-0.5 md:py-1 bg-primary rounded-full mt-1">
                   <span className="text-[10px] md:text-xs font-semibold text-primary-foreground">
                     {getTitle(member, lang)}
                   </span>
