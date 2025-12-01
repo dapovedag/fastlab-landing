@@ -183,7 +183,7 @@ export default function BirdsCanvas({ theme }: BirdsCanvasProps) {
         const depth = Math.max(0, Math.min(1, (p.z + 800) / 1600));
 
         let size: number, opacity: number;
-        const transparencyFactor = 0.7; // 30% más transparente
+        const transparencyFactor = 0.2; // 80% transparente (20% visible)
         if (p.state === "flying") {
           size = 1.5 + depth * 2;
           opacity = (0.6 + depth * 0.4) * transparencyFactor;

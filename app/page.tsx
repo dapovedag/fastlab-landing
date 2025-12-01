@@ -43,7 +43,7 @@ export default function Home() {
       hero: {
         title: "Tu fábrica de software",
         highlight: "Potenciamos tus ideas",
-        subtitle: "Transformamos los desafíos de tu empresa en soluciones de software profesional. Productos listos para producción en **2 semanas**.",
+        subtitle: "Transformamos los desafíos de tu empresa en soluciones de software profesional.||Productos listos para producción en **2 semanas**.",
         cta: "Agenda una consulta gratuita",
       },
       problem: {
@@ -300,7 +300,7 @@ export default function Home() {
       hero: {
         title: "Your Software Factory",
         highlight: "We power your ideas",
-        subtitle: "We transform your business challenges into professional software solutions. Production-ready products in **2 weeks**.",
+        subtitle: "We transform your business challenges into professional software solutions.||Production-ready products in **2 weeks**.",
         cta: "Schedule a free consultation",
       },
       problem: {
@@ -628,9 +628,14 @@ export default function Home() {
           <div className="max-w-4xl">
             <AnimatedTitle title={t.hero.title} highlight={t.hero.highlight} />
             <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-4xl">
-              {t.hero.subtitle.split('**').map((part, i) =>
-                i % 2 === 1 ? <span key={i} className="text-primary font-bold">{part}</span> : part
-              )}
+              {t.hero.subtitle.split('||').map((line, lineIndex) => (
+                <span key={lineIndex}>
+                  {lineIndex > 0 && <br />}
+                  {line.split('**').map((part, i) =>
+                    i % 2 === 1 ? <span key={i} className="text-primary font-bold">{part}</span> : part
+                  )}
+                </span>
+              ))}
             </p>
             <Button
               size="lg"
