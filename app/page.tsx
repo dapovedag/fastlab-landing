@@ -2290,7 +2290,7 @@ export default function Home() {
                     className="w-full mt-auto"
                     variant="default"
                     size="lg"
-                    onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                    onClick={() => document.getElementById('billing')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     {plan.highlight
                       ? (lang === "es" ? "Comenzar desarrollo" : lang === "fr" ? "Commencer le développement" : lang === "sk" ? "Začať vývoj" : lang === "de" ? "Entwicklung starten" : lang === "it" ? "Inizia lo sviluppo" : lang === "pt" ? "Iniciar desenvolvimento" : "Start development")
