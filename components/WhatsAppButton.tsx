@@ -1,7 +1,7 @@
 "use client";
 
 export default function WhatsAppButton() {
-  const phoneNumber = "573133662376"; // +57 3133662376 in WhatsApp format
+  const phoneNumber = "573113111669"; // +57 311 3111669 in WhatsApp format
   const message = encodeURIComponent("Hola! Me gustaría obtener más información sobre FastLab.");
 
   const handleClick = () => {
