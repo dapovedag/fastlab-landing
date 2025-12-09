@@ -40,13 +40,12 @@ export async function POST(request: NextRequest) {
       ? (lang === "es" ? "MVP Gratuito (2 semanas)" : "Free MVP (2 weeks)")
       : (lang === "es" ? "Desarrollo Profesional ($100.000/hora)" : "Professional Development ($25/hour)");
 
-    // Configurar el transportador de email
-    // NOTA: Para producción, estas credenciales deben estar en variables de entorno
+    // Configurar el transportador de email (Gmail SMTP)
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER || "dapovedag@gmail.com",
-        pass: process.env.EMAIL_PASSWORD || "", // Debe configurarse en .env.local
+        user: process.env.EMAIL_USER || "lordmauricio22@gmail.com",
+        pass: process.env.EMAIL_PASSWORD || "",
       },
     });
 
@@ -184,8 +183,8 @@ export async function POST(request: NextRequest) {
 
     // Enviar email
     await transporter.sendMail({
-      from: process.env.EMAIL_USER || "dapovedag@gmail.com",
-      to: "dapovedag@gmail.com",
+      from: process.env.EMAIL_USER || "lordmauricio22@gmail.com",
+      to: "info@fastlab.art", // Reenvía a lordmauricio22@gmail.com
       subject: emailConfig.subject,
       html: emailConfig.html,
       replyTo: email, // Permite responder directamente al cliente
