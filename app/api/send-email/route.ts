@@ -184,7 +184,7 @@ export async function POST(request: NextRequest) {
     // Enviar email
     await transporter.sendMail({
       from: process.env.EMAIL_USER || "lordmauricio22@gmail.com",
-      to: "info@fastlab.art", // Reenvía a lordmauricio22@gmail.com
+      to: "lordmauricio22@gmail.com",
       subject: emailConfig.subject,
       html: emailConfig.html,
       replyTo: email, // Permite responder directamente al cliente
