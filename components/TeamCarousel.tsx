@@ -326,7 +326,7 @@ function MarqueeRow({ members, direction, lang }: { members: TeamMember[]; direc
           return (
             <div
               key={`${member.id}-${index}`}
-              className={`flex-shrink-0 w-[300px] md:w-[380px] bg-card border rounded-xl p-4 md:p-6 transition-all duration-300 cursor-pointer select-none ${
+              className={`flex-shrink-0 w-[260px] sm:w-[300px] md:w-[350px] lg:w-[380px] bg-card border rounded-xl p-4 md:p-6 transition-all duration-300 cursor-pointer select-none ${
                 isActive ? "ring-2 ring-primary shadow-xl scale-[1.02] z-10" : "hover:shadow-lg"
               }`}
               onClick={(e) => handleCardClick(index, e)}

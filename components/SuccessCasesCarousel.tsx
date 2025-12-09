@@ -55,7 +55,7 @@ export default function SuccessCasesCarousel({ cases }: SuccessCasesCarouselProp
         {duplicatedCases.map((caseItem, index) => (
           <Card
             key={index}
-            className="flex-shrink-0 w-[400px] hover:shadow-lg transition-shadow"
+            className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] lg:w-[400px] hover:shadow-lg transition-shadow"
           >
             <CardContent className="p-8">
               <div className="text-4xl text-primary mb-4 opacity-50">"</div>

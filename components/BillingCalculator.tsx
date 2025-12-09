@@ -587,18 +587,19 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
             <h3 className="text-xl font-semibold mb-4">{t.hoursSection}</h3>
             <div className="space-y-4">
               {/* Junior */}
-              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/30 rounded-lg gap-3">
                 <div>
                   <span className="font-medium">{roles.junior}</span>
-                  <span className="text-muted-foreground ml-2">
+                  <span className="text-muted-foreground ml-2 text-sm">
                     ({formatCurrency(pricing.junior)} {t.perHour})
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <Button
                     type="button"
                     variant="outline"
-                    size="sm"
+                    size="default"
+                    className="h-10 w-10 p-0"
                     onClick={() => setHours({ ...hours, junior: Math.max(0, hours.junior - 1) })}
                     disabled={hours.junior === 0}
                   >
@@ -609,35 +610,37 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
                     min="0"
                     value={hours.junior}
                     onChange={(e) => setHours({ ...hours, junior: Math.max(0, parseInt(e.target.value) || 0) })}
-                    className="w-20 text-center px-2 py-1 rounded border bg-background"
+                    className="w-16 sm:w-20 text-center px-2 py-2 rounded border bg-background text-base"
                   />
                   <Button
                     type="button"
                     variant="outline"
-                    size="sm"
+                    size="default"
+                    className="h-10 w-10 p-0"
                     onClick={() => setHours({ ...hours, junior: hours.junior + 1 })}
                   >
                     +
                   </Button>
-                  <span className="w-32 text-right font-medium">
+                  <span className="w-24 sm:w-32 text-right font-medium text-sm sm:text-base">
                     {formatCurrency(juniorTotal)}
                   </span>
                 </div>
               </div>
 
               {/* Middle */}
-              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/30 rounded-lg gap-3">
                 <div>
                   <span className="font-medium">{roles.middle}</span>
-                  <span className="text-muted-foreground ml-2">
+                  <span className="text-muted-foreground ml-2 text-sm">
                     ({formatCurrency(pricing.middle)} {t.perHour})
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <Button
                     type="button"
                     variant="outline"
-                    size="sm"
+                    size="default"
+                    className="h-10 w-10 p-0"
                     onClick={() => setHours({ ...hours, middle: Math.max(0, hours.middle - 1) })}
                     disabled={hours.middle === 0}
                   >
@@ -648,35 +651,37 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
                     min="0"
                     value={hours.middle}
                     onChange={(e) => setHours({ ...hours, middle: Math.max(0, parseInt(e.target.value) || 0) })}
-                    className="w-20 text-center px-2 py-1 rounded border bg-background"
+                    className="w-16 sm:w-20 text-center px-2 py-2 rounded border bg-background text-base"
                   />
                   <Button
                     type="button"
                     variant="outline"
-                    size="sm"
+                    size="default"
+                    className="h-10 w-10 p-0"
                     onClick={() => setHours({ ...hours, middle: hours.middle + 1 })}
                   >
                     +
                   </Button>
-                  <span className="w-32 text-right font-medium">
+                  <span className="w-24 sm:w-32 text-right font-medium text-sm sm:text-base">
                     {formatCurrency(middleTotal)}
                   </span>
                 </div>
               </div>
 
               {/* Senior */}
-              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/30 rounded-lg gap-3">
                 <div>
                   <span className="font-medium">{roles.senior}</span>
-                  <span className="text-muted-foreground ml-2">
+                  <span className="text-muted-foreground ml-2 text-sm">
                     ({formatCurrency(pricing.senior)} {t.perHour})
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <Button
                     type="button"
                     variant="outline"
-                    size="sm"
+                    size="default"
+                    className="h-10 w-10 p-0"
                     onClick={() => setHours({ ...hours, senior: Math.max(0, hours.senior - 1) })}
                     disabled={hours.senior === 0}
                   >
@@ -687,17 +692,18 @@ export default function BillingCalculator({ lang }: BillingCalculatorProps) {
                     min="0"
                     value={hours.senior}
                     onChange={(e) => setHours({ ...hours, senior: Math.max(0, parseInt(e.target.value) || 0) })}
-                    className="w-20 text-center px-2 py-1 rounded border bg-background"
+                    className="w-16 sm:w-20 text-center px-2 py-2 rounded border bg-background text-base"
                   />
                   <Button
                     type="button"
                     variant="outline"
-                    size="sm"
+                    size="default"
+                    className="h-10 w-10 p-0"
                     onClick={() => setHours({ ...hours, senior: hours.senior + 1 })}
                   >
                     +
                   </Button>
-                  <span className="w-32 text-right font-medium">
+                  <span className="w-24 sm:w-32 text-right font-medium text-sm sm:text-base">
                     {formatCurrency(seniorTotal)}
                   </span>
                 </div>
